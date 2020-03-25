@@ -28,6 +28,8 @@ def on_closing(event=None):
     my_msg.set("{quit}")
     send()
 
+
+# Tkinter utils 
 def on_entry_click(event):
     """function that gets called whenever entry_field is clicked"""
     if entry_field.get() == "Type your messages here.":
@@ -41,18 +43,18 @@ def on_focusout(event):
 
 top = tkinter.Tk()
 top.title("Shitty Chat App")
-
+top.geometry('500x500')
 messages_frame = tkinter.Frame(top)
 my_msg = tkinter.StringVar()  # For the messages to be sent.
 scrollbar = tkinter.Scrollbar(messages_frame)  # To navigate through past messages.
 # Following will contain the messages.
 msg_list = tkinter.Listbox(messages_frame, height=15, width=50, yscrollcommand=scrollbar.set)
 scrollbar.pack(side=tkinter.RIGHT, fill=tkinter.Y)
-msg_list.pack(side=tkinter.LEFT, fill=tkinter.BOTH)
+msg_list.pack(side=tkinter.LEFT, fill=tkinter.BOTH, expand=True)
 msg_list.pack()
-messages_frame.pack()
+messages_frame.pack(fill='both',expand=True)
 
-entry_field = tkinter.Entry(top, textvariable=my_msg)
+entry_field = tkinter.Entry(top, width=50, textvariable=my_msg)
 entry_field.insert(0,"Type your messages here.")
 
 entry_field.bind("<FocusIn>", on_entry_click)
