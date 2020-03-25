@@ -130,7 +130,7 @@ def receive():
     """Handles receiving of messages."""
     while True:
         try:
-            msg = client_socket.recv(BUFSIZ).decode("utf8")
+            # msg = client_socket.recv(BUFSIZ).decode("utf8")
             
             msg_list.insert(tkinter.END, msg)
         except OSError:  # Possibly client has left the chat.
@@ -141,9 +141,9 @@ def send(event=None):  # event is passed by binders.
     """Handles sending of messages."""
     msg = my_msg.get()
     my_msg.set("")  # Clears input field.
-    client_socket.send(bytes(msg, "utf8"))
+    # client_socket.send(bytes(msg, "utf8"))
     if msg == "{quit}":
-        client_socket.close()
+        # client_socket.close()
         window.quit()
 
 
@@ -174,7 +174,7 @@ def delete_text(e):
 def language_chosen(language):
     print('closed by', language)
     lang_code= LANGCODES[language]
-    client_socket.send(bytes(f'!changelanguage {lang_code}', "utf8"))
+    # client_socket.send(bytes(f'!changelanguage {lang_code}', "utf8"))
 
 window = tkinter.Tk()
 #window=Tk()
@@ -183,7 +183,7 @@ window.geometry('500x500')
 
 
 tkvar = tkinter.StringVar(window)
-
+tkvar.set('Set Language')
 language_select = tkinter.OptionMenu(window, tkvar , get_key("english") , *LANGCODES, command=language_chosen)
 #tkvar.set(LANGCODES[0])
 language_select.pack(side="top", anchor="nw")
