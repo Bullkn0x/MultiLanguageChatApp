@@ -1,6 +1,7 @@
 import socket
 from threading import Thread
 import tkinter
+
 LANGUAGES = {
     'af': 'afrikaans',
     'sq': 'albanian',
@@ -112,6 +113,19 @@ LANGUAGES = {
 
 LANGCODES = dict(map(reversed, LANGUAGES.items()))
 
+
+val_list = list(LANGCODES.values()) 
+
+
+def get_key(val): 
+    for key, value in LANGCODES.items(): 
+         if val == value: 
+             return key 
+  
+    return "key doesn't exist"
+
+
+
 def receive():
     """Handles receiving of messages."""
     while True:
@@ -163,10 +177,26 @@ def language_chosen(language):
     client_socket.send(bytes(f'!changelanguage {lang_code}', "utf8"))
 
 window = tkinter.Tk()
+#window=Tk()
 window.title("Shitty Chat App")
 window.geometry('500x500')
 
+
+tkvar = tkinter.StringVar(window)
+
+language_select = tkinter.OptionMenu(window, tkvar , get_key("english") , *LANGCODES, command=language_chosen)
+#tkvar.set(LANGCODES[0])
+language_select.pack(side="top", anchor="nw")
+
+
+
 messages_frame = tkinter.Frame(window)
+
+
+
+
+
+
 my_msg = tkinter.StringVar()  # For the messages to be sent.
 scrollbar = tkinter.Scrollbar(messages_frame)  # To navigate through past messages.
 # Following will contain the messages.
@@ -187,9 +217,11 @@ entry_field.bind("<Return>", send)
 
 entry_field.pack()
 
-tkvar = tkinter.StringVar()
-language_select = tkinter.OptionMenu(window, tkvar, *LANGCODES, command=language_chosen)
-language_select.pack()
+
+# menubar = Menu(window)
+# menubar.add_cascade(label="File", menu=filemenu)
+
+
 send_button = tkinter.Button(window, text="Send", command=send)
 send_button.pack()
 disconnect_button = tkinter.Button(window, text="Disconnect", command=on_closing)
