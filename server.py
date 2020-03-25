@@ -87,11 +87,12 @@ def broadcast(msg, sender_prefix=""):  # sender_prefix is for username identific
     """Broadcasts a message to all the clients."""
 
     for client, user in clients.items():
-        if user.language:
+        if user.language != 'english':
             translated_msg = try_translate(msg.decode('utf8'),user.language)
             if translated_msg:
                 new_msg=translated_msg.encode('utf8')
-            
+        else:
+            new_msg=msg
 
         if user.username in sender_prefix:
             client.send(bytes('You: ', "utf8")+msg)   #post the raw message to the senders screen
