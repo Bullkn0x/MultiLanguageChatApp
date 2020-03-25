@@ -6,7 +6,7 @@ import socket
 from googletrans import Translator
 from langdetect import detect
 from models.user import User
-
+import json
 
 translator = Translator()
 
@@ -35,19 +35,16 @@ def handle_client(client):  # Takes client socket as argument.
     welcome = 'Welcome %s! If you ever want to quit, type {quit} to exit.' % username
     client.send(bytes(welcome, "utf8"))
     
-    user_obj = User(username)
-
-    language_prompt = '\nIf you want to auto try_translate messages type {language:"your_language_here"}'
+    user_obj = User(username,client)
     
-    client.send(bytes(language_prompt,'utf8'))
     msg = "%s has joined the chat!" % username
     broadcast(bytes(msg, "utf8"))
-    clients[client] = user_obj
+    clients[username] = user_obj
     print(clients)  
     print(f'{user_obj.username} mapped to {client}')
     while True:
         msg = client.recv(BUFSIZ)
-        user=clients[client]
+        user=clients[username]
         decoded_msg= msg.decode('utf8')
 
 
@@ -64,7 +61,8 @@ def handle_client(client):  # Takes client socket as argument.
         #check if command is written
 
         if msg != bytes("{quit}", "utf8"):
-            broadcast(msg, username+": ")
+            language=clients[username].language
+            broadcast(msg, username,language)
         else:
             client.send(bytes("{quit}", "utf8"))
             client.close()
@@ -73,7 +71,7 @@ def handle_client(client):  # Takes client socket as argument.
             break
 
 
-def broadcast(msg, sender_prefix=""):  # sender_prefix is for username identification.
+def broadcast(msg, sender="",sender_language=""):  # sender is for username identification.
     
     def try_translate(msg,language):
         try:
@@ -86,18 +84,21 @@ def broadcast(msg, sender_prefix=""):  # sender_prefix is for username identific
 
     """Broadcasts a message to all the clients."""
 
-    for client, user in clients.items():
-        if user.language != 'english':
-            translated_msg = try_translate(msg.decode('utf8'),user.language)
+    for username, user in clients.items():
+        if user.language != sender_language:          #check if user has changed their language settings
+            translated_msg = try_translate(msg.decode('utf8'), user.language)
             if translated_msg:
-                new_msg=translated_msg.encode('utf8')
+                outgoing_msg=translated_msg.encode('utf8')
         else:
-            new_msg=msg
+            outgoing_msg=msg
 
-        if user.username in sender_prefix:
-            client.send(bytes('You: ', "utf8")+msg)   #post the raw message to the senders screen
+        if not sender:    #server speaking
+            user.client_info.send(bytes(sender, "utf8")+outgoing_msg) 
+        
+        elif user.username in sender:
+            user.client_info.send(bytes('You: ', "utf8")+msg)   #post the raw message to the senders screen
         else:
-            client.send(bytes(sender_prefix, "utf8")+new_msg)  #post the translated message to receivers
+            user.client_info.send(bytes(f'{sender}: ', "utf8")+outgoing_msg)  #post the translated message to receivers
 
         
 clients = {}
@@ -106,7 +107,7 @@ addresses = {}
 
 HOST = ''
 PORT = 33008
-BUFSIZ = 1024
+BUFSIZ = 10000
 ADDR = (HOST, PORT)
 
 SERVER = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
