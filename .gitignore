@@ -1,5 +1,5 @@
 .vscode
-
+.sqlite
 
 __pycache__/
 *.py[cod]

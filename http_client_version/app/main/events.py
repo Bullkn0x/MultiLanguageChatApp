@@ -4,14 +4,6 @@ from .. import socketio
 from ..models.user import User, db
 
 
-@socketio.on('joined', namespace='/')
-def joined(message):
-    """Sent by clients when they enter a room.
-    A status message is broadcast to all people in the room."""
-    room = session.get('room')
-    
-    join_room(room)
-    emit('status', {'msg': session.get('name') + ' has entered the room.'}, room=room)
 @socketio.on('new message', namespace='/')
 def text(message):
     """Sent by a client when the user entered a new message.
@@ -32,7 +24,7 @@ def login(username):
     db.session.commit()
     emit('login', {'numUsers': 5})
     emit('user joined', {'username':username, 'numUsers':5}, broadcast=True)
-
+    numusers+=1
     print(username)
 
 @socketio.on('typing', namespace='/')
