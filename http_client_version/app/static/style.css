@@ -1,3 +1,15 @@
+/* Online list  */
+.left-right {
+  overflow:hidden;
+  height:86.9%;
+  width:0;
+  float: right;
+  background-color:#333;
+}
+
+
+
+
 /* Fix user-agent */
 
 * {
@@ -10,7 +22,7 @@
   }
   
   html, input {
-    font-family:
+    font-family: 
       "HelveticaNeue-Light",
       "Helvetica Neue Light",
       "Helvetica Neue",

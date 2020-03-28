@@ -7,38 +7,56 @@ $(function() {
     '#3b88eb', '#3824aa', '#a700ff', '#d300e7'
   ];
 
+  
+  
   // Initialize varibles
   var $window = $(window);
   var $usernameInput = $('.usernameInput'); // Input for username
   var $messages = $('.messages'); // Messages area
   var $inputMessage = $('.inputMessage'); // Input message input box
-
+  
   var $loginPage = $('.login.page'); // The login page
   var $chatPage = $('.chat.page'); // The chatroom page
   var $navBar = $('.navcontainer');
+  var $online = $('.online span');
+  var $languagePref = $('#language')
+  
+  var sideBarActive = false;
   // Prompt for setting a username
   var username;
   var connected = false;
   var typing = false;
   var lastTypingTime;
   var $currentInput = $usernameInput.focus();
-
+  
   var socket = io.connect(null,  {port: 5000, rememberTransport: false});
+  
+  $('.online').click(function(){
+    if (sideBarActive){
+    $('.chatArea').animate({width:"100%"},350);
+    $('.userList').animate({width:"0%"},350);
 
-  function addParticipantsMessage (data) {
-    var message = '';
-    if (data.numUsers === 1) {
-      message += "there's 1 participant";
-    } else {
-      message += "there're " + data.numUsers + " participants";
+    sideBarActive =false
     }
-    log(message);
-  }
+    else {
+      $('.chatArea').animate({width:"90%"},350);
+      $('.userList').animate({width:"10%"},350);
+      sideBarActive = true
+    }
+    
+  })
 
+
+  
+  function updateOnline (data) {
+    $('#onlineUsers').append('<li>'+data.username+'</li>');
+    log(data.numUsers,'updateOnline');
+  }
+  
   // Sets the client's username
   function setUsername () {
     username = cleanInput($usernameInput.val().trim());
-
+    
     // If the username is valid
     if (username) {
       $loginPage.fadeOut();
@@ -46,12 +64,22 @@ $(function() {
       $navBar.show();
       $loginPage.off('click');
       $currentInput = $inputMessage.focus();
-
+      
       // Tell the server your username
       socket.emit('add user', username);
     }
   }
-
+  
+  // DROPDOWN TOGGLE
+    $('.dropdown-menu a').on('click', function(){    
+      $('.dropdown-toggle').html($(this).html());
+      changeLanguage();
+  })  
+  function changeLanguage () {
+    var language = $languagePref.text().toLowerCase().trim();
+    socket.emit('change language',language)
+  }
+  
   // Sends a chat message
   function sendMessage () {
     var message = $inputMessage.val();
@@ -71,8 +99,13 @@ $(function() {
 
   // Log a message
   function log (message, options) {
+    if (options === 'updateOnline'){
+        $online.text(message);
+    }
+    else {
     var $el = $('<li>').addClass('log').text(message);
     addMessageElement($el, options);
+    }
   }
 
   // Adds the visual chat message to the message list
@@ -230,11 +263,10 @@ $(function() {
   socket.on('login', function (data) {
     connected = true;
     // Display the welcome message
-    var message = "Welcome to Socket.IO Chat – ";
+    var message = "Welcome to AnyChat :) ";
     log(message, {
       prepend: true
     });
-    addParticipantsMessage(data);
   });
 
   // Whenever the server emits 'new message', update the chat body
@@ -247,14 +279,14 @@ $(function() {
   // Whenever the server emits 'user joined', log it in the chat body
   socket.on('user joined', function (data) {
     log(data.username + ' joined');
-    addParticipantsMessage(data);
+    updateOnline(data);
   });
 
   // Whenever the server emits 'user left', log it in the chat body
   socket.on('user left', function (data) {
     console.log(data);
     log(data.username + ' left');
-    addParticipantsMessage(data);
+    updateOnline(data);
     removeChatTyping(data);
   });
 

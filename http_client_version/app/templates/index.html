@@ -4,12 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Socket.IO Chat Example</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Zilla+Slab&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body style="font-family: 'Zilla Slab', serif;">
 
     <ul class="pages">
 
@@ -25,9 +26,9 @@
                         <ul class="navbar-nav mr-auto">
                             
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown09"
+                                <a id="language" class="nav-link dropdown-toggle" href="http://example.com" id="dropdown09"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span id="languageSelected" class="flag-icon flag-icon-us"> </span> English</a>
+                                    <span class="flag-icon flag-icon-us"> </span> English</a>
                                 <div class="dropdown-menu" aria-labelledby="dropdown09">
                                     <a class="dropdown-item"><span class="flag-icon flag-icon-us"> </span>
                                         English</a>
@@ -38,13 +39,18 @@
                                     <a class="dropdown-item"><span class="flag-icon flag-icon-cn"> </span>
                                         Chinese</a>
                                 </div>
-                            
                             </li>
                         </ul>
-              
                     </div>
+                    <span class="online badge badge-primary">Online: <span>5</span> </span>
                 </nav>
+
+                <!-- online list -->
+                <!-- end -->
             </div>
+            <div class="userList left-right">
+                <ul id="onlineUsers">Users Online</ul>
+                </div>
             <div class="chatArea">
                 <ul class="messages"></ul>
 
@@ -67,7 +73,7 @@
 
         </li>
     </ul>
- 
+
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>

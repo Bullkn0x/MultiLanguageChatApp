@@ -1,8 +1,9 @@
 from flask import Flask
 from flask_socketio import SocketIO
-from .models.user import db
+from .models.dbuser import db
 import os
 socketio = SocketIO()
+
 
 
 def create_app(debug=False):

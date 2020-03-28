@@ -1,13 +1,9 @@
-from flask_sqlalchemy import SQLAlchemy
+class User:
 
-db = SQLAlchemy()
+    def __init__(self,username,socketID,language='english'):
 
-
-class User(db.Model):
-
-    __tablename__ = 'users'
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(32), index=True, unique=False)
-    language = db.Column(db.String(32),server_default='english')
-    
-    
+        self.username= username
+        self.socketID = socketID
+        self.language = language
+    def update_language_pref(self,language):
+        self.language = language
