@@ -18,7 +18,7 @@ def text(message):
     sender_name = session.get('user')
     sender =clients[sender_name]
     message_record = Message(message=message)
-    # Iterate through clients and emit message to usersocket 
+    # Iterate through clients and emit messagfasdfe to usersocket 
     for username, receiver in clients.items():
         if receiver.language != sender.language:
             print('not same language')
@@ -32,6 +32,9 @@ def text(message):
 
     db.session.add(message_record)
     db.session.commit()
+
+
+
 @socketio.on('add user', namespace='/')
 def login(username):
 
@@ -62,11 +65,13 @@ def login(username):
 
     global num_users
     num_users+=1
+
     emit('login', {'numUsers': num_users})
     emit('user joined', {'username':username, 'numUsers':num_users}, broadcast=True, include_self=False)
     print('username joined:',username)
     for username, obj in clients.items():
         print(obj.__dict__)
+
 
 
 @socketio.on('change language', namespace='/')

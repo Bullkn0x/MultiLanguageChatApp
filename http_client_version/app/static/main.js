@@ -284,6 +284,10 @@ $(function() {
     log(data.username + ' joined');
     updateOnline(data);
   });
+  // Whenever the server emits 'stop typing', kill the typing message
+  socket.on('chat log', function (data) {
+    addChatMessage(data);
+  });
 
   // Whenever the server emits 'user left', log it in the chat body
   socket.on('user left', function (data) {
