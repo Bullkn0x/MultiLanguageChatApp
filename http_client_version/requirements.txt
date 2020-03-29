@@ -22,3 +22,4 @@ Flask-SQLAlchemy==2.4.1
 gunicorn==19.7.1
 googletrans
 flask-session
+mysqlclient

@@ -32,7 +32,7 @@ def text(message):
 
     db.session.add(message_record)
     db.session.commit()
-
+    db.session.close()
 
 
 @socketio.on('add user', namespace='/')
@@ -62,7 +62,7 @@ def login(username):
     
     # Push new/updated model to database
     db.session.commit()
-
+    db.session.close()
     global num_users
     num_users+=1
 
