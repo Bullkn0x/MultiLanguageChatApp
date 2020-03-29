@@ -7,7 +7,7 @@ $(function() {
     '#3b88eb', '#3824aa', '#a700ff', '#d300e7'
   ];
 
-  
+
   
   // Initialize varibles
   var $window = $(window);
@@ -29,7 +29,10 @@ $(function() {
   var lastTypingTime;
   var $currentInput = $usernameInput.focus();
   
-  var socket = io.connect(null,  {port: 5000, rememberTransport: false});
+  var socket = io.connect(null,  {
+    port: 5000, 
+    rememberTransport: false,
+  });
   
   $('.online').click(function(){
     if (sideBarActive){

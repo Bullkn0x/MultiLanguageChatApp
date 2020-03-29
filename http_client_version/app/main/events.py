@@ -1,12 +1,14 @@
-from flask import session, request
+from flask import session, request,Response
 from flask_socketio import emit, join_room, leave_room, rooms
 from .. import socketio
-from ..models.dbuser import db
+from ..models.mysqldb import db
 from .utils import try_translate
-from ..models.user import User
+from ..models.mysqldb import User, Message
 
 num_users=0
 clients= {}
+
+
 
 @socketio.on('new message', namespace='/')
 def text(message):
@@ -15,7 +17,7 @@ def text(message):
     room = session.get('room')
     sender_name = session.get('user')
     sender =clients[sender_name]
-    
+    message_record = Message(message=message)
     # Iterate through clients and emit message to usersocket 
     for username, receiver in clients.items():
         if receiver.language != sender.language:
@@ -28,25 +30,44 @@ def text(message):
         if receiver.socketID != sender.socketID:
             emit('new message', {'username': sender_name, "message":message}, room=receiver.socketID)
 
-
+    db.session.add(message_record)
+    db.session.commit()
 @socketio.on('add user', namespace='/')
 def login(username):
+
+    print('request cookies',request.cookies)
     """Sent by a client when the user entered a new message.
     The message is sent to all people in the room."""
     session['user'] = username
     socket=request.sid
     new_user = User(username=username,socketID=socket)
     clients[username]=new_user
-    # db.session.add(new_user)
-    # db.session.commit()
+
+    user_record =User.query.filter_by(username=username).first()
+    
+
+    '''
+    Update User Socket Info
+    '''
+    #Check db to see if user exists
+    if user_record is None:
+        db.session.add(new_user)
+        print('new user added')
+    else:
+        user_record.socketID = socket
+        print('updated user socket')
+    
+    # Push new/updated model to database
+    db.session.commit()
+
     global num_users
     num_users+=1
-    print(num_users)
     emit('login', {'numUsers': num_users})
     emit('user joined', {'username':username, 'numUsers':num_users}, broadcast=True, include_self=False)
-    print('username',username)
+    print('username joined:',username)
     for username, obj in clients.items():
         print(obj.__dict__)
+
 
 @socketio.on('change language', namespace='/')
 def update_language(language):
