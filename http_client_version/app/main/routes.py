@@ -1,4 +1,4 @@
-from flask import session, redirect, url_for, render_template, request,make_response
+from flask import session, redirect, url_for, render_template, request,make_response,send_file
 from . import main
 from secrets import token_urlsafe
 from .. import mysql
@@ -114,3 +114,8 @@ def chat():
     return response
 
 
+@main.route('/download', methods=['GET'])
+def download():
+    print('made it')
+    return send_file('/home/bullkn0x/Documents/Python/ChatApp/V1/http_client_version/app/static/_files/5795c17a4ba643d5ae7b0a56c098d690.csv', 
+    as_attachment=True, attachment_filename='hello.csv')

@@ -71,58 +71,6 @@ def text(message):
     # db.session.close()
 
 
-@socketio.on('add user',namespace='/')
-def login(username):
-
-    print('request cookies',request.cookies)
-    """Sent by a client when the user entered a new message.
-    The message is sent to all people in the room."""
-    session['user'] = username
-    socket=request.sid
-    # new_user = User(username=username,socketID=socket)
-    clients[username]=new_user
-
-    # user_record =User.query.filter_by(username=username).first()
-    
-
-    '''
-    Update User Socket Info
-    '''
-    #Check db to see if user exists
-    # if user_record is None:
-    #     db.session.add(new_user)
-    #     print('new user added')
-    # else:
-    #     user_record.socketID = socket
-    #     print('updated user socket')
-    
-    # Push new/updated model to database
-    # db.session.commit()
-    # db.session.close()
-    # global num_users
-    # num_users+=1
-
-    # # get chat logs
-    # chat_record = db.engine.execute("""
-    #     SELECT
-    #         u.username,
-    #         m.message
-    #     FROM messages m
-    #         JOIN users u ON m.user_id = u.user_id
-    # """)
-    # from json import dumps
-    # chat_log= [{
-    #     'username': i['username'],
-    #     'message': i['message']
-    #     } for i in chat_record]
-
-    # emit('chat log', {'data':chat_log})
-    
-    emit('login', {'numUsers': num_users})
-    emit('user joined', {'username':username, 'numUsers':num_users}, broadcast=True, include_self=False)
-    print('username joined:',username)
-    for username, obj in clients.items():
-        print(obj.__dict__)
 
 
 
@@ -152,3 +100,35 @@ def disconnect():
     emit('user left', {'username':session['user'], 'numUsers':num_users}, broadcast=True)
     print('client disconnected')
 
+
+import uuid
+from flask import current_app
+import os
+@socketio.on('start-transfer', namespace='/')
+def start_transfer(filename, size):
+    """Process an upload request from the client."""
+    _, ext = os.path.splitext(filename)
+    if ext in ['.exe', '.bin', '.js', '.sh', '.py', '.php']:
+        return False  # reject the upload
+
+    id = uuid.uuid4().hex  # server-side filename
+    print(id)
+    with open(current_app.config['FILEDIR'] + id + '.json', 'wt') as f:
+        json.dump({'filename': filename, 'size': size}, f)
+    with open(current_app.config['FILEDIR'] + id + ext, 'wb') as f:
+        pass
+    return id + ext  # allow the upload
+
+
+@socketio.on('write-chunk', namespace='/')
+def write_chunk(filename, offset, data):
+    """Write a chunk of data sent by the client."""
+    if not os.path.exists(current_app.config['FILEDIR'] + filename):
+        return False
+    try:
+        with open(current_app.config['FILEDIR'] + filename, 'r+b') as f:
+            f.seek(offset)
+            f.write(data)
+    except IOError:
+        return False
+    return True

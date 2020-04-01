@@ -8,6 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{url_for('static', filename='chat.css')}}">
     <link href="https://fonts.googleapis.com/css?family=Roboto|Zilla+Slab&display=swap" rel="stylesheet">
+    
 </head>
 
 <body style="font-family: 'Zilla Slab', serif;">
@@ -55,7 +56,12 @@
                 <ul class="messages"></ul>
 
             </div>
-            <input class="inputMessage" placeholder="Type here..." />
+            <input class="inputMessage" id="dropzone" placeholder="Type here or drag file to upload..." />
+            <button id="upload">Upload files</button>
+            <div id='filelist'></div>
+            
+            <a href="/download">TEST</a>
+</div>
         </li>
         
     </ul>

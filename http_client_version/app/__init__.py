@@ -12,6 +12,7 @@ mysql = MySQL()
 def create_app(debug=False):
     """Create an application."""
     app = Flask(__name__)
+    app.config['FILEDIR'] = 'app/static/_files/'
     app.config['SECRET_KEY'] = 'gjr39dkjn344_!67#'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://chatapp:chatapp@localhost/Chatapp'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
