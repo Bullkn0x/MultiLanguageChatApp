@@ -69,6 +69,9 @@ def logout():
 		session.pop('user', None)
 	return redirect('/')
 
+@main.route('/passwordretrival')
+def passwordretrival():
+    return 'Enter Email Here'
 
 @main.route('/test', methods=['GET', 'POST'] )
 def test():
