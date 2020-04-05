@@ -71,7 +71,22 @@ def logout():
 
 @main.route('/passwordretrival')
 def passwordretrival():
-    return 'Enter Email Here'
+    conn=None
+    cursor = None
+    error = None
+    # if request.method == 'POST':
+    #     # get form data
+    #     email_or_username = request.form['email']
+    #     conn = mysql.connect()
+    #     cursor = conn.cursor()
+    #     sql = 'SELECT * FROM users WHERE email=%s'
+    #     # prevent sql injection
+    #     sql_where = (email_or_username)
+    #     cursor.execute(sql, sql_where)
+        
+    # print(sql_where)
+
+    return render_template('passwordretrival.html', error=error)
 
 @main.route('/test', methods=['GET', 'POST'] )
 def test():
