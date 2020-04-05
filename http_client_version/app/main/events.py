@@ -1,7 +1,6 @@
 from flask import session, request,Response, redirect
 from flask_socketio import emit, join_room, leave_room, rooms
 from .. import socketio
-from ..models.mysqldb import db
 from .utils import try_translate
 from ..models.user import User
 from .. import mysql

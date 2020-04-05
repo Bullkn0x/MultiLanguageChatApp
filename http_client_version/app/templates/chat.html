@@ -8,7 +8,12 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{url_for('static', filename='chat.css')}}">
     <link href="https://fonts.googleapis.com/css?family=Roboto|Zilla+Slab&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="{{url_for('static', filename='ion.sound-3.0.7/ion.sound.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@2.12.1/dist/index.min.js"></script>
+
+
 </head>
 
 <body style="font-family: 'Zilla Slab', serif;">
@@ -25,10 +30,10 @@
                     </button>
                     <div class="collapse navbar-collapse">
                         <ul class="navbar-nav mr-auto">
-                            
+
                             <li class="nav-item dropdown">
-                                <a id="language" class="nav-link dropdown-toggle" href="http://example.com" id="dropdown09"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a id="language" class="nav-link dropdown-toggle" href="http://example.com"
+                                    id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="flag-icon flag-icon-us"> </span> English</a>
                                 <div class="dropdown-menu" aria-labelledby="dropdown09">
                                     <a class="dropdown-item"><span class="flag-icon flag-icon-us"> </span>
@@ -51,26 +56,50 @@
             </div>
             <div class="userList left-right">
                 <ul id="onlineUsers">Users Online</ul>
-                </div>
+            </div>
             <div class="chatArea">
                 <ul class="messages"></ul>
 
             </div>
-            <input class="inputMessage" id="dropzone" placeholder="Type here or drag file to upload..." />
+            <div class="inputContainer">
+                <i class="large material-icons buttons">add</i>
+                <input class="inputMessage" id="dropzone" placeholder="Type here or drag file to upload..." />
+                <i class="large material-icons buttons emojiZone">insert_emoticon</i>
+            </div>
             <button id="upload">Upload files</button>
             <div id='filelist'></div>
-            
+
             <a href="/download">TEST</a>
-</div>
+            </div>
         </li>
-        
+
     </ul>
 
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
     <script src="{{url_for('static', filename='chat.js')}}"></script>
+    <script>
+        var input = document.querySelector('.emojiZone');
+        var messageBox = document.querySelector('.inputMessage');
+        var picker = new EmojiButton({
+            position: 'left-start',
+            style: 'twemoji'
+        })
+
+        picker.on('emoji', function (emoji) {
+            var newEl = document.createElement('span');
+            newEl.innerHTML = emoji;
+            messageBox.appendChild(newEl);
+            console.log(newEl)
+        })
+
+        input.addEventListener('click', function () {
+            picker.pickerVisible ? picker.hidePicker() : picker.showPicker(input);
+
+        })
+    </script>
 </body>
 
 </html>

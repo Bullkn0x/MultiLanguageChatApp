@@ -1,6 +1,6 @@
 .vscode
 .sqlite
-
+.cfg
 __pycache__/
 *.py[cod]
 *$py.class

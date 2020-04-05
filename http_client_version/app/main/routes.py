@@ -1,11 +1,17 @@
 from flask import session, redirect, url_for, render_template, request,make_response,send_file
+from flask_mail import Message 
 from . import main
 from secrets import token_urlsafe
-from .. import mysql
-
+from .. import mysql, mail
+from itsdangerous import URLSafeTimedSerializer, SignatureExpired
 
 global COOKIE_TIME_OUT
 COOKIE_TIME_OUT = 60*60*24 
+
+#CHANGE FOR PRODUCTION
+s = URLSafeTimedSerializer('thisisasecret')
+
+
 
 @main.route('/', methods=['GET'])
 def home():
@@ -63,6 +69,10 @@ def logout():
 		session.pop('user', None)
 	return redirect('/')
 
+
+@main.route('/test', methods=['GET', 'POST'] )
+def test():
+    return render_template('confirmationEmail.html')
 @main.route('/signup', methods=['GET', 'POST'] )
 def signup():
     error = None 
@@ -91,10 +101,32 @@ def signup():
         conn.close()
         session['user'] = username
 
-        return redirect('/')
+
+        #Create token for email confirmation from serializer
+        token = s.dumps(email, salt='email-confirm')
+
+        msg = Message(subject='Confirm Your Email', sender='anychatio@gmail.com', recipients=[email])
+
+        link = url_for('.confirm_email', token=token, external=True)
+
+        msg.body = f'Your link is <h6>HERE</h6> {link}'
+        msg.html = render_template('confirmationEmail.html', username=username, link=link)
+        mail.send(msg)
+        return 'Check your email'  
+        # return redirect('/')
     
     return render_template('signup.html', error=error)
-        
+
+
+@main.route('/confirm_email/<token>')
+def confirm_email(token):
+    try:
+        email = s.loads(token, salt='email-confirm', max_age=60)
+    except SignatureExpired:
+        return 'Token Expired'
+    
+    return 'Token worked!!! YOU ARE IN'
+
 
 @main.route('/chat', methods=['GET', 'POST'])
 def chat():
@@ -115,7 +147,6 @@ def chat():
 
 
 @main.route('/download', methods=['GET'])
-def download():
-    print('made it')
+def download(fileinfo='file i need'):
     return send_file('/home/bullkn0x/Documents/Python/ChatApp/V1/http_client_version/app/static/_files/5795c17a4ba643d5ae7b0a56c098d690.csv', 
     as_attachment=True, attachment_filename='hello.csv')
