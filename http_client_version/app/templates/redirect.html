@@ -3,13 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="4;url=/" />
+    <meta http-equiv="refresh" content="5;url=/" />
     <title>Redirect</title>
 </head>
 <body>
     <center>
         <h2>Check your Email</h2>
-        <h4>Redirecting in 4 seconds...</h4>
+        <p>You'll be automatically redirected in <span id="count">5</span> seconds...</p>
+        <script type="text/javascript">
+            window.onload = function(){
+            (function(){
+            var counter = 5;
+            setInterval(function() {
+                counter--;
+                if (counter >= 0) {
+                span = document.getElementById("count");
+                span.innerHTML = counter;
+                }
+                // Display 'counter' wherever you want to display it.
+                if (counter === 0) {
+                //    alert('this is where it happens');
+                    clearInterval(counter);
+                }
+            }, 1000);
+            })();
+            }
+        </script>
         <a href="/">Click here if not redirected</a>
     </center>
 </body>
