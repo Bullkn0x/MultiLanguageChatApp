@@ -1,12 +1,12 @@
 from flask import session, redirect, url_for, render_template, request,make_response,send_file
-from flask_mail import Message 
+from flask_mail import Message
 from . import main
 from secrets import token_urlsafe
 from .. import mysql, mail
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired
 
 global COOKIE_TIME_OUT
-COOKIE_TIME_OUT = 60*60*24 
+COOKIE_TIME_OUT = 60*60*24
 
 #CHANGE FOR PRODUCTION
 s = URLSafeTimedSerializer('thisisasecret')
@@ -31,7 +31,7 @@ def login():
         session['user'] = username
         return redirect('/')
 
-    
+
     if request.method == 'POST':
         # get form data
         email_or_username = request.form['email']
@@ -58,7 +58,7 @@ def login():
                 resp.set_cookie('password',password, max_age=COOKIE_TIME_OUT, expires=COOKIE_TIME_OUT)
                 resp.set_cookie('rem', 'yes',  max_age=COOKIE_TIME_OUT,expires=COOKIE_TIME_OUT)
             return resp
-        else:            
+        else:
             error = 'Invalid Credentials. Please try again.'
             print(error)
     return render_template('login.html', error=error)
@@ -75,7 +75,7 @@ def test():
     return render_template('confirmationEmail.html')
 @main.route('/signup', methods=['GET', 'POST'] )
 def signup():
-    error = None 
+    error = None
     conn= None
     cursor = None
     if request.method == 'POST':
@@ -92,7 +92,7 @@ def signup():
         if db_user:
             error="User already exists"
             return render_template('signup.html', error=error)
-        
+
         add_user= 'INSERT INTO users (username, email, password) VALUES (%s, %s, %s);'
         sql_values = (username, email, password,)
         cursor.execute(add_user, sql_values)
@@ -112,9 +112,9 @@ def signup():
         msg.body = f'Your link is <h6>HERE</h6> {link}'
         msg.html = render_template('confirmationEmail.html', username=username, link=link)
         mail.send(msg)
-        return 'Check your email'  
+        return render_template('redirect.html', error=error)
         # return redirect('/')
-    
+
     return render_template('signup.html', error=error)
 
 
@@ -124,7 +124,7 @@ def confirm_email(token):
         email = s.loads(token, salt='email-confirm', max_age=60)
     except SignatureExpired:
         return 'Token Expired'
-    
+
     return 'Token worked!!! YOU ARE IN'
 
 
@@ -148,5 +148,5 @@ def chat():
 
 @main.route('/download', methods=['GET'])
 def download(fileinfo='file i need'):
-    return send_file('/home/bullkn0x/Documents/Python/ChatApp/V1/http_client_version/app/static/_files/5795c17a4ba643d5ae7b0a56c098d690.csv', 
+    return send_file('/home/bullkn0x/Documents/Python/ChatApp/V1/http_client_version/app/static/_files/5795c17a4ba643d5ae7b0a56c098d690.csv',
     as_attachment=True, attachment_filename='hello.csv')
