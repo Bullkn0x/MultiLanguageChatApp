@@ -98,7 +98,6 @@ def connect():
     new_user = User(username=username,socket_id=socket_id, current_room=session['last_room'])
     
     
-    print(dumps(server_list, indent=3))
     print_user_details(user_id,username,socket_id,join_room)
     
 
