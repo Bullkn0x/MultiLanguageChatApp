@@ -6,7 +6,7 @@ from ..models.user import User
 from .. import mysql
 import json
 num_users=0
-clients= {}
+rooms= {}
 
 
 @socketio.on('connect', namespace='/')
@@ -18,31 +18,81 @@ def connect():
     print(request.cookies)
     socketID = request.sid
     username = session['user']
+    
     new_user = User(username=username,socketID=socketID)
-    clients[username]= new_user
-    print(clients)
+    rooms[username]= new_user
+    print(rooms)
 
-    emit('login', {'username' : username, 'numUsers':len(clients)})
+
+
+
+    emit('login', {'username' : username, 'numUsers':len(rooms)})
     conn= mysql.connect()
     cursor = conn.cursor()
-    sql_chat_log = 'select u.username, m.message from messages m join users u on u.user_id =m.user_id;'
+
+
+    sql_chat_log = """select u.username, m.message 
+                      from messages m join users u on u.user_id =m.user_id;"""
     cursor.execute(sql_chat_log)
     chat_logs = cursor.fetchall()   # convert to dictionary / js object
-    chat_logs = [{'username':k, 'message':v} for k,v in chat_logs ]
+    chat_logs = [{'username':k, 'message':v, "room_name": "Global Chat"} for k,v in chat_logs ]
+    
+    # Get servlist
+    sql_server_list = """select g.room_id, g.room_name, room_logo_url  
+                         from users u join group_users gu on gu.user_id = u.user_id 
+                         join groups g on gu.room_id = g.room_id 
+                         where u.username = %s;"""
+    sql_server_list_where = (username, )
+    cursor.execute(sql_server_list, sql_server_list_where)
+    
+    server_list = [{
+        "room_id": room_id, 
+        "room_name" : room_name,
+        "img_url": img_url 
+        } for room_id , room_name, img_url in cursor.fetchall()]
+    print(server_list)
+    
     emit('chat log',chat_logs)
-    emit('user joined', {'username':username, 'numUsers':len(clients)}, broadcast=True, include_self=False)
-
+    emit('server list', server_list)
+    emit('user joined', {'username':username, 'numUsers':len(rooms)}, broadcast=True, include_self=False)
    
 
 
+@socketio.on('join server', namespace='/')
+def join_server(data):
+    # get chat logs for server
+    join_room = data['roomID']
+    username = data['username']
+    print(data)
+    conn= mysql.connect()
+    cursor = conn.cursor()
+    sql_room_chat = """select u.username, m.message, g.room_name 
+                       from messages m join users u on m.user_id = u.user_id 
+                       join groups g on g.room_id =m.room_id where g.room_id = %s;"""
+
+    sql_room_where = (join_room, )
+    cursor.execute(sql_room_chat, sql_room_where)
+    room_chat_log = [{'username':username, 'message':message, 'room_name' :room_id} for username, message, room_id in cursor.fetchall()]
+    
+    #update user info (current room) 
+    sql_update_user_room = "UPDATE  users SET last_room_id = (%s) where username = %s ;"
+    sql_room_value = (join_room, username, )
+    cursor.execute(sql_update_user_room, sql_room_value)
+    conn.commit()
+    cursor.close()
+
+    emit('chat log', room_chat_log)
+    print(room_chat_log)
 @socketio.on('new message',namespace='/')
 def text(message):
     """Sent by a client when the user entered a new message.
     The message is sent to all people in the room."""
+    print('room is')
+    
     room = session.get('room')
     sender_name = session.get('user')
     user_id = session.get('id')
-    sender =clients[sender_name]
+    sender =rooms[sender_name]
     # message_record = Message(message=message)
     conn= mysql.connect()
     cursor = conn.cursor()
@@ -53,8 +103,8 @@ def text(message):
     cursor.close()
     conn.close()
     
-    # Iterate through clients and emit messagfasdfe to usersocket 
-    for username, receiver in clients.items():
+    # Iterate through rooms and emit messagfasdfe to usersocket 
+    for username, receiver in rooms.items():
         if receiver.language != sender.language:
             print('not same language')
             translated_msg = try_translate(message,sender.language, receiver.language)
@@ -76,7 +126,7 @@ def text(message):
 @socketio.on('change language',namespace='/')
 def update_language(language):
     username = session.get('user')
-    user =clients[username]
+    user =rooms[username]
     user.update_language_pref(language)
     print(user.__dict__)
 
@@ -90,7 +140,7 @@ def user_stopped_typing():
 
 @socketio.on('disconnect',namespace='/' )
 def disconnect():
-    """Sent by clients when they leave a room.
+    """Sent by rooms when they leave a room.
     A status message is broadcast to all people in the room."""
     # decrease user count
     global num_users

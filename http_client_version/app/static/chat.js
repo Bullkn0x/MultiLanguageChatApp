@@ -19,8 +19,9 @@ $(function() {
   var $chatPage = $('.chat.page'); // The chatroom page
   var $navBar = $('.navcontainer');
   var $onlineNumber = $('.online span');
-  var $languagePref = $('#language')
-  
+  var $languagePref = $('#language');
+  var $serverList = $('.serverList');
+  var currentRoom; 
   var sideBarActive = false;
   // Prompt for setting a username
   var username;
@@ -65,9 +66,26 @@ $(function() {
   })  
   function changeLanguage () {
     var language = $languagePref.text().toLowerCase().trim();
-    socket.emit('change language',language)
+    socket.emit('change language',language);
   }
   
+
+// Handle ServerList Clicks
+    $(".serverList").on('click', 'a', function(){
+      joinRoom = $(this).text();
+      joinRoomID = $(this).attr('roomid');
+      console.log("You are Joining Room: " + joinRoom);
+      socket.emit('join server',{
+        "username": username,
+        "roomID" : joinRoomID,
+        "room" : joinRoom
+      });
+
+      log("You are chatting in "+ joinRoom, {
+        prepend: true
+      });
+
+    });
   // Sends a chat message
   function sendMessage () {
     var message = $inputMessage.val();
@@ -170,8 +188,14 @@ $(function() {
       $el.hide().fadeIn(FADE_TIME);
     }
     if (options.prepend) {
-      $messages.prepend($el);
+      if ($messages.children('.log').length > 0) {
+       $messages.children('.log').html($el);
     } else {
+      $messages.prepend($el);
+    } 
+    } 
+  
+    else {
       $messages.append($el);
     }
     $messages[0].scrollTop = $messages[0].scrollHeight;
@@ -409,19 +433,38 @@ upload.onclick = function() {
     log(data.username + ' joined');
     updateOnline(data);
   });
-  // Whenever the server emits 'stop typing', kill the typing message
+
+  // Whenever the server emits 'chat log' Append chat log to message box
   socket.on('chat log', function (messages) {
+    $messages.html('');
     messages.forEach(function(data) {
+      
       addChatMessage(data)
     });
-    // var chatlog = data
-    // chatlog.forEach(add_chatlogs);
-    
-    // function add_chatlogs(item, index){
-    // addChatMessage(item);
-    // }
+    var message = "You have joined " + messages[0].room_name ;
+    log(message, {
+      prepend: true
+    });
   });
 
+  // Whenever the server emits 'stop typing', kill the typing message
+  socket.on('server list', function (serverList) {
+    // console.log(serverList)
+    $serverList.html('')
+    serverList.forEach(function(server) {
+      var $imgDiv = $('<img />').attr("src", server.img_url).css({
+        "max-height": "133%",
+        "border-radius": "16%",
+        "margin-right": "10px",
+      })
+
+      var $serverNameDiv = $('<span class="menu-collapsed"/>')
+        .text(server.room_name);
+      var $tableCellDiv =$('<a href="#" class="list-group-item list-group-item-action bg-dark text-white">').append($imgDiv).append($serverNameDiv);
+      $serverList.append($tableCellDiv.attr('roomID',server.room_id));
+    });
+  });
+  
   // Whenever the server emits 'user left', log it in the chat body
   socket.on('user left', function (data) {
     console.log(data);
