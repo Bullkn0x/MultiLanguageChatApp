@@ -73,8 +73,7 @@ $(function() {
 // Handle ServerList Clicks
     $(".serverList").on('click', 'a', function(){
       joinRoom = $(this).text();
-      joinRoomID = $(this).attr('roomid');
-      console.log("You are Joining Room: " + joinRoom);
+      joinRoomID = $(this).attr('room_id');
       socket.emit('join server',{
         "username": username,
         "roomID" : joinRoomID,
@@ -89,6 +88,8 @@ $(function() {
   // Sends a chat message
   function sendMessage () {
     var message = $inputMessage.val();
+    var roomid = $('.messages').attr('room_id');
+    console.log(roomid);
     // Prevent markup from being injected into the message
     message = cleanInput(message);
     // if there is a non-empty message and a socket connection
@@ -99,7 +100,10 @@ $(function() {
         message: message
       });
       // tell server to execute 'new message' and send along one parameter
-      socket.emit('new message', message);
+      socket.emit('new message', {
+        message: message,
+        room_id: roomid
+      });
     }
   }
 
@@ -410,6 +414,10 @@ upload.onclick = function() {
     username = data.username;
   }
   
+
+
+// SERVER EVENTS 
+
   // Whenever the server emits 'connect', log the connect message
   socket.on('login', function (data) {
     connected = true;
@@ -437,12 +445,14 @@ upload.onclick = function() {
   // Whenever the server emits 'chat log' Append chat log to message box
   socket.on('chat log', function (messages) {
     $messages.html('');
+    var room_id = messages[0].room_id; 
+    $messages.attr('room_id', room_id)
     messages.forEach(function(data) {
       
       addChatMessage(data)
     });
-    var message = "You have joined " + messages[0].room_name ;
-    log(message, {
+    var join_room_message = "You have joined " + messages[0].room_name ;
+    log(join_room_message, {
       prepend: true
     });
   });
@@ -461,7 +471,7 @@ upload.onclick = function() {
       var $serverNameDiv = $('<span class="menu-collapsed"/>')
         .text(server.room_name);
       var $tableCellDiv =$('<a href="#" class="list-group-item list-group-item-action bg-dark text-white">').append($imgDiv).append($serverNameDiv);
-      $serverList.append($tableCellDiv.attr('roomID',server.room_id));
+      $serverList.append($tableCellDiv.attr('room_id',server.room_id));
     });
   });
   

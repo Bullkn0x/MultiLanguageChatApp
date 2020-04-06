@@ -49,6 +49,7 @@ def login():
         if db_user and password == db_user[5]:
             session['user'] = db_user[1]   #put username in session
             session['id'] = db_user[0]
+            session['last_room'] = db_user[9]
             conn.close()
             resp = make_response(render_template('landing.html', signed_in=True, username=db_user[1]))
             # cookieid= token_urlsafe(16)
@@ -56,6 +57,7 @@ def login():
             if remember:
                 resp.set_cookie('user',db_user[1], max_age=COOKIE_TIME_OUT,expires=COOKIE_TIME_OUT)
                 resp.set_cookie('password',password, max_age=COOKIE_TIME_OUT, expires=COOKIE_TIME_OUT)
+                resp.set_cookie('last_room', db_user[9],  max_age=COOKIE_TIME_OUT,expires=COOKIE_TIME_OUT)
                 resp.set_cookie('rem', 'yes',  max_age=COOKIE_TIME_OUT,expires=COOKIE_TIME_OUT)
             return resp
         else:
@@ -117,18 +119,16 @@ def signup():
         conn.commit()
         cursor.close()
         conn.close()
-        session['user'] = username
 
 
         #Create token for email confirmation from serializer
         token = s.dumps(email, salt='email-confirm')
-
+        print(token)
         msg = Message(subject='Confirm Your Email', sender='anychatio@gmail.com', recipients=[email])
 
         link = url_for('.confirm_email', token=token, external=True)
 
-        msg.body = f'Your link is <h6>HERE</h6> {link}'
-        msg.html = render_template('confirmationEmail.html', username=username, link=link)
+        msg.html = render_template('confirmationEmail.html', username=username, link={link})
         mail.send(msg)
         return render_template('redirect.html', error=error)
         # return redirect('/')
@@ -140,6 +140,10 @@ def signup():
 def confirm_email(token):
     try:
         email = s.loads(token, salt='email-confirm', max_age=60)
+
+
+        
+        print(email)
     except SignatureExpired:
         return 'Token Expired'
 
