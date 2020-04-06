@@ -4,6 +4,8 @@ from . import main
 from secrets import token_urlsafe
 from .. import mysql, mail
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired
+import random
+import string
 
 global COOKIE_TIME_OUT
 COOKIE_TIME_OUT = 60*60*24
@@ -86,32 +88,42 @@ def forgetpassword():
         # execute query
         cursor.execute(sql, sql_where)
         db_user = cursor.fetchone()
-        
+        print('db user')
         print(db_user)
 
-        # if db_user:
-        #     session['user'] = db_user[1]   #put username in session
-        #     session['id'] = db_user[0]
-        #     conn.close()
-        #     resp = make_response(render_template('landing.html', signed_in=True, username=db_user[1]))
-        #     # cookieid= token_urlsafe(16)
-        #     print(remember)
-        #     if remember:
-        #         resp.set_cookie('user',db_user[1], max_age=COOKIE_TIME_OUT,expires=COOKIE_TIME_OUT)
-        #         resp.set_cookie('password',password, max_age=COOKIE_TIME_OUT, expires=COOKIE_TIME_OUT)
-        #         resp.set_cookie('rem', 'yes',  max_age=COOKIE_TIME_OUT,expires=COOKIE_TIME_OUT)
-        #     return resp
-        # else:
-        #     error = 'Invalid Credentials. Please try again.'
-        #     print(error)
-        
-    print(sql_where)
+        if db_user:
+            # session['user'] = db_user[1]   #put username in session
+            # session['id'] = db_user[0]
+            username=db_user[1]
+            email = db_user[4]
+            updatequery='UPDATE users SET password=%s WHERE user_id=%s'
+            generated_password = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(10))
+            sql_update=(generated_password,db_user[0])
+            print('generated password: '+ generated_password)
+            cursor.execute(updatequery,sql_update)
+            conn.commit()
+            conn.close()
 
+            token = s.dumps(email, salt='email-confirm')
+
+            msg = Message(subject='Password Reset Confirmation', sender='anychatio@gmail.com', recipients=[email])
+
+            link = url_for('.confirm_email', token=token, external=True)
+
+            msg.html = render_template('passwordresetconfirmation.html', generated_password=generated_password, username=username,link=link)
+            mail.send(msg)
+            return render_template('redirect.html', error=error)
+            
+        else:
+            error = 'Invalid Email! Please try again.'
+            print(error)
+        
     return render_template('forgetpassword.html', error=error)
 
 @main.route('/test', methods=['GET', 'POST'] )
 def test():
     return render_template('confirmationEmail.html')
+
 @main.route('/signup', methods=['GET', 'POST'] )
 def signup():
     error = None
