@@ -17,10 +17,12 @@
   <link
     href="https://fonts.googleapis.com/css?family=Rubik:300,300i,400,400i,500,500i,700,700i,900,900i&amp;display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/css/date-picker.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/css/date-picker.css')}}">
   <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/css/magnific-popup.css')}}">
   <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/css/style.css')}}" media="screen" id="color">
   <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/css/tour.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='forms.css')}}">
+  
   <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/js/ckeditor/skins/moono-lisa/editor.css')}}">
   <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/js/ckeditor/plugins/scayt/skins/moono-lisa/scayt.css')}}">
   <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/js/ckeditor/plugins/scayt/dialogs/dialog.css')}}">
@@ -48,7 +50,7 @@
             <div class="login-content">
               <div class="login-content-header"><img src="{{url_for('static', filename='assets/images/logo/landing-logo.png')}}" alt="images"></div>
               <h3>Hello Everyone , We are Chitchat</h3>
-              <h4>Wellcome to chitchat please login to your account.</h4>
+              <h4>Welcome to chitchat please login to your account.</h4>
               {% if error %}<h6 class="errormessage">{{error}}</h6><br><br>{% endif %}
               <form action="" class="form1" method="post">
                 <div class="form-group">
@@ -63,7 +65,6 @@
                   <label class="col-form-label" for="inputPassword3">Password</label><span> </span>
                   <input name="password" class="form-control" id="inputPassword3" type="password" placeholder="Password">
                 </div>
-           
                 <div class="form-group">
                   <div class="buttons"><button class="btn btn-primary button-effect" href="#">Signup</button></div>
               </form>

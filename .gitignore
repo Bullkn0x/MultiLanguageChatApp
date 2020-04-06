@@ -4,6 +4,11 @@
 __pycache__/
 *.py[cod]
 *$py.class
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 2f309e1cf21b572ccc4f42d80a5b3b15c34343ff
 #testing folder
 testing/
 # C extensions
@@ -29,6 +34,7 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+test/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
