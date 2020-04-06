@@ -45,7 +45,7 @@ def login():
         # execute query
         cursor.execute(sql, sql_where)
         db_user = cursor.fetchone()
-
+        
         if db_user and password == db_user[5]:
             session['user'] = db_user[1]   #put username in session
             session['id'] = db_user[0]
@@ -69,24 +69,45 @@ def logout():
 		session.pop('user', None)
 	return redirect('/')
 
-@main.route('/passwordretrival')
-def passwordretrival():
+@main.route('/forgetpassword', methods=['GET', 'POST'] )
+def forgetpassword():
     conn=None
     cursor = None
     error = None
-    # if request.method == 'POST':
-    #     # get form data
-    #     email_or_username = request.form['email']
-    #     conn = mysql.connect()
-    #     cursor = conn.cursor()
-    #     sql = 'SELECT * FROM users WHERE email=%s'
-    #     # prevent sql injection
-    #     sql_where = (email_or_username)
-    #     cursor.execute(sql, sql_where)
-        
-    # print(sql_where)
 
-    return render_template('passwordretrival.html', error=error)
+    if request.method == 'POST':
+        # get form data
+        email= request.form['email']
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        sql = 'SELECT * FROM users WHERE email=%s'
+        # prevent sql injection
+        sql_where = (email)
+        # execute query
+        cursor.execute(sql, sql_where)
+        db_user = cursor.fetchone()
+        
+        print(db_user)
+
+        # if db_user:
+        #     session['user'] = db_user[1]   #put username in session
+        #     session['id'] = db_user[0]
+        #     conn.close()
+        #     resp = make_response(render_template('landing.html', signed_in=True, username=db_user[1]))
+        #     # cookieid= token_urlsafe(16)
+        #     print(remember)
+        #     if remember:
+        #         resp.set_cookie('user',db_user[1], max_age=COOKIE_TIME_OUT,expires=COOKIE_TIME_OUT)
+        #         resp.set_cookie('password',password, max_age=COOKIE_TIME_OUT, expires=COOKIE_TIME_OUT)
+        #         resp.set_cookie('rem', 'yes',  max_age=COOKIE_TIME_OUT,expires=COOKIE_TIME_OUT)
+        #     return resp
+        # else:
+        #     error = 'Invalid Credentials. Please try again.'
+        #     print(error)
+        
+    print(sql_where)
+
+    return render_template('forgetpassword.html', error=error)
 
 @main.route('/test', methods=['GET', 'POST'] )
 def test():
