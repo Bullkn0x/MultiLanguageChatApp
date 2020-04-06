@@ -45,7 +45,7 @@ def login():
         # execute query
         cursor.execute(sql, sql_where)
         db_user = cursor.fetchone()
-
+        
         if db_user and password == db_user[5]:
             session['user'] = db_user[1]   #put username in session
             session['id'] = db_user[0]
