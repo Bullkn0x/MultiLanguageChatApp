@@ -57,7 +57,7 @@ def login():
             if remember:
                 resp.set_cookie('user',db_user[1], max_age=COOKIE_TIME_OUT,expires=COOKIE_TIME_OUT)
                 resp.set_cookie('password',password, max_age=COOKIE_TIME_OUT, expires=COOKIE_TIME_OUT)
-                resp.set_cookie('last_room', db_user[9],  max_age=COOKIE_TIME_OUT,expires=COOKIE_TIME_OUT)
+                resp.set_cookie('last_room', str(db_user[9]),  max_age=COOKIE_TIME_OUT,expires=COOKIE_TIME_OUT)
                 resp.set_cookie('rem', 'yes',  max_age=COOKIE_TIME_OUT,expires=COOKIE_TIME_OUT)
             return resp
         else:
