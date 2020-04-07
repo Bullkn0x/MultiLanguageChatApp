@@ -51,7 +51,7 @@ def login():
         if db_user and password == db_user[5]:
             session['user'] = db_user[1]   #put username in session
             session['id'] = db_user[0]
-            conn.close()
+            
             resp = make_response(render_template('landing.html', signed_in=True, username=db_user[1]))
             # cookieid= token_urlsafe(16)
             print(remember)
@@ -100,9 +100,9 @@ def forgetpassword():
             generated_password = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(10))
             sql_update=(generated_password,db_user[0])
             print('generated password: '+ generated_password)
-            cursor.execute(updatequery,sql_update)
+            cursor.execute(updatequery, sql_update,)
             conn.commit()
-            conn.close()
+            cursor.close()
 
             token = s.dumps(email, salt='email-confirm')
 
@@ -149,7 +149,7 @@ def signup():
         cursor.execute(add_user, sql_values)
         conn.commit()
         cursor.close()
-        conn.close()
+
         session['user'] = username
 
 
