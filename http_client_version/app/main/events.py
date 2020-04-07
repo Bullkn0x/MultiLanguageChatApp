@@ -1,11 +1,12 @@
-from flask import session, request,Response, redirect
+from flask import session, request,Response, redirect, current_app
 from flask_socketio import emit, join_room, leave_room, rooms
 from .. import socketio
 from .utils import try_translate
 from ..models.user import User
 from .. import mysql
 from json import JSONEncoder, dumps
-
+import uuid
+import os
 
 # populate room info
 conn = mysql.connect()
@@ -15,7 +16,8 @@ cursor.execute(sql_get_rooms)
 rooms_resp = cursor.fetchall()
 cursor.close()
 
-rooms = {res[0]: {} for res in rooms_resp }
+# create dictionary of rooms to track online users
+rooms = {res[0]: {} for res in rooms_resp}
 
 num_users=0
 
@@ -54,6 +56,7 @@ def DB_get_chat_logs(room_id):
         'room_name' :room_name, 
         'room_id' :room_id } for username, message, room_name, room_id in cursor.fetchall()]
 
+    
     cursor.close()
     return room_chat_log
 
@@ -66,7 +69,7 @@ def DB_insert_msg(user_id, message, room_id):
     conn.commit()
     cursor.close()
 
-def DB_get_server_list(user_id):
+def DB_get_user_servers(user_id):
     cursor = conn.cursor()
     sql_server_list = """select r.room_id, r.room_name, r.room_logo_url  
                          from users u 
@@ -92,19 +95,24 @@ def connect():
     socket_id = request.sid
     user_id = session['id']
     username = session['user']
-    join_room = session['last_room']
+    last_room = session['last_room']
     # Get serverlist
-    server_list = DB_get_server_list(user_id)
-    new_user = User(username=username,socket_id=socket_id, current_room=session['last_room'])
-    
-    
-    print_user_details(user_id,username,socket_id,join_room)
-    
-
+    server_list = DB_get_user_servers(user_id)
     # Create user object
+    new_user = User(username=username,socket_id=socket_id, current_room=last_room)
     session['user_obj'] = new_user
 
-    rooms[join_room][username] = new_user
+    # Add user to rooms they subscribe too 
+    for server in server_list:
+        room_id = server['room_id'] 
+        rooms[room_id][username] = new_user
+    
+    
+    print_user_details(user_id,username,socket_id,last_room)
+    
+
+
+
     
     print_rooms()
 
@@ -112,7 +120,7 @@ def connect():
     cursor = conn.cursor()
 
 
-    chat_log = DB_get_chat_logs(join_room)
+    chat_log = DB_get_chat_logs(last_room)
     
     emit('chat log',chat_log)
     emit('server list', server_list)
@@ -152,7 +160,6 @@ def text(msg_data):
     """Sent by a client when the user entered a new message.
     The message is sent to all people in the room."""
     message=msg_data['message']
-    room = session.get('room')
     sender_name = session.get('user')
     user_id = int(session.get('id'))
     room_id = session['last_room']
@@ -163,15 +170,19 @@ def text(msg_data):
     # Iterate through rooms and emit messagfasdfe to usersocket 
     for username, receiver in rooms[room_id].items():
         if receiver.current_room == room_id:
-            if receiver.lanruage != sender.lanruage:
-                print('not same lanruage')
-                translated_msg = try_translate(message,sender.lanruage, receiver.lanruage)
+            if receiver.language != sender.language:
+                print('not same language')
+                translated_msg = try_translate(message,sender.language, receiver.language)
                 # if successful, transmit
                 if translated_msg:
                     message=translated_msg
             # sender renders message to chat using js on enter key, ignore them for now
             
             emit('new message', {'username': sender_name, "message":message}, include_self=False, room=receiver.socket_id)
+
+
+        # else:
+            # emit('notify user', {'username': sender_name, "message":message}, include_self=False, room=receiver.socket_id)
 
     # db.session.add(message_record)
     # db.session.commit()
@@ -181,11 +192,11 @@ def text(msg_data):
 
 
 
-@socketio.on('change lanruage',namespace='/')
-def update_lanruage(lanruage):
+@socketio.on('change language',namespace='/')
+def update_language(language):
     username = session.get('user')
     user =rooms[username]
-    user.update_lanruage_pref(lanruage)
+    user.update_language_pref(language)
     print(user.__dict__)
 
 @socketio.on('typing',namespace='/')
@@ -216,9 +227,6 @@ def disconnect():
     print('client disconnected')
 
 
-import uuid
-from flask import current_app
-import os
 @socketio.on('start-transfer', namespace='/')
 def start_transfer(filename, size):
     """Process an upload request from the client."""
