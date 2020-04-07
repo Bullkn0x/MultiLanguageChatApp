@@ -10,7 +10,7 @@ from json import JSONEncoder, dumps
 # populate room info
 conn = mysql.connect()
 cursor = conn.cursor()
-sql_get_rooms= "SELECT room_id from groups;"
+sql_get_rooms= "SELECT room_id from rooms;"
 cursor.execute(sql_get_rooms)
 rooms_resp = cursor.fetchall()
 cursor.close()
@@ -43,9 +43,9 @@ def print_rooms():
 def DB_get_chat_logs(room_id):
     cursor = conn.cursor()
 
-    sql_room_chat = """select u.username, m.message, g.room_name, g.room_id 
+    sql_room_chat = """select u.username, m.message, r.room_name, r.room_id 
                        from messages m join users u on m.user_id = u.user_id 
-                       join groups g on g.room_id =m.room_id where g.room_id = %s;"""
+                       join rooms r on r.room_id =m.room_id where r.room_id = %s;"""
     sql_room_where = (room_id, )
     cursor.execute(sql_room_chat, sql_room_where)
     room_chat_log = [{
@@ -68,10 +68,10 @@ def DB_insert_msg(user_id, message, room_id):
 
 def DB_get_server_list(user_id):
     cursor = conn.cursor()
-    sql_server_list = """select g.room_id, g.room_name, g.room_logo_url  
+    sql_server_list = """select r.room_id, r.room_name, r.room_logo_url  
                          from users u 
-                         join group_users gu on gu.user_id = u.user_id 
-                         join groups g on gu.room_id = g.room_id 
+                         join room_users ru on ru.user_id = u.user_id 
+                         join rooms r on ru.room_id = r.room_id 
                          where u.user_id = %s;"""
     sql_server_list_where = (user_id, )
     cursor.execute(sql_server_list, sql_server_list_where)
@@ -163,9 +163,9 @@ def text(msg_data):
     # Iterate through rooms and emit messagfasdfe to usersocket 
     for username, receiver in rooms[room_id].items():
         if receiver.current_room == room_id:
-            if receiver.language != sender.language:
-                print('not same language')
-                translated_msg = try_translate(message,sender.language, receiver.language)
+            if receiver.lanruage != sender.lanruage:
+                print('not same lanruage')
+                translated_msg = try_translate(message,sender.lanruage, receiver.lanruage)
                 # if successful, transmit
                 if translated_msg:
                     message=translated_msg
@@ -181,11 +181,11 @@ def text(msg_data):
 
 
 
-@socketio.on('change language',namespace='/')
-def update_language(language):
+@socketio.on('change lanruage',namespace='/')
+def update_lanruage(lanruage):
     username = session.get('user')
     user =rooms[username]
-    user.update_language_pref(language)
+    user.update_lanruage_pref(lanruage)
     print(user.__dict__)
 
 @socketio.on('typing',namespace='/')
