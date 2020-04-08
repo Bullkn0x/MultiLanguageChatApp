@@ -109,6 +109,7 @@
   
   .messages {
     font-size: 150%;
+    width: 94%;
   }
   
   .inputMessage {
@@ -157,8 +158,8 @@
   background-color: #2196F3;
   padding: 10px 0 10px 0 ;
   border-radius: 8px;
-  width: 98%;
-  margin: auto;
+  width: 92%;
+  margin-left: 0;
 }
 
 .inputContainer > .buttons {

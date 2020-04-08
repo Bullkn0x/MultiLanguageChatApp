@@ -15,10 +15,10 @@ sql_get_rooms= "SELECT room_id from rooms;"
 cursor.execute(sql_get_rooms)
 rooms_resp = cursor.fetchall()
 cursor.close()
-
+print(rooms_resp)
 # create dictionary of rooms to track online users
-rooms = {res[0]: {} for res in rooms_resp}
-
+rooms = {row['room_id']: {} for row in rooms_resp}
+print(rooms)
 num_users=0
 
 def print_user_details(user_id,username,socket_id,join_room):
@@ -50,11 +50,7 @@ def DB_get_chat_logs(room_id):
                        join rooms r on r.room_id =m.room_id where r.room_id = %s;"""
     sql_room_where = (room_id, )
     cursor.execute(sql_room_chat, sql_room_where)
-    room_chat_log = [{
-        'username':username, 
-        'message':message, 
-        'room_name' :room_name, 
-        'room_id' :room_id } for username, message, room_name, room_id in cursor.fetchall()]
+    room_chat_log = cursor.fetchall()
 
     
     cursor.close()
@@ -79,14 +75,30 @@ def DB_get_user_servers(user_id):
     sql_server_list_where = (user_id, )
     cursor.execute(sql_server_list, sql_server_list_where)
     
-    server_list = [{
-        "room_id": room_id, 
-        "room_name" : room_name,
-        "img_url": img_url 
-        } for room_id , room_name, img_url in cursor.fetchall()]
-    
+    server_list = cursor.fetchall()
     cursor.close()
     return server_list
+
+def DB_get_server_users(room_id):
+    cursor = conn.cursor()
+    sql_server_users = """select
+                            DISTINCT (u.user_id),
+                            u.username 
+                        from
+                        rooms r 
+                        join room_users ru on
+                            ru.room_id = r.room_id
+                        join users u on ru.user_id = u.user_id 
+                        where
+                            r.room_id = %s;"""
+    sql_where = (room_id, )
+    cursor.execute(sql_server_users, sql_where)
+
+    server_users = cursor.fetchall()
+    cursor.close()
+
+    return server_users
+
 
 
 @socketio.on('connect', namespace='/')
@@ -96,7 +108,10 @@ def connect():
     user_id = session['id']
     username = session['user']
     last_room = session['last_room']
-    # Get serverlist
+    
+    # get users for room
+    server_users = DB_get_server_users(last_room)
+    # Get users server list
     server_list = DB_get_user_servers(user_id)
     # Create user object
     new_user = User(username=username,socket_id=socket_id, current_room=last_room)
@@ -107,23 +122,16 @@ def connect():
         room_id = server['room_id'] 
         rooms[room_id][username] = new_user
     
-    
+    # DEBUG PRINTING
     print_user_details(user_id,username,socket_id,last_room)
-    
-
-
-
-    
     print_rooms()
 
     emit('login', {'username' : username, 'numUsers':len(rooms)})
-    cursor = conn.cursor()
-
 
     chat_log = DB_get_chat_logs(last_room)
-    
+
     emit('chat log',chat_log)
-    emit('server list', server_list)
+    emit('server info',{'server_list':server_list, "server_users":server_users})
     emit('user joined', {'username':username, 'numUsers':len(rooms)}, broadcast=True, include_self=False)
    
 
@@ -142,7 +150,8 @@ def join_server(data):
     print_rooms()
     # get chat logs (list of dictionaries) 
     room_chat_log = DB_get_chat_logs(join_room)
-   
+    # get users for room
+    server_users = DB_get_server_users(join_room)
     
     cursor= conn.cursor()
     #update user info (current room) 
@@ -152,7 +161,7 @@ def join_server(data):
     conn.commit()
     cursor.close()
 
-    emit('chat log', room_chat_log)
+    emit('join server', {"chat_log":room_chat_log, "server_users":server_users})
 
 
 @socketio.on('new message',namespace='/')
