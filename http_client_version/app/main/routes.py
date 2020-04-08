@@ -33,8 +33,6 @@ def login():
         session['user'] = username
         return redirect('/')
 
-# eyJpZCI6MSwidXNlciI6ImJ1bGxrbjB4In0.XowJ-g.Wg27VtEkoWbvr7atT22Sis_knM8
-# eyJpZCI6MSwidXNlciI6ImJ1bGxrbjB4In0.XowJ-g.Wg27VtEkoWbvr7atT22Sis_knM8
     if request.method == 'POST':
         # get form data
         email_or_username = request.form['email']
@@ -48,17 +46,16 @@ def login():
         # execute query
         cursor.execute(sql, sql_where)
         db_user = cursor.fetchone()
-        
-        if db_user and password == db_user[5]:
-            session['user'] = db_user[1]   #put username in session
-            session['id'] = db_user[0]
-            session['last_room'] =db_user[9]
-            conn.close()
-            resp = make_response(render_template('landing.html', signed_in=True, username=db_user[1]))
+        cursor.close()
+        if db_user and password == db_user['password']:
+            session['user'] = db_user['username']   #put username in session
+            session['id'] = db_user['user_id']
+            session['last_room'] =db_user['last_room_id']
+            resp = make_response(redirect('/'))
             # cookieid= token_urlsafe(16)
             print(remember)
             if remember:
-                resp.set_cookie('user',db_user[1], max_age=COOKIE_TIME_OUT,expires=COOKIE_TIME_OUT)
+                resp.set_cookie('u_id',db_user['username'], max_age=COOKIE_TIME_OUT,expires=COOKIE_TIME_OUT)
                 resp.set_cookie('password',password, max_age=COOKIE_TIME_OUT, expires=COOKIE_TIME_OUT)
                 resp.set_cookie('rem', 'yes',  max_age=COOKIE_TIME_OUT,expires=COOKIE_TIME_OUT)
             return resp
@@ -97,11 +94,11 @@ def forgetpassword():
         if db_user:
             # session['user'] = db_user[1]   #put username in session
             # session['id'] = db_user[0]
-            username=db_user[1]
-            email = db_user[4]
+            username=db_user['username']
+            email = db_user['email']
             updatequery='UPDATE users SET password=%s WHERE user_id=%s'
             generated_password = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(10))
-            sql_update=(generated_password,db_user[0],)
+            sql_update=(generated_password,db_user['user_id'],)
             print('generated password: '+ generated_password)
             cursor.execute(updatequery,sql_update)
             conn.commit()
