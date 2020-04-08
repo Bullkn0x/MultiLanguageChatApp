@@ -3,10 +3,12 @@ from flask_socketio import SocketIO
 from flask_session import Session
 from flask_mail import Mail
 from flaskext.mysql import MySQL
+from pymysql.cursors import DictCursor      #For using dictionary cursor
 import os
 socketio = SocketIO()
 
-mysql = MySQL()
+mysql = MySQL(cursorclass=DictCursor)
+# mysql = MySQL()
 mail = Mail()
 
 def create_app(debug=False):

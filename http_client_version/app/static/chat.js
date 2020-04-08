@@ -21,6 +21,7 @@ $(function() {
   var $onlineNumber = $('.online span');
   var $languagePref = $('#language');
   var $serverList = $('.serverList');
+  var $usersList = $('.sidebar-content');
   var currentRoom; 
   var sideBarActive = false;
   // Prompt for setting a username
@@ -73,8 +74,7 @@ $(function() {
 // Handle ServerList Clicks
     $(".serverList").on('click', 'a', function(){
       joinRoom = $(this).text();
-      joinRoomID = $(this).attr('roomid');
-      console.log("You are Joining Room: " + joinRoom);
+      joinRoomID = $(this).attr('room_id');
       socket.emit('join server',{
         "username": username,
         "roomID" : joinRoomID,
@@ -89,6 +89,8 @@ $(function() {
   // Sends a chat message
   function sendMessage () {
     var message = $inputMessage.val();
+    var roomid = $('.messages').attr('room_id');
+    console.log(roomid);
     // Prevent markup from being injected into the message
     message = cleanInput(message);
     // if there is a non-empty message and a socket connection
@@ -99,7 +101,10 @@ $(function() {
         message: message
       });
       // tell server to execute 'new message' and send along one parameter
-      socket.emit('new message', message);
+      socket.emit('new message', {
+        message: message,
+        room_id: roomid
+      });
     }
   }
 
@@ -410,6 +415,10 @@ upload.onclick = function() {
     username = data.username;
   }
   
+
+
+// SERVER EVENTS 
+
   // Whenever the server emits 'connect', log the connect message
   socket.on('login', function (data) {
     connected = true;
@@ -435,33 +444,58 @@ upload.onclick = function() {
   });
 
   // Whenever the server emits 'chat log' Append chat log to message box
-  socket.on('chat log', function (messages) {
+  socket.on('join server', function (data) {
     $messages.html('');
+    $usersList.html('');
+    messages = data.chat_log;
+    var room_id = messages[0].room_id; 
+    $messages.attr('room_id', room_id)
     messages.forEach(function(data) {
       
       addChatMessage(data)
     });
-    var message = "You have joined " + messages[0].room_name ;
-    log(message, {
+    var join_room_message = "You have joined " + messages[0].room_name ;
+    log(join_room_message, {
       prepend: true
+    });
+    data.server_users.forEach(function(user) {
+      var $userImg = $('<img />',{"class":"contact__photo"}).attr("src" ,'https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/elastic-man.png');
+      var $username = $('<span/>', {"class":"contact__name"}).text(user.username);
+      var $userStatus = $('<span/>' , {"class":"contact__status online"});
+      var $userDiv = $(' <div/>', {"class":"contact"}).attr('user_id', user.user_id).append($userImg).append($username).append($userStatus);
+        
+      console.log($userDiv.text())
+      $usersList.append($userDiv);
     });
   });
 
   // Whenever the server emits 'stop typing', kill the typing message
-  socket.on('server list', function (serverList) {
+  socket.on('server info', function (data) {
     // console.log(serverList)
-    $serverList.html('')
-    serverList.forEach(function(server) {
-      var $imgDiv = $('<img />').attr("src", server.img_url).css({
+    console.log(data);
+    $serverList.html('');
+    $usersList.html('');
+    data.server_list.forEach(function(server) {
+      var $imgDiv = $('<img />').attr("src", server.room_logo_url).css({
         "max-height": "133%",
         "border-radius": "16%",
         "margin-right": "10px",
-      })
+      });
 
       var $serverNameDiv = $('<span class="menu-collapsed"/>')
         .text(server.room_name);
       var $tableCellDiv =$('<a href="#" class="list-group-item list-group-item-action bg-dark text-white">').append($imgDiv).append($serverNameDiv);
-      $serverList.append($tableCellDiv.attr('roomID',server.room_id));
+      $serverList.append($tableCellDiv.attr('room_id',server.room_id));
+    });
+
+    data.server_users.forEach(function(user) {
+      var $userImg = $('<img />',{"class":"contact__photo"}).attr("src" ,'https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/elastic-man.png');
+      var $username = $('<span/>', {"class":"contact__name"}).text(user.username);
+      var $userStatus = $('<span/>' , {"class":"contact__status online"});
+      var $userDiv = $(' <div/>', {"class":"contact"}).attr('user_id', user.user_id).append($userImg).append($username).append($userStatus);
+        
+      console.log($userDiv.text())
+      $usersList.append($userDiv);
     });
   });
   

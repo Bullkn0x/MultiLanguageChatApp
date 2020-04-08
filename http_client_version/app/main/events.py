@@ -1,59 +1,137 @@
-from flask import session, request,Response, redirect
+from flask import session, request,Response, redirect, current_app
 from flask_socketio import emit, join_room, leave_room, rooms
 from .. import socketio
 from .utils import try_translate
 from ..models.user import User
 from .. import mysql
-import json
+from json import JSONEncoder, dumps
+import uuid
+import os
+
+# populate room info
+conn = mysql.connect()
+cursor = conn.cursor()
+sql_get_rooms= "SELECT room_id from rooms;"
+cursor.execute(sql_get_rooms)
+rooms_resp = cursor.fetchall()
+cursor.close()
+print(rooms_resp)
+# create dictionary of rooms to track online users
+rooms = {row['room_id']: {} for row in rooms_resp}
+print(rooms)
 num_users=0
-rooms= {}
+
+def print_user_details(user_id,username,socket_id,join_room):
+    print('\nUSER CREDENTIALS')
+    print('-'*40)
+    print('user id:', user_id)
+    print('session username:', username)
+    print('socket_id:', socket_id)
+    print('joining last chat room_id: ', join_room)
+    print('-'*40)
+    return 
+
+def print_rooms():
+    class MyEncoder(JSONEncoder):
+        def default(self, o):
+            return o.__dict__ 
+    global rooms
+    print('\nROOMS:')
+    print('-'*40)
+    print(dumps(rooms, cls=MyEncoder, indent=4))
+    print('-'*40)
+    return 
+
+def DB_get_chat_logs(room_id):
+    cursor = conn.cursor()
+
+    sql_room_chat = """select u.username, m.message, r.room_name, r.room_id 
+                       from messages m join users u on m.user_id = u.user_id 
+                       join rooms r on r.room_id =m.room_id where r.room_id = %s;"""
+    sql_room_where = (room_id, )
+    cursor.execute(sql_room_chat, sql_room_where)
+    room_chat_log = cursor.fetchall()
+
+    
+    cursor.close()
+    return room_chat_log
+
+def DB_insert_msg(user_id, message, room_id):
+    
+    cursor = conn.cursor()
+    sql_message= 'INSERT INTO messages (user_id , message, room_id) VALUES (%s, %s, %s);'
+    sql_params = (user_id, message, room_id)
+    cursor.execute(sql_message,sql_params)
+    conn.commit()
+    cursor.close()
+
+def DB_get_user_servers(user_id):
+    cursor = conn.cursor()
+    sql_server_list = """select r.room_id, r.room_name, r.room_logo_url  
+                         from users u 
+                         join room_users ru on ru.user_id = u.user_id 
+                         join rooms r on ru.room_id = r.room_id 
+                         where u.user_id = %s;"""
+    sql_server_list_where = (user_id, )
+    cursor.execute(sql_server_list, sql_server_list_where)
+    
+    server_list = cursor.fetchall()
+    cursor.close()
+    return server_list
+
+def DB_get_server_users(room_id):
+    cursor = conn.cursor()
+    sql_server_users = """select
+                            DISTINCT (u.user_id),
+                            u.username 
+                        from
+                        rooms r 
+                        join room_users ru on
+                            ru.room_id = r.room_id
+                        join users u on ru.user_id = u.user_id 
+                        where
+                            r.room_id = %s;"""
+    sql_where = (room_id, )
+    cursor.execute(sql_server_users, sql_where)
+
+    server_users = cursor.fetchall()
+    cursor.close()
+
+    return server_users
+
 
 
 @socketio.on('connect', namespace='/')
 def connect():
-    print('IM CONNECTED')
-    print('socketid:', request.sid)
-    print('session username:',session['user'])
-    print('user id', session['id'])
-    print(request.cookies)
-    socketID = request.sid
+    print('USER CONNECTED')
+    socket_id = request.sid
+    user_id = session['id']
     username = session['user']
+    last_room = session['last_room']
     
-    new_user = User(username=username,socketID=socketID)
-    rooms[username]= new_user
-    print(rooms)
+    # get users for room
+    server_users = DB_get_server_users(last_room)
+    # Get users server list
+    server_list = DB_get_user_servers(user_id)
+    # Create user object
+    new_user = User(username=username,socket_id=socket_id, current_room=last_room)
+    session['user_obj'] = new_user
 
-
-
+    # Add user to rooms they subscribe too 
+    for server in server_list:
+        room_id = server['room_id'] 
+        rooms[room_id][username] = new_user
+    
+    # DEBUG PRINTING
+    print_user_details(user_id,username,socket_id,last_room)
+    print_rooms()
 
     emit('login', {'username' : username, 'numUsers':len(rooms)})
-    conn= mysql.connect()
-    cursor = conn.cursor()
 
+    chat_log = DB_get_chat_logs(last_room)
 
-    sql_chat_log = """select u.username, m.message 
-                      from messages m join users u on u.user_id =m.user_id;"""
-    cursor.execute(sql_chat_log)
-    chat_logs = cursor.fetchall()   # convert to dictionary / js object
-    chat_logs = [{'username':k, 'message':v, "room_name": "Global Chat"} for k,v in chat_logs ]
-    
-    # Get servlist
-    sql_server_list = """select g.room_id, g.room_name, room_logo_url  
-                         from users u join group_users gu on gu.user_id = u.user_id 
-                         join groups g on gu.room_id = g.room_id 
-                         where u.username = %s;"""
-    sql_server_list_where = (username, )
-    cursor.execute(sql_server_list, sql_server_list_where)
-    
-    server_list = [{
-        "room_id": room_id, 
-        "room_name" : room_name,
-        "img_url": img_url 
-        } for room_id , room_name, img_url in cursor.fetchall()]
-    print(server_list)
-    
-    emit('chat log',chat_logs)
-    emit('server list', server_list)
+    emit('chat log',chat_log)
+    emit('server info',{'server_list':server_list, "server_users":server_users})
     emit('user joined', {'username':username, 'numUsers':len(rooms)}, broadcast=True, include_self=False)
    
 
@@ -61,19 +139,21 @@ def connect():
 @socketio.on('join server', namespace='/')
 def join_server(data):
     # get chat logs for server
-    join_room = data['roomID']
+    join_room = int(data['roomID'])
+    print(join_room)
     username = data['username']
-    print(data)
-    conn= mysql.connect()
-    cursor = conn.cursor()
-    sql_room_chat = """select u.username, m.message, g.room_name 
-                       from messages m join users u on m.user_id = u.user_id 
-                       join groups g on g.room_id =m.room_id where g.room_id = %s;"""
-
-    sql_room_where = (join_room, )
-    cursor.execute(sql_room_chat, sql_room_where)
-    room_chat_log = [{'username':username, 'message':message, 'room_name' :room_id} for username, message, room_id in cursor.fetchall()]
+    session['last_room'] = join_room
+    user_obj = session['user_obj']
+    user_obj.current_room = join_room
     
+    rooms[join_room][username] = user_obj
+    print_rooms()
+    # get chat logs (list of dictionaries) 
+    room_chat_log = DB_get_chat_logs(join_room)
+    # get users for room
+    server_users = DB_get_server_users(join_room)
+    
+    cursor= conn.cursor()
     #update user info (current room) 
     sql_update_user_room = "UPDATE  users SET last_room_id = (%s) where username = %s ;"
     sql_room_value = (join_room, username, )
@@ -81,39 +161,37 @@ def join_server(data):
     conn.commit()
     cursor.close()
 
-    emit('chat log', room_chat_log)
-    print(room_chat_log)
+    emit('join server', {"chat_log":room_chat_log, "server_users":server_users})
+
+
 @socketio.on('new message',namespace='/')
-def text(message):
+def text(msg_data):
     """Sent by a client when the user entered a new message.
     The message is sent to all people in the room."""
-    print('room is')
-    
-    room = session.get('room')
+    message=msg_data['message']
     sender_name = session.get('user')
-    user_id = session.get('id')
-    sender =rooms[sender_name]
-    # message_record = Message(message=message)
-    conn= mysql.connect()
-    cursor = conn.cursor()
-    sql_message= 'INSERT INTO messages (user_id , message) VALUES (%s, %s);'
-    sql_params = (user_id, message,)
-    cursor.execute(sql_message,sql_params)
-    conn.commit()
-    cursor.close()
-    conn.close()
+    user_id = int(session.get('id'))
+    room_id = session['last_room']
+    sender =rooms[room_id][sender_name]
+
+    DB_insert_msg(user_id, message, room_id)
     
     # Iterate through rooms and emit messagfasdfe to usersocket 
-    for username, receiver in rooms.items():
-        if receiver.language != sender.language:
-            print('not same language')
-            translated_msg = try_translate(message,sender.language, receiver.language)
-            # if successful, transmit
-            if translated_msg:
-                message=translated_msg
-        # sender renders message to chat using js on enter key, ignore them for now
-        if receiver.socketID != sender.socketID:
-            emit('new message', {'username': sender_name, "message":message}, room=receiver.socketID)
+    for username, receiver in rooms[room_id].items():
+        if receiver.current_room == room_id:
+            if receiver.language != sender.language:
+                print('not same language')
+                translated_msg = try_translate(message,sender.language, receiver.language)
+                # if successful, transmit
+                if translated_msg:
+                    message=translated_msg
+            # sender renders message to chat using js on enter key, ignore them for now
+            
+            emit('new message', {'username': sender_name, "message":message}, include_self=False, room=receiver.socket_id)
+
+
+        # else:
+            # emit('notify user', {'username': sender_name, "message":message}, include_self=False, room=receiver.socket_id)
 
     # db.session.add(message_record)
     # db.session.commit()
@@ -132,11 +210,19 @@ def update_language(language):
 
 @socketio.on('typing',namespace='/')
 def user_typing():
-    emit('typing', { 'username':session['user'] }, broadcast=True, include_self=False)
+    room_id = session['last_room']
+    print(room_id)
+    for username, receiver in rooms[room_id].items():
+        if receiver.current_room == room_id:
+            emit('typing', { 'username':session['user'] }, include_self=False, room=receiver.socket_id)
 
 @socketio.on('stop typing',namespace='/')
 def user_stopped_typing():
-    emit('stop typing', { 'username':session['user'] }, broadcast=True, include_self=False)
+    room_id = session['last_room']
+    print(room_id)
+    for username, receiver in rooms[room_id].items():
+        if receiver.current_room == room_id:
+            emit('stop typing', { 'username':session['user'] }, broadcast=True, include_self=False)
 
 @socketio.on('disconnect',namespace='/' )
 def disconnect():
@@ -150,9 +236,6 @@ def disconnect():
     print('client disconnected')
 
 
-import uuid
-from flask import current_app
-import os
 @socketio.on('start-transfer', namespace='/')
 def start_transfer(filename, size):
     """Process an upload request from the client."""
