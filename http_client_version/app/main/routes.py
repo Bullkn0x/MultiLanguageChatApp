@@ -104,13 +104,13 @@ def forgetpassword():
             conn.commit()
             cursor.close()
 
-            token = s.dumps(email, salt='email-confirm')
+            # token = s.dumps(email, salt='email-confirm')
 
             msg = Message(subject='Password Reset Confirmation', sender='anychatio@gmail.com', recipients=[email])
 
-            link = url_for('.confirm_email', token=token, external=True)
+            # link = url_for('.confirm_email', token=token, external=True)
 
-            msg.html = render_template('passwordresetconfirmation.html', generated_password=generated_password, username=username,link=link)
+            msg.html = render_template('passwordresetconfirmation.html', generated_password=generated_password, username=username)
             mail.send(msg)
             return render_template('redirect.html', error=error)
             
