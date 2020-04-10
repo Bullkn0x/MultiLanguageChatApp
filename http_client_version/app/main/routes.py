@@ -117,6 +117,7 @@ def forgetpassword():
         else:
             error = 'Invalid Email! Please try again.'
             print(error)
+            return render_template('forgetpassword.html', error=error)
         
     return render_template('forgetpassword.html', error=error)
 
@@ -150,10 +151,8 @@ def signup():
         conn.commit()
         cursor.close()
 
-        session['user'] = username
-
-
         #Create token for email confirmation from serializer
+        
         token = s.dumps(email, salt='email-confirm')
     
         msg = Message(subject='Confirm Your Email', sender='anychatio@gmail.com', recipients=[email])
