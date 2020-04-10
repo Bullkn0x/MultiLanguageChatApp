@@ -15,6 +15,7 @@ def create_app(debug=False):
     """Create an application."""
     app = Flask(__name__)
     app.config['FILEDIR'] = 'app/static/_files/'
+    app.config['CDN_URL'] = 'http://d1cpyz6yyb1kha.cloudfront.net'
     app.config['SECRET_KEY'] = 'gjr39dkjn344_!67#'
     app.config['MYSQL_DATABASE_USER'] = 'anychatdev'
     app.config['MYSQL_DATABASE_PASSWORD'] = 'anychatadmin'
@@ -23,7 +24,7 @@ def create_app(debug=False):
     app.config['MYSQL_DATABASE_CHARSET'] = 'utf8mb4'
     app.config.from_pyfile('config.cfg')
     mysql.init_app(app)
-
+    
     mail.init_app(app)
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)

@@ -2,12 +2,12 @@ from flask import session, request,Response, redirect, current_app
 from flask_socketio import emit, join_room, leave_room, rooms
 from .. import socketio
 from .utils import try_translate
+from .awsHelper import upload_file
 from ..models.user import User
 from .. import mysql
-from json import JSONEncoder, dumps
+from json import JSONEncoder, dumps, dump
 import uuid
 import os
-
 # populate room info
 conn = mysql.connect()
 cursor = conn.cursor()
@@ -107,8 +107,8 @@ def connect():
     socket_id = request.sid
     user_id = session['id']
     username = session['user']
-    last_room = session['last_room']
-    
+    last_room = session['last_room'] or 1
+
     # get users for room
     server_users = DB_get_server_users(last_room)
     # Get users server list
@@ -116,21 +116,28 @@ def connect():
     # Create user object
     new_user = User(username=username,socket_id=socket_id, current_room=last_room)
     session['user_obj'] = new_user
+    
 
+    # Not in any servers add to general chat
+    if len(server_list) == 0:
+        rooms[1][username] =new_user
     # Add user to rooms they subscribe too 
+    
     for server in server_list:
         room_id = server['room_id'] 
         rooms[room_id][username] = new_user
     
+
     # DEBUG PRINTING
     print_user_details(user_id,username,socket_id,last_room)
     print_rooms()
-
+    session['last_room'] =new_user.current_room
     emit('login', {'username' : username, 'numUsers':len(rooms)})
 
     chat_log = DB_get_chat_logs(last_room)
+    print('chatlog',chat_log)
 
-    emit('chat log',chat_log)
+    emit('join server', {"chat_log":chat_log, "server_users":server_users})
     emit('server info',{'server_list':server_list, "server_users":server_users})
     emit('user joined', {'username':username, 'numUsers':len(rooms)}, broadcast=True, include_self=False)
    
@@ -163,6 +170,15 @@ def join_server(data):
 
     emit('join server', {"chat_log":room_chat_log, "server_users":server_users})
 
+
+@socketio.on('private message',namespace='/')
+def text(msg_data):
+    receiver = msg_data['recipient']
+    message=msg_data['message']
+    sender_name = session.get('user')
+    user_id = int(session.get('id'))
+    room_id = session['last_room']
+    receiver = rooms[room_id]
 
 @socketio.on('new message',namespace='/')
 def text(msg_data):
@@ -246,7 +262,7 @@ def start_transfer(filename, size):
     id = uuid.uuid4().hex  # server-side filename
     print(id)
     with open(current_app.config['FILEDIR'] + id + '.json', 'wt') as f:
-        json.dump({'filename': filename, 'size': size}, f)
+        dump({'filename': filename, 'size': size}, f)
     with open(current_app.config['FILEDIR'] + id + ext, 'wb') as f:
         pass
     return id + ext  # allow the upload
@@ -261,6 +277,20 @@ def write_chunk(filename, offset, data):
         with open(current_app.config['FILEDIR'] + filename, 'r+b') as f:
             f.seek(offset)
             f.write(data)
+        # upload_file(fileloc, 'anychatio', '{}/{}'.format(filename))
     except IOError:
         return False
     return True
+
+    
+@socketio.on('upload', namespace='/')
+def put_s3(filename):
+    room_id=session['last_room']
+    print(room_id)
+    print('File ready', filename)
+    fileloc= os.path.join(os.path.normpath(current_app.root_path), 'static/_files/')+filename
+    upload_file(fileloc, 'anychatio', '{}/{}'.format(room_id, filename))
+    file_url = '/'.join([current_app.config['CDN_URL'],str(room_id),filename])
+    for username, receiver in rooms[room_id].items():
+        if receiver.current_room == room_id:
+            emit('file link', {'file_url':file_url})

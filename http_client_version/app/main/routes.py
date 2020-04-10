@@ -4,6 +4,7 @@ from . import main
 from secrets import token_urlsafe
 from .. import mysql, mail
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired
+from werkzeug.security import generate_password_hash as hash_pass, check_password_hash as check_pass
 import random
 import string
 
@@ -27,8 +28,8 @@ def login():
     conn=None
     cursor = None
     error = None
-    if 'user' in request.cookies:
-        username = request.cookies.get('user')
+    if 'u_id' in request.cookies:
+        username = request.cookies.get('u_id')
         password = request.cookies.get('pwd')
         session['user'] = username
         return redirect('/')
@@ -40,23 +41,22 @@ def login():
         remember = request.form.getlist('remember')
         conn = mysql.connect()
         cursor = conn.cursor()
-        sql = 'SELECT * FROM users WHERE email=%s or username=%s AND password=%s'
+        sql = 'SELECT * FROM users WHERE email=%s or username=%s'
         # prevent sql injection
-        sql_where = (email_or_username, email_or_username, password, )
+        sql_where = (email_or_username, email_or_username, )
         # execute query
         cursor.execute(sql, sql_where)
         db_user = cursor.fetchone()
         cursor.close()
-        if db_user and password == db_user['password']:
+        if db_user and check_pass(db_user['password'], password):
             session['user'] = db_user['username']   #put username in session
             session['id'] = db_user['user_id']
             session['last_room'] =db_user['last_room_id']
             resp = make_response(redirect('/'))
             # cookieid= token_urlsafe(16)
-            print(remember)
             if remember:
                 resp.set_cookie('u_id',db_user['username'], max_age=COOKIE_TIME_OUT,expires=COOKIE_TIME_OUT)
-                resp.set_cookie('password',password, max_age=COOKIE_TIME_OUT, expires=COOKIE_TIME_OUT)
+                resp.set_cookie('pwd',password, max_age=COOKIE_TIME_OUT, expires=COOKIE_TIME_OUT)
                 resp.set_cookie('rem', 'yes',  max_age=COOKIE_TIME_OUT,expires=COOKIE_TIME_OUT)
             return resp
         else:
@@ -145,7 +145,7 @@ def signup():
             return render_template('signup.html', error=error)
 
         add_user= 'INSERT INTO users (username, email, password) VALUES (%s, %s, %s);'
-        sql_values = (username, email, password,)
+        sql_values = (username, email, hash_pass(password,method='sha256'),)
         cursor.execute(add_user, sql_values)
         conn.commit()
         cursor.close()
@@ -158,8 +158,8 @@ def signup():
     
         msg = Message(subject='Confirm Your Email', sender='anychatio@gmail.com', recipients=[email])
 
-        link = url_for('.confirm_email', token=token, external=True)
-
+        link = 'http://localhost:8000'+url_for('main.confirm_email', token=token, external=True)
+        print(link)
         msg.body = f'Your link is <h6>HERE</h6> {link}'
         msg.html = render_template('confirmationEmail.html', username=username, link=link)
         mail.send(msg)
@@ -173,6 +173,15 @@ def signup():
 def confirm_email(token):
     try:
         email = s.loads(token, salt='email-confirm', max_age=60)
+        conn=mysql.connect()
+        cursor = conn.cursor()
+        sql_confirmed_user = 'UPDATE users SET confirmed_email=True where email=%s;'
+        sql_where= (email,)
+        cursor.execute(sql_confirmed_user, sql_where)
+        conn.commit()
+        cursor.close()
+        conn.close()
+
     except SignatureExpired:
         return 'Token Expired'
 
