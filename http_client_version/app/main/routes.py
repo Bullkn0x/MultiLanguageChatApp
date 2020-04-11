@@ -98,7 +98,8 @@ def forgetpassword():
             email = db_user['email']
             updatequery='UPDATE users SET password=%s WHERE user_id=%s'
             generated_password = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(10))
-            sql_update=(generated_password,db_user['user_id'],)
+            
+            sql_update=(hash_pass(generated_password,method='sha256'), db_user['user_id'],)
             print('generated password: '+ generated_password)
             cursor.execute(updatequery,sql_update)
             conn.commit()
