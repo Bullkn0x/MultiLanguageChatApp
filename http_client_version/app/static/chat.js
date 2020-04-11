@@ -36,20 +36,7 @@ $(function() {
     rememberTransport: false,
   });
   
-  $('.online').click(function(){
-    if (sideBarActive){
-    $('.chatArea').animate({width:"100%"},350);
-    $('.userList').animate({width:"0%"},350);
 
-    sideBarActive =false
-    }
-    else {
-      $('.chatArea').animate({width:"90%"},350);
-      $('.userList').animate({width:"10%"},350);
-      sideBarActive = true
-    }
-    
-  })
 
 
   
@@ -350,6 +337,7 @@ function onReadSuccess(file, offset, length, data) {
       this.progress.classList.add('complete');
       this.progress.classList.remove('in-progress');
       this.done = true;
+      socket.emit('upload', this.server_filename)
   }
 }
 
@@ -448,6 +436,7 @@ upload.onclick = function() {
     $messages.html('');
     $usersList.html('');
     messages = data.chat_log;
+    console.log(messages);
     var room_id = messages[0].room_id; 
     $messages.attr('room_id', room_id)
     messages.forEach(function(data) {
@@ -516,7 +505,12 @@ upload.onclick = function() {
   socket.on('stop typing', function (data) {
     removeChatTyping(data);
   });
+  socket.on('file link', function (data) {
+    console.log(data.file_url);
+  });
+  
 });
+
 
 
 

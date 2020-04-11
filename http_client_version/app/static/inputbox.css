@@ -1,0 +1,71 @@
+.toolsButton{
+  text-align:center;
+  line-height:45px;
+  font-size:30px;
+  color:white;
+  background-color:rgba(255,255,255,.4);
+  border-radius:50%;
+  width:45px;
+  height:45px;
+  position:absolute;
+  left:15px;
+  top:12px;
+  cursor:pointer;
+  transition: all .6s ease;
+  transform: rotate(0deg);
+}
+
+.toolsButton-rotate{
+  transform: rotate(45deg);
+}
+
+input{
+  border:0;
+  background-color:rgba(255,255,255,.4);
+  position:absolute;
+  left:70px;
+  top:12px;
+  font-size:16px;
+  padding:13px;
+  color:white;
+  border-radius:60px;
+  transform-origin: -40px 0px;
+  width:170px !important;
+  transition:all .6s ease;
+}
+
+.rotate-input{
+  transform:rotate(-90deg);
+  transition:all .6s ease;
+}
+
+input::placeholder { 
+    color: rgba(255,255,255,.8); 
+} 
+
+.icon-b{
+  color:white;
+  background-color:rgba(255,255,255,.4);
+  border-radius:50%;
+  width:45px;
+  height:45px;
+  line-height:45px;
+  font-size:18px;
+  text-align:center;
+  display:inline-block;
+  margin-left:22px;
+}
+
+.tools{
+  position:absolute;
+  left:52px;
+  top:11px;
+  transform-origin: -30px 20px;
+  transform:rotate(90deg);
+  transition:all .6s ease;
+}
+
+.tools-rotate{
+  transform:rotate(0deg);
+  transition:all .6s ease;
+}
