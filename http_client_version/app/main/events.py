@@ -284,13 +284,16 @@ def write_chunk(filename, offset, data):
 
     
 @socketio.on('upload', namespace='/')
-def put_s3(filename):
+def put_s3(file_data):
+    filename = file_data['server_filename']
+    file_title = file_data['file_title']
     room_id=session['last_room']
+    sender_name = session.get('user')
     print(room_id)
-    print('File ready', filename)
+    print('File ready', filename, file_title)
     fileloc= os.path.join(os.path.normpath(current_app.root_path), 'static/_files/')+filename
     upload_file(fileloc, 'anychatio', '{}/{}'.format(room_id, filename))
     file_url = '/'.join([current_app.config['CDN_URL'],str(room_id),filename])
     for username, receiver in rooms[room_id].items():
         if receiver.current_room == room_id:
-            emit('file link', {'file_url':file_url})
+            emit('file link', {'username': sender_name, 'file_url':file_url, 'filename': file_title})

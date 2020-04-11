@@ -17,6 +17,8 @@
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
 <link rel="stylesheet" href="{{url_for('static', filename='sidebar.css')}}">
 <link rel="stylesheet" href="{{url_for('static', filename='userlist.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='filebox.css')}}">
+
 <!-- End -->
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
 
@@ -156,29 +158,25 @@
                 <!-- MAIN -->
                 <div class="col" style="height: 100%;">
                     
-            <div class="chatArea">
-                
-                <ul class="messages"></ul>
+                        <div class="chatArea">
+                            
+                            <ul class="messages"></ul>
 
-            </div>
-          
-            <div class="inputContainer">
-                <i class="large material-icons buttons">add</i>
-                <input class="inputMessage" id="dropzone" placeholder="Type here or drag file to upload..." />
-                <i class="large material-icons buttons emojiZone">insert_emoticon</i>
-            </div>
-            <button id="upload">Upload files</button>
-            <div id='filelist'></div>
+                        </div>
+                    
+                        <div class="inputContainer">
+                            <i class="large material-icons buttons">add</i>
+                            <input class="inputMessage" id="dropzone" placeholder="Type here or drag file to upload..." />
+                            <i class="large material-icons buttons emojiZone">insert_emoticon</i>
+                        </div>
+                        <button id="upload">Upload files</button>
+                        <div id='filelist'></div>
 
-            <a href="/download">TEST</a>
-            
-          
-          
-          
-          </div>
+                        <a href="/download">TEST</a>
+                </div>
 
           <div class="userList left-right">
-          <div class="col demo">
+          <div class="demo">
             <svg class="sidebar" viewBox="-300 0 300 500">
               <path transform="scale(-1, 1)" class="s-path" fill="#333" d="M0,0 50,0 a0,250 0 1,1 0,500 L0,500" />
             </svg>
@@ -219,6 +217,14 @@
         </li>
 
     </ul>
+    <!-- filebox -->
+    <script>
+        
+    </script>
+  
+    <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/gsap-latest-beta.min.js'></script>
+
+
 
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-1.10.2.min.js" ></script>

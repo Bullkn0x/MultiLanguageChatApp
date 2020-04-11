@@ -6,6 +6,10 @@
 #body-row {
     margin-left:0;
     margin-right:0;
+    display: grid;
+    grid-template: auto / 230px 85%;
+
+
 }
 #sidebar-container {
     min-height: 100vh;   
