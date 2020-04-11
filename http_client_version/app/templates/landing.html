@@ -23,7 +23,20 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/js/ckeditor/plugins/tableselection/styles/tableselection.css')}}">
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/js/ckeditor/plugins/wsc/skins/moono-lisa/wsc.css')}}">
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/js/ckeditor/plugins/copyformatting/styles/copyformatting.css')}}">
+    
   </head>
+  
+
+  {% if success %}
+  <div class="alert alert-success alert-dismissible fade show in text-center" role="alert">
+    <strong>{{success}}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+    {% endif %}
+
   <body> 
     <div class="theme-landing">
       <!-- header start //-->

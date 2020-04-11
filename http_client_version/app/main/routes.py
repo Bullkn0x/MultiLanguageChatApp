@@ -178,13 +178,13 @@ def confirm_email(token):
         sql_where= (email,)
         cursor.execute(sql_confirmed_user, sql_where)
         conn.commit()
+        success='Email Verified! Please login!'
         cursor.close()
-        conn.close()
-
+        
     except SignatureExpired:
         return 'Token Expired'
 
-    return 'Token worked!!! YOU ARE IN'
+    return render_template('landing.html', success=success)
 
 
 @main.route('/chat', methods=['GET', 'POST'])
