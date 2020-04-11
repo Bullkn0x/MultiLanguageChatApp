@@ -23,15 +23,157 @@
 <!-- End -->
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
 
+<!-- modal -->
+<style>
+    .modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  z-index: 9999;
+}
 
+/* Modal Content */
+.modal-content {
+  background-color: #333;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #333;
+  width: 80%;
+  height: 80%;
+  color: grey;
+}
+
+.modal-content > p {
+    text-align: center;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* modal content */
+/*
+  https://developer.mozilla.org/en/docs/Web/CSS/box-shadow
+  box-shadow: [inset?] [top] [left] [blur] [size] [color];
+
+  Tips:
+    - We're setting all the blurs to 0 since we want a solid fill.
+    - Add the inset keyword so the box-shadow is on the inside of the element
+    - Animating the inset shadow on hover looks like the element is filling in from whatever side you specify ([top] and [left] accept negative values to become [bottom] and [right])
+    - Multiple shadows can be stacked
+    - If you're animating multiple shadows, be sure to keep the same number of shadows so the animation is smooth. Otherwise, you'll get something choppy.
+*/
+
+
+
+
+
+.slide:hover,
+.slide:focus {
+  box-shadow: inset 10.5em 0 0 0 var(--hover);
+}
+
+
+
+
+.slide {
+  --color: #8fc866;
+  --hover: #66c887;
+}
+
+
+button {
+  color: var(--color);
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+button:hover, button:focus {
+  border-color: var(--hover);
+  color: #fff;
+}
+
+
+
+button {
+  background: none;
+  border: 2px solid;
+  font: inherit;
+  line-height: 1;
+  margin: 0.5em;
+  padding: 4em 4em;
+}
+
+h1 {
+  font-weight: 400;
+}
+
+.joinServerList {
+    display: grid;
+    grid-template: auto / auto auto auto auto;
+
+}
+
+</style>
 </head>
 
 <body style="font-family: 'Zilla Slab', serif;">
-
     <ul class="pages">
-
         <li class="chat page">
 
+
+<!-- The Modal -->
+            <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p>Public Hangout spots to chat out</p>
+
+                <div class="joinServerList">
+                    <div class="buttons">
+                        <button class="slide">Slide</button>
+                    </div>
+                    <div class="buttons">
+                        <button class="slide">Slide</button>
+                    </div>
+                    <div class="buttons">
+                        <button class="slide">Slide</button>
+                    </div>
+                    <div class="buttons">
+                        <button class="slide">Slide</button>
+                    </div>
+                    <div class="buttons">
+                        <button class="slide">Slide</button>
+                    </div>
+                    <div class="buttons">
+                        <button class="slide">Slide</button>
+                    </div>
+                    <div class="buttons">
+                        <button class="slide">Slide</button>
+                    </div>
+                </div>
+            </div>
+           
+            </div>
+           
             <!-- Nav Start -->
             <div class="navcontainer">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
@@ -84,6 +226,40 @@
                         </li>
                         <!-- /END Separator -->
                         <!-- Menu with submenu -->
+                        <a id="myBtn" href="#" class="bg-dark list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fa fa-plus fa-fw mr-3"></span>
+                                <span class="menu-collapsed">Add Server</span>
+                            </div>
+                        </a>
+
+                        <script>
+                            // Get the modal
+                            var modal = document.getElementById("myModal");
+                            
+                            // Get the button that opens the modal
+                            var btn = document.getElementById("myBtn");
+                            
+                            // Get the <span> element that closes the modal
+                            var span = document.getElementsByClassName("close")[0];
+                            
+                            // When the user clicks the button, open the modal 
+                            btn.onclick = function() {
+                              modal.style.display = "block";
+                            }
+                            
+                            // When the user clicks on <span> (x), close the modal
+                            span.onclick = function() {
+                              modal.style.display = "none";
+                            }
+                            
+                            // When the user clicks anywhere outside of the modal, close it
+                            window.onclick = function(event) {
+                              if (event.target == modal) {
+                                modal.style.display = "none";
+                              }
+                            }
+                            </script>
                         <a href="#submenu1" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fa fa-dashboard fa-fw mr-3"></span> 
@@ -93,7 +269,11 @@
                         </a>
                         <!-- Submenu content -->
                         <div id='submenu1' class="serverList collapse sidebar-submenu">
-                        
+                            
+                            <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+                                <span id="myBtn" >Add Server</span>
+                            </a>
+
                         </div>
                         <a href="#submenu2" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
                             <div class="d-flex w-100 justify-content-start align-items-center">

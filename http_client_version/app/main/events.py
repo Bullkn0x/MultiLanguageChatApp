@@ -88,8 +88,7 @@ def DB_get_server_users(room_id):
                         rooms r 
                         join room_users ru on
                             ru.room_id = r.room_id
-                        join users u on ru.user_id = u.user_id 
-                        where
+                        join users u on ru.user_id = u.user_id and 
                             r.room_id = %s;"""
     sql_where = (room_id, )
     cursor.execute(sql_server_users, sql_where)
@@ -99,7 +98,18 @@ def DB_get_server_users(room_id):
 
     return server_users
 
+def DB_get_public_servers():
+    cursor = conn.cursor()
+    SQL_GET_SERVERS = """SELECT
+                         room_id, room_name, room_logo_url
+                         FROM 
+                         rooms
+                         where public_access = True and room_id > 1 ;
+                        """
+    cursor.execute(SQL_GET_SERVERS)
+    public_servers = cursor.fetchall()
 
+    return public_servers
 
 @socketio.on('connect', namespace='/')
 def connect():
@@ -141,6 +151,14 @@ def connect():
     emit('server info',{'server_list':server_list, "server_users":server_users})
     emit('user joined', {'username':username, 'numUsers':len(rooms)}, broadcast=True, include_self=False)
    
+@socketio.on('query servers', namespace='/')
+def query_server():
+    socket_id = request.sid
+
+    server_suggestions = DB_get_public_servers()
+
+    emit('query servers', {"servers": server_suggestions} ,room=socket_id)
+
 
 
 @socketio.on('join server', namespace='/')

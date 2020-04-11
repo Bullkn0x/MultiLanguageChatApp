@@ -18,6 +18,7 @@
 <link rel="stylesheet" href="{{url_for('static', filename='sidebar.css')}}">
 <link rel="stylesheet" href="{{url_for('static', filename='userlist.css')}}">
 <link rel="stylesheet" href="{{url_for('static', filename='filebox.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='modal.css')}}">
 
 <!-- End -->
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
@@ -31,7 +32,19 @@
     <ul class="pages">
 
         <li class="chat page">
+            <!-- The Modal -->
+            <div id="myModal" class="modal">
 
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p>Public Hangout spots to chat out</p>
+    
+                    <div class="joinServerList">
+                    </div>
+                </div>
+               
+                </div>
             <!-- Nav Start -->
             <div class="navcontainer">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
@@ -84,6 +97,13 @@
                         </li>
                         <!-- /END Separator -->
                         <!-- Menu with submenu -->
+                        <a id="addServer" href="#" class="bg-dark list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fa fa-plus fa-fw mr-3"></span>
+                                <span class="addServer">Add Server</span>
+                            </div>
+                        </a>
+                        
                         <a href="#submenu1" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fa fa-dashboard fa-fw mr-3"></span> 
@@ -218,10 +238,8 @@
 
     </ul>
     <!-- filebox -->
-    <script>
-        
-    </script>
-  
+
+    <scirp
     <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/gsap-latest-beta.min.js'></script>
 
 
@@ -258,6 +276,8 @@
 <script src="{{url_for('static', filename='sidebar.js')}}"></script>
 <script src="{{url_for('static', filename='chat.js')}}"></script>
 <script src="{{url_for('static', filename='userlist.js')}}"></script>
+<script src="{{url_for('static', filename='modal.js')}}"></script>
+
 
 
 <!-- End -->

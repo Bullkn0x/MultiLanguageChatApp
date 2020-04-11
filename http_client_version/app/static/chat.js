@@ -22,6 +22,8 @@ $(function() {
   var $languagePref = $('#language');
   var $serverList = $('.serverList');
   var $usersList = $('.sidebar-content');
+  var $addServerModal = $('#addServer');
+  var $modalServerList = $('.joinServerList');
   var currentRoom; 
   var sideBarActive = false;
   // Prompt for setting a username
@@ -57,6 +59,11 @@ $(function() {
     socket.emit('change language',language);
   }
   
+// Server Modal 
+  $addServerModal.on('click', function(){
+    socket.emit('query servers');
+  })
+
 
 // Handle ServerList Clicks
     $(".serverList").on('click', 'a', function(){
@@ -614,6 +621,19 @@ upload.onclick = function() {
   socket.on('file link', function (data) {
     console.log(data.file_url);
     addChatMessage(data, {file: true});
+  });
+
+  socket.on('query servers', function (data) {
+    data.servers.forEach( function(server) {
+      $serverImg = $('<img />').attr("src" ,server.room_logo_url);
+      $button = $('<button class="slide"/>').append($serverImg);
+      $buttonDiv = $('<div class ="buttons" />').append($button);
+      $modalServerList.append($buttonDiv);
+
+
+      console.log(server);
+    })
+    
   });
   
 });
