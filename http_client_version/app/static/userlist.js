@@ -1,21 +1,7 @@
 $(document).ready(function() {
-  var sideBarActive =false;
-  $('.chats__back').click(function(){
-    if (sideBarActive){
-    $('.chatArea').animate({width:"100%"},350);
-    $('.userList').animate({width:"0%"},350);
 
-    sideBarActive =false
-    }
-    else {
-      $('.chatArea').animate({width:"90%"},350);
-      $('.userList').animate({width:"10%"},350);
-      sideBarActive = true
-    }
-    
-  })
     var $svg = $(".sidebar"),
-        $demo = $(".demo"),
+        $demo = $(".usersOnline"),
         $path = $(".s-path"),
         $sCont = $(".sidebar-content"),
         $chat = $(".chats"),
@@ -28,7 +14,7 @@ $(document).ready(function() {
         animTime = 600,
         sContTrans = 200,
         animating = false;
-  
+    console.log(demoLeft);
     var easings = {
       smallElastic: function(t,b,c,d) {
         var ts = (t/=d)*t;
@@ -100,33 +86,16 @@ $(document).ready(function() {
   
     function handlers1() {
   
-      $(document).on("mousedown touchstart", ".s-path", function(e) {
-        var startX =  e.pageX || e.originalEvent.touches[0].pageX;
-  
-        $(document).on("mousemove touchmove", function(e) {
-          var x = e.pageX || e.originalEvent.touches[0].pageX;
-          diffX = startX - x;
-          if (diffX < 0) diffX = 0;
-          if (diffX > 300) diffX = 300;
-          curX = Math.floor(diffX/2);
-          $path.attr("d", newD(curX));
-        });
-      });
-  
-      $(document).on("mouseup touchend", function() {
-        $(document).off("mousemove touchmove");
-        if (animating) return;
-        if (!diffX) return;
-        if (diffX < 40) {
-          animatePathD($path, newD(0), animTime, true);
-        } else {
+      
+      $('.online').toggle("click", function() {
+       
           animatePathD($path, finalD, animTime, false, function() {
             $sCont.addClass("active");
             setTimeout(function() {
               $(document).on("click", closeSidebar);
             }, sContTrans);
           });
-        }
+        
       });
   
     }
@@ -161,10 +130,7 @@ $(document).ready(function() {
           left = $img.offset().left - demoLeft,
           $clone = $img.clone().addClass("cloned");
   
-      $clone.css({top: top, left: left});
-      $demo.append($clone);
-      $clone.css("top");
-      $clone.css({top: "1.8rem", left: "25rem"});
+      $('.chats').prepend($clone);
     }
   
     function ripple(elem, e) {
@@ -178,19 +144,15 @@ $(document).ready(function() {
     }
   
     $(document).on("click", ".contact", function(e) {
-      if (animating) return;
-      animating = true;
-      $(document).off("click", closeSidebar);
       var that = this,
           name = $(this).find(".contact__name").text(),
           online = $(this).find(".contact__status").hasClass("online");
       $(".chats__name").text(name);
-      $(".chats__online").removeClass("active");
+      $(".chats__online");
       if (online) $(".chats__online").addClass("active");
       ripple($(that),e);
       setTimeout(function() {
         $sCont.removeClass("active");
-        moveImage(that);
         finalX = -80;
         setTimeout(function() {
           $(".ripple").remove();
@@ -202,6 +164,7 @@ $(document).ready(function() {
               $chat.css("top");
               $chat.addClass("active");
               animating = false;
+              moveImage(that);
             });
           }, "inCubic");
         }, sContTrans);
@@ -216,7 +179,6 @@ $(document).ready(function() {
       setTimeout(function() {
         $(".cloned").remove();
         $chat.hide();
-        finalX = 100;
         animatePathD($path, clickMidDRev, animTime/3, false, function() {
           curX = 100;
           finalX = 0;
@@ -230,8 +192,6 @@ $(document).ready(function() {
     });
   
     $(window).on("resize", function() {
-      demoTop = $demo.offset().top;
-      demoLeft = $demo.offset().left;
     });
   
   });

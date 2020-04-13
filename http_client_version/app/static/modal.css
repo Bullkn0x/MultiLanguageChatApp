@@ -1,3 +1,4 @@
+
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -107,8 +108,16 @@
   }
   
    .joinServerList {
-    justify-items: end;
-      display: grid;
-      grid-template: auto / auto auto auto auto;
+    justify-items: center;
+    display: grid;
+    grid-template: auto / auto auto auto auto;
+    height: 75%;
+    overflow-y: scroll;
   
   }
+
+
+  
+
+
+  /* submit button */

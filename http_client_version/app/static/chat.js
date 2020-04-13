@@ -40,7 +40,10 @@ $(function() {
   
 
 
-
+  $('input').on('click', function(){
+    $currentInput = $(this);
+    console.log($currentInput);
+  });
   
   function updateOnline (data) {
     $('#onlineUsers').append('<li>'+data.username+'</li>');
@@ -73,10 +76,6 @@ $(function() {
         "username": username,
         "roomID" : joinRoomID,
         "room" : joinRoom
-      });
-
-      log("You are chatting in "+ joinRoom, {
-        prepend: true
       });
 
     });
@@ -353,6 +352,7 @@ $(function() {
   // Keyboard events
 
   $window.keydown(function (event) {
+    console.log(event.target.className);
     // Auto-focus the current input when a key is typed
     if (!(event.ctrlKey || event.metaKey || event.altKey)) {
       $currentInput.focus();
@@ -623,11 +623,17 @@ upload.onclick = function() {
     addChatMessage(data, {file: true});
   });
 
+
+
+  // Server Modal Actions
+
+// Populate the modal on Click
   socket.on('query servers', function (data) {
     data.servers.forEach( function(server) {
       $serverImg = $('<img />').attr("src" ,server.room_logo_url);
       $button = $('<button class="slide"/>').append($serverImg);
-      $buttonDiv = $('<div class ="buttons" />').append($button);
+      $serverInfo =  $('<div/>').css('color','#17a2b8').html(server.room_name);
+      $buttonDiv = $('<div class ="buttons" />').append($button,$serverInfo);
       $modalServerList.append($buttonDiv);
 
 

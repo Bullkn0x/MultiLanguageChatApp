@@ -145,7 +145,6 @@ def connect():
     emit('login', {'username' : username, 'numUsers':len(rooms)})
 
     chat_log = DB_get_chat_logs(last_room)
-    print('chatlog',chat_log)
 
     emit('join server', {"chat_log":chat_log, "server_users":server_users})
     emit('server info',{'server_list':server_list, "server_users":server_users})

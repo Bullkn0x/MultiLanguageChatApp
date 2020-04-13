@@ -113,6 +113,7 @@
   }
   
   .inputMessage {
+    width: 90%;
     font-size: 100%;
   }
   
@@ -127,6 +128,7 @@
   
   .chatArea {
     height: 86.9%;
+    margin-left:16px;
   }
   
   .messages {
@@ -153,8 +155,7 @@
 
   /* input message box */
 .inputContainer {
-  display: grid;
-  grid-template: 32px auto / auto 95% auto;
+  display: flex;
   background-color: #2196F3;
   padding: 10px 0 10px 0 ;
   border-radius: 8px;
@@ -167,3 +168,21 @@
   text-align: center;
   color: white;
 }
+
+.components {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+ }
+ 
+ .flex-grow {
+   flex-grow: 1;
+ }
+
+ .usersOnline {
+   width: 230px;
+ }
