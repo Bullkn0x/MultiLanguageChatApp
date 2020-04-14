@@ -550,22 +550,23 @@ upload.onclick = function() {
     $usersList.html('');
     messages = data.chat_log;
     console.log(messages);
-    var room_id = messages[0].room_id; 
+    var room_id = data.server_id; 
+    var room_name = data.server_name;
     $messages.attr('room_id', room_id)
     messages.forEach(function(data) {
       
       addChatMessage(data)
     });
-    var join_room_message = "You have joined " + messages[0].room_name ;
+    var join_room_message = "You have joined " + room_name;
     log(join_room_message, {
       prepend: true
     });
     data.server_users.forEach(function(user) {
       var $userImg = $('<img />',{"class":"contact__photo"}).attr("src" ,'https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/elastic-man.png');
       var $username = $('<span/>', {"class":"contact__name"}).text(user.username);
-      var $userStatus = $('<span/>' , {"class":"contact__status online"});
+      var $userStatus = $('<span/>' , {"class":"contact__status"}).addClass(user.status);
       var $userDiv = $(' <div/>', {"class":"contact"}).attr('user_id', user.user_id).append($userImg).append($username).append($userStatus);
-        
+      if (user.status == 'offline') $userDiv.css('opacity', 0.2);
       console.log($userDiv.text())
       $usersList.append($userDiv);
     });
@@ -593,9 +594,10 @@ upload.onclick = function() {
     data.server_users.forEach(function(user) {
       var $userImg = $('<img />',{"class":"contact__photo"}).attr("src" ,'https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/elastic-man.png');
       var $username = $('<span/>', {"class":"contact__name"}).text(user.username);
-      var $userStatus = $('<span/>' , {"class":"contact__status online"});
+      var $userStatus = $('<span/>' , {"class":"contact__status"}).addClass(user.status);
+     
       var $userDiv = $(' <div/>', {"class":"contact"}).attr('user_id', user.user_id).append($userImg).append($username).append($userStatus);
-        
+        if (user.status == 'offline') $userDiv.css('opacity', 0.2);
       console.log($userDiv.text())
       $usersList.append($userDiv);
     });
@@ -629,6 +631,7 @@ upload.onclick = function() {
 
 // Populate the modal on Click
   socket.on('query servers', function (data) {
+    $modalServerList.html('');
     data.servers.forEach( function(server) {
       $serverImg = $('<img />').attr("src" ,server.room_logo_url);
       $button = $('<button class="slide"/>').append($serverImg);

@@ -175,15 +175,16 @@ def confirm_email(token):
         email = s.loads(token, salt='email-confirm', max_age=60)
         conn=mysql.connect()
         cursor = conn.cursor()
-        sql_confirmed_user = 'UPDATE users SET confirmed_email=True where email=%s;'
+        sql_activate_user = 'CALL ACTIVATE_USER(%s);'
         sql_where= (email,)
-        cursor.execute(sql_confirmed_user, sql_where)
+        cursor.execute(sql_activate_user, sql_where)
         conn.commit()
         cursor.close()
         conn.close()
 
     except SignatureExpired:
         return 'Token Expired'
+
 
     return 'Token worked!!! YOU ARE IN'
 

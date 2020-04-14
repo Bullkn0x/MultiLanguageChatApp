@@ -12,6 +12,9 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@2.12.1/dist/index.min.js"></script>
 
+    <!-- nav Animation -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
     <!-- Side Bar -->
     <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css'>
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
@@ -45,8 +48,8 @@
                
                 </div>
             <!-- Nav Start -->
-            <div class="navcontainer">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
+            <div class="navcontainer animated slideInDown delay-2s">
+                <nav class="navbar navbar-expand-lg navbar-dark ">
                     <a class="navbar-brand" href="#">Anychat.io</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09"
                         aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,7 +59,7 @@
                         <ul class="navbar-nav mr-auto">
 
                             <li class="nav-item dropdown">
-                                <a id="language" class="nav-link dropdown-toggle" href="http://example.com"
+                                <a id="language" class="nav-link dropdown-toggle text-white" href="http://example.com"
                                     id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="flag-icon flag-icon-us"> </span> English</a>
                                 <div class="dropdown-menu" aria-labelledby="dropdown09">
@@ -81,7 +84,7 @@
             <!-- Chat And Side Bar Container  -->
             <div class="components" style="height: 100%;" id="body-row">
                     <!-- Sidebar -->
-                    <div id="sidebar-container" class="sidebar-expanded d-none d-md-block"><!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
+                    <div id="sidebar-container" class="flex sidebar-expanded d-none d-md-block animated slideInLeft delay-1s"><!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
                         <!-- Bootstrap List Group -->
                         <ul class="list-group">
                             <!-- Separator with title -->
@@ -93,7 +96,7 @@
                             <a id="addServer" href="#" class="bg-dark list-group-item list-group-item-action">
                                 <div class="d-flex w-100 justify-content-start align-items-center">
                                     <span class="fa fa-plus fa-fw mr-3"></span>
-                                    <span class="addServer">Add Server</span>
+                                    <span class="addServer menu-collapsed"">Add Server</span>
                                 </div>
                             </a>
                             
@@ -170,13 +173,13 @@
                     </div><!-- sidebar-container END -->
                     <!-- MAIN -->
                         
-                    <div class="chatArea flex-grow">
+                    <div class="chatArea flex-grow animated fadeIn delay-3s">
                         
                         <ul class="messages"></ul>
                         <div class="inputContainer">
-                            <i class="large material-icons buttons">add</i>
-                            <input class="inputMessage" id="dropzone" placeholder="Type here or drag file to upload..." />
-                            <i class="large material-icons buttons emojiZone">insert_emoticon</i>
+                            <i class="flex large material-icons buttons">add</i>
+                            <input class="inputMessage flex-grow" id="dropzone" placeholder="Type here or drag file to upload..." />
+                            <i class="flex large material-icons buttons emojiZone">insert_emoticon</i>
                         </div>
                         <button id="upload">Upload files</button>
                         <div id='filelist'></div>

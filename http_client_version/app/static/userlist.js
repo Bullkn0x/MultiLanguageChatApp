@@ -75,7 +75,6 @@ $(document).ready(function() {
           diffX = 0;
           $path.attr("d", d);
           currentPath = d;
-          if (handlers) handlers1();
           if (callback) callback();
           return;
         }
@@ -83,24 +82,7 @@ $(document).ready(function() {
       }
       animate();
     }
-  
-    function handlers1() {
-  
-      
-      $('.online').toggle("click", function() {
-       
-          animatePathD($path, finalD, animTime, false, function() {
-            $sCont.addClass("active");
-            setTimeout(function() {
-              $(document).on("click", closeSidebar);
-            }, sContTrans);
-          });
-        
-      });
-  
-    }
-  
-    handlers1();
+
   
     function closeSidebar(e) {
       if ($(e.target).closest(".sidebar-content").length ||
@@ -164,6 +146,9 @@ $(document).ready(function() {
               $chat.css("top");
               $chat.addClass("active");
               animating = false;
+              if ($('div.chats.active > img').length){
+                $('div.chats.active > img').remove(); 
+              }
               moveImage(that);
             });
           }, "inCubic");
