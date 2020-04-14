@@ -375,24 +375,40 @@ $(function() {
 const chunk_size = 64 * 1024;
 var files = [];
 var dropzone = document.getElementById('dropzone');
+
+var lastTarget = null;
+
+function isFile(evt) {
+    var dt = evt.dataTransfer;
+
+    for (var i = 0; i < dt.types.length; i++) {
+        if (dt.types[i] === "Files") {
+            return true;
+        }
+    }
+    return false;
+}
+window.addEventListener("dragenter", function (e) {
+    if (isFile(e)) {
+        lastTarget = e.target;
+        document.querySelector("#dropzone").style.visibility = "";
+        document.querySelector("#dropzone").style.opacity = 1;
+        document.querySelector("#textnode").style.fontSize = "48px";
+    }
+});
 dropzone.ondragover = function(e) {
   e.preventDefault();
 }
 
-document.addEventListener("dragenter", function( event ) {
-  // highlight potential drop target when the draggable element enters it
-  if ( event.target.id == "dropzone" ) {
-      event.target.style.background = "red";
-  }
+window.addEventListener("dragleave", function (e) {
+    e.preventDefault();
+    if (e.target === lastTarget || e.target === document) {
+        document.querySelector("#dropzone").style.visibility = "hidden";
+        document.querySelector("#dropzone").style.opacity = 0;
+        document.querySelector("#textnode").style.fontSize = "42px";
+    }
+});
 
-}, false);
-document.addEventListener("dragleave", function( event ) {
-  // reset background of potential drop target when the draggable element leaves it
-  if ( event.target.id == "dropzone" ) {
-      event.target.style.background = "";
-  }
-
-}, false);
 dropzone.ondrop = function(e) {
   e.preventDefault();
   for(var i = 0; i < e.dataTransfer.files.length; i++) {
