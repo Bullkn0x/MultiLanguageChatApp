@@ -88,8 +88,7 @@ def DB_get_server_users(room_id):
                         rooms r 
                         join room_users ru on
                             ru.room_id = r.room_id
-                        join users u on ru.user_id = u.user_id 
-                        where
+                        join users u on ru.user_id = u.user_id and 
                             r.room_id = %s;"""
     sql_where = (room_id, )
     cursor.execute(sql_server_users, sql_where)
@@ -99,7 +98,18 @@ def DB_get_server_users(room_id):
 
     return server_users
 
+def DB_get_public_servers():
+    cursor = conn.cursor()
+    SQL_GET_SERVERS = """SELECT
+                         room_id, room_name, room_logo_url
+                         FROM 
+                         rooms
+                         where public_access = True and room_id > 1 ;
+                        """
+    cursor.execute(SQL_GET_SERVERS)
+    public_servers = cursor.fetchall()
 
+    return public_servers
 
 @socketio.on('connect', namespace='/')
 def connect():
@@ -110,9 +120,11 @@ def connect():
     last_room = session['last_room'] or 1
 
     # get users for room
+    
     server_users = DB_get_server_users(last_room)
     # Get users server list
     server_list = DB_get_user_servers(user_id)
+
     # Create user object
     new_user = User(username=username,socket_id=socket_id, current_room=last_room)
     session['user_obj'] = new_user
@@ -122,11 +134,19 @@ def connect():
     if len(server_list) == 0:
         rooms[1][username] =new_user
     # Add user to rooms they subscribe too 
-    
+    current_server_name= 'General Chat'
     for server in server_list:
         room_id = server['room_id'] 
         rooms[room_id][username] = new_user
+        if server['room_id'] == last_room:
+            current_server_name = server['room_name']
     
+    for user in server_users:
+        if user['username'] in rooms[last_room]:
+            user['status'] = 'online'
+        else:
+            user['status'] = 'offline'
+    print(dumps(server_users, indent=4))
 
     # DEBUG PRINTING
     print_user_details(user_id,username,socket_id,last_room)
@@ -135,12 +155,24 @@ def connect():
     emit('login', {'username' : username, 'numUsers':len(rooms)})
 
     chat_log = DB_get_chat_logs(last_room)
-    print('chatlog',chat_log)
 
-    emit('join server', {"chat_log":chat_log, "server_users":server_users})
+    emit('join server', {
+        "server_id":last_room,
+        "server_name": current_server_name,
+        "chat_log":chat_log, 
+        "server_users":server_users
+        })
     emit('server info',{'server_list':server_list, "server_users":server_users})
     emit('user joined', {'username':username, 'numUsers':len(rooms)}, broadcast=True, include_self=False)
    
+@socketio.on('query servers', namespace='/')
+def query_server():
+    socket_id = request.sid
+
+    server_suggestions = DB_get_public_servers()
+
+    emit('query servers', {"servers": server_suggestions} ,room=socket_id)
+
 
 
 @socketio.on('join server', namespace='/')
@@ -167,8 +199,17 @@ def join_server(data):
     cursor.execute(sql_update_user_room, sql_room_value)
     conn.commit()
     cursor.close()
-
-    emit('join server', {"chat_log":room_chat_log, "server_users":server_users})
+    for user in server_users:
+            if user['username'] in rooms[join_room]:
+                user['status'] = 'online'
+            else:
+                user['status'] = 'offline'
+    emit('join server', {
+        "server_id":join_room,
+        "server_name":data['room'],
+        "chat_log":room_chat_log, 
+        "server_users":server_users
+        })
 
 
 @socketio.on('private message',namespace='/')
@@ -185,6 +226,7 @@ def text(msg_data):
     """Sent by a client when the user entered a new message.
     The message is sent to all people in the room."""
     message=msg_data['message']
+    print(message)
     sender_name = session.get('user')
     user_id = int(session.get('id'))
     room_id = session['last_room']
@@ -284,13 +326,17 @@ def write_chunk(filename, offset, data):
 
     
 @socketio.on('upload', namespace='/')
-def put_s3(filename):
+def put_s3(file_data):
+    filename = file_data['server_filename']
+    file_title = file_data['file_title']
     room_id=session['last_room']
+    sender_name = session.get('user')
     print(room_id)
-    print('File ready', filename)
+    print('File ready', filename, file_title)
     fileloc= os.path.join(os.path.normpath(current_app.root_path), 'static/_files/')+filename
     upload_file(fileloc, 'anychatio', '{}/{}'.format(room_id, filename))
     file_url = '/'.join([current_app.config['CDN_URL'],str(room_id),filename])
     for username, receiver in rooms[room_id].items():
         if receiver.current_room == room_id:
-            emit('file link', {'file_url':file_url})
+            print(receiver.username)
+            emit('file link', {'username': sender_name, 'file_url':file_url, 'filename': file_title}, room=receiver.socket_id)
