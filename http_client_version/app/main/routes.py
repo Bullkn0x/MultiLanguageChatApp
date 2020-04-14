@@ -98,25 +98,27 @@ def forgetpassword():
             email = db_user['email']
             updatequery='UPDATE users SET password=%s WHERE user_id=%s'
             generated_password = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(10))
-            sql_update=(generated_password,db_user['user_id'],)
+            
+            sql_update=(hash_pass(generated_password,method='sha256'), db_user['user_id'],)
             print('generated password: '+ generated_password)
             cursor.execute(updatequery,sql_update)
             conn.commit()
-            conn.close()
+            cursor.close()
 
-            token = s.dumps(email, salt='email-confirm')
+            # token = s.dumps(email, salt='email-confirm')
 
             msg = Message(subject='Password Reset Confirmation', sender='anychatio@gmail.com', recipients=[email])
 
-            link = url_for('.confirm_email', token=token, external=True)
+            # link = url_for('.confirm_email', token=token, external=True)
 
-            msg.html = render_template('passwordresetconfirmation.html', generated_password=generated_password, username=username,link=link)
+            msg.html = render_template('passwordresetconfirmation.html', generated_password=generated_password, username=username)
             mail.send(msg)
             return render_template('redirect.html', error=error)
             
         else:
             error = 'Invalid Email! Please try again.'
             print(error)
+            return render_template('forgetpassword.html', error=error)
         
     return render_template('forgetpassword.html', error=error)
 
@@ -149,11 +151,9 @@ def signup():
         cursor.execute(add_user, sql_values)
         conn.commit()
         cursor.close()
-        conn.close()
-        session['user'] = username
-
 
         #Create token for email confirmation from serializer
+        
         token = s.dumps(email, salt='email-confirm')
     
         msg = Message(subject='Confirm Your Email', sender='anychatio@gmail.com', recipients=[email])
@@ -168,6 +168,10 @@ def signup():
 
     return render_template('signup.html', error=error)
 
+@main.route('/profilesettings', methods=['GET', 'POST'] )
+def profilesettings():
+
+    return render_template('profilesettings.html')
 
 @main.route('/confirm_email/<token>')
 def confirm_email(token):
@@ -179,14 +183,13 @@ def confirm_email(token):
         sql_where= (email,)
         cursor.execute(sql_activate_user, sql_where)
         conn.commit()
+        success='Email Verified! Please login!'
         cursor.close()
-        conn.close()
-
+        
     except SignatureExpired:
         return 'Token Expired'
 
-
-    return 'Token worked!!! YOU ARE IN'
+    return render_template('landing.html', success=success)
 
 
 @main.route('/chat', methods=['GET', 'POST'])

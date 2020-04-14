@@ -23,7 +23,20 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/js/ckeditor/plugins/tableselection/styles/tableselection.css')}}">
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/js/ckeditor/plugins/wsc/skins/moono-lisa/wsc.css')}}">
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/js/ckeditor/plugins/copyformatting/styles/copyformatting.css')}}">
+    
   </head>
+  
+
+  {% if success %}
+  <div class="alert alert-success alert-dismissible fade show in text-center" role="alert">
+    <strong>{{success}}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+    {% endif %}
+
   <body> 
     <div class="theme-landing">
       <!-- header start //-->
@@ -38,8 +51,11 @@
                     <button class="navbar-toggler d-xl-none" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse d-xl-block" id="navbarNav">
                       <ul class="navbar-nav mr-auto">
+                        {% if not signed_in %}
+                        <li class="nav-item active"><a class="nav-link" href="/login">Messenger <span class="sr-only">(current)</span></a></li>
+                        {% else %}
                         <li class="nav-item active"><a class="nav-link" href="/chat">Messenger <span class="sr-only">(current)</span></a></li>
-                        
+                        {% endif %}
                         <li class="nav-item"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Getting Started</a>
                           <ul class="dropdown-menu">
                             <li class="nav-link"><a href="#">FAQ</a></li>
@@ -55,7 +71,7 @@
                         {% else %}
                             <li class="nav-item"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{username}}</a>
                               <ul class="dropdown-menu">
-                                <li class="nav-link"><a href="#" method="get">Account Settings</a></li>
+                                <li class="nav-link"><a href="/profilesettings" method="get">Account Settings</a></li>
                                 <li class="nav-link"><a href="/logout">Sign Out</a></li>
                               </ul>
                             </li>
