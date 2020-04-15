@@ -8,8 +8,21 @@
 }
 
 
+/* Scroll Bar */
 
+::-webkit-scrollbar {
+  width: 7px;
+}
 
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: rgba(34, 33, 33, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: rgba(6, 7, 7, 0.2);
+}
 
 /* Fix user-agent */
 
@@ -34,6 +47,7 @@
   }
   
   html, body {
+    background-color: #212529 !important;
     height: 100%;
     margin: 0;
     padding: 0;
@@ -101,18 +115,29 @@
   
   /* Chat page */
   
+.navcontainer {
+    width: 74%;
+    margin: auto;
+}
+.navbar {
+    background-color: #333;
+    border-bottom: solid 1px;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+}
 
-  
 
   
   /* Font */
   
-  .messages {
-    font-size: 150%;
-  }
+
   
   .inputMessage {
+    background: transparent;
+    border: none;
+    width: 90%;
     font-size: 100%;
+    color: #ffffff;
   }
   
   .log {
@@ -125,10 +150,13 @@
   /* Messages */
   
   .chatArea {
+    color: #ffffff;
     height: 86.9%;
+    margin: 4px 4px 16px 16px;
   }
   
   .messages {
+    font-size: 150%;
     height: 100%;
     margin: 0;
     overflow-y: scroll;
@@ -149,20 +177,40 @@
   
   /* Input */
   
-
+  input:focus, textarea:focus, select:focus{
+    outline: none;
+}
   /* input message box */
 .inputContainer {
-  display: grid;
-  grid-template: 32px auto / auto 95% auto;
-  background-color: #2196F3;
+  display: flex;
+  background-color: #343a40;
   padding: 10px 0 10px 0 ;
   border-radius: 8px;
-  width: 98%;
-  margin: auto;
+  width: 99%;
+  margin-left: 0;
 }
 
 .inputContainer > .buttons {
   align-self: center;
   text-align: center;
   color: white;
+  width: 37px;
 }
+
+.components {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+ }
+ 
+ .flex-grow {
+   flex-grow: 1;
+ }
+
+ .usersOnline {
+   width: 230px;
+ }

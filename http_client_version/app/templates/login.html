@@ -26,6 +26,16 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/js/ckeditor/plugins/wsc/skins/moono-lisa/wsc.css')}}">
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/js/ckeditor/plugins/copyformatting/styles/copyformatting.css')}}">
   </head>
+  {% if error %}
+  <style>
+    #uname, #inputEmail3, #inputPassword3 {
+      background-color: #eb070733;
+    }
+    .errormessage {
+      color: #ff0000;
+    }
+  </style>
+{% endif %}
   <body>
     <div class="login-page1">
       <div class="container-fluid p-0">
@@ -37,6 +47,7 @@
                   <div class="login-content-header"><img src="{{url_for('static', filename='assets/images/logo/landing-logo.png')}}" alt="images"></div>
                   <h3>Hello Everyone , We are AnyChat</h3>
                   <h4>Welcome to AnyChat please login to your account.</h4>
+                  {% if error %}<h6 class="errormessage">{{error}}</h6><br><br>{% endif %}
                   <form action="" class="form1" method="post">
                     <div class="form-group">
                       <label class="col-form-label" for="inputEmail3"><label id="usernameHeader">Username</label> or <label id="emailHeader">Email Address</label></label>
@@ -50,8 +61,8 @@
                       <div class="rememberchk">
                         <div class="form-check">
                           <input name="remember" class="form-check-input" id="gridCheck1" type="checkbox">
-                          <label class="form-check-label" for="gridCheck1">Remember Me.</label>
-                          <a href="/passwordretrival"><h6>Forgot Username/Password?</h6></a>
+                          <label class="form-check-label" for="gridCheck1">Remember Me</label>
+                          <a href="/forgetpassword"><h6>Forgot Username/Password?</h6></a>
                         </div>
                       </div>
                     </div>

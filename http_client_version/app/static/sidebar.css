@@ -1,6 +1,14 @@
+
+#sidebar-container > ul > li:nth-child(1), #sidebar-container {
+    border-top-right-radius: 500px;
+}
+
 #body-row {
     margin-left:0;
     margin-right:0;
+ 
+
+
 }
 #sidebar-container {
     min-height: 100vh;   

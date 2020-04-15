@@ -1,0 +1,123 @@
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    padding-top: 25%; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    z-index: 9999;
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    background-color: #333;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #333;
+    width: 80%;
+    height: 80%;
+    color: grey;
+  }
+  
+  .modal-content > p {
+      text-align: center;
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  /* modal content */
+  /*
+    https://developer.mozilla.org/en/docs/Web/CSS/box-shadow
+    box-shadow: [inset?] [top] [left] [blur] [size] [color];
+  
+    Tips:
+      - We're setting all the blurs to 0 since we want a solid fill.
+      - Add the inset keyword so the box-shadow is on the inside of the element
+      - Animating the inset shadow on hover looks like the element is filling in from whatever side you specify ([top] and [left] accept negative values to become [bottom] and [right])
+      - Multiple shadows can be stacked
+      - If you're animating multiple shadows, be sure to keep the same number of shadows so the animation is smooth. Otherwise, you'll get something choppy.
+  */
+  
+  
+  
+  
+  
+   .slide:hover,
+    .slide:focus {
+    box-shadow: inset 12.5em 0 0 0 var(--hover);
+  }
+  
+  
+  
+  
+  .slide {
+    --color: #8fc866;
+    --hover: #66c887;
+  }
+  
+  
+  .joinServerList  button {
+    color: var(--color);
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    border-radius: 8px;
+
+  }
+  .joinServerList  button > img {
+      height: 128px;
+      border-radius: 50%;
+  }
+  .joinServerList  button:hover, button:focus {
+    border-color: var(--hover);
+    color: #fff;
+  }
+  
+  .joinServerList > .buttons {
+      text-align: center;
+  }
+  
+  .joinServerList  button {
+    background: none;
+    border: 2px solid;
+    font: inherit;
+    line-height: 1;
+    margin: 0.5em;
+    padding: 1.5em 2em;
+  }
+  
+  .joinServerList  h1 {
+    font-weight: 400;
+  }
+  
+   .joinServerList {
+    justify-items: center;
+    display: grid;
+    grid-template: auto / auto auto auto auto;
+    height: 75%;
+    overflow-y: scroll;
+  
+  }
+
+
+  
+
+
+  /* submit button */
