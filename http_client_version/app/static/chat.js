@@ -120,7 +120,8 @@ $(function () {
         }
         var $usernameDiv = $('<span class="username"/>')
             .text(data.username)
-            .css('color', getUsernameColor(data.username));
+            .css('color', '#1DB6EF');
+            //getUsernameColor(data.username)
         var $messageBodyDiv = $('<span class="messageBody">')
             .html(linkify(data.message || ' '));
 
@@ -339,16 +340,16 @@ $(function () {
     }
 
     // Gets the color of a username through our hash function
-    function getUsernameColor(username) {
-        // Compute hash code
-        var hash = 7;
-        for (var i = 0; i < username.length; i++) {
-            hash = username.charCodeAt(i) + (hash << 5) - hash;
-        }
-        // Calculate color
-        var index = Math.abs(hash % COLORS.length);
-        return COLORS[index];
-    }
+    // function getUsernameColor(username) {
+    //     // Compute hash code
+    //     var hash = 7;
+    //     for (var i = 0; i < username.length; i++) {
+    //         hash = username.charCodeAt(i) + (hash << 5) - hash;
+    //     }
+    //     // Calculate color
+    //     var index = Math.abs(hash % COLORS.length);
+    //     return COLORS[index];
+    // }
 
     // Keyboard events
 
@@ -358,7 +359,7 @@ $(function () {
         if (!(event.ctrlKey || event.metaKey || event.altKey)) {
             $currentInput.focus();
         }
-        // When the client hits ENTER on their keyboard
+        // When the client hits ENTER on their keyboard, 13 is Enter
         if (event.which === 13) {
             if (username) {
                 sendMessage();
