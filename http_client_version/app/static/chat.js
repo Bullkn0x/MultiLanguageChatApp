@@ -23,6 +23,7 @@ $(function () {
     var $serverList = $('.serverList');
     var $usersList = $('.sidebar-content');
     var $addServerModal = $('#addServer');
+    var $uploadModal = $('.uploadModalContainer')
     var $modalServerList = $('.joinServerList');
     var currentRoom;
     var sideBarActive = false;
@@ -411,9 +412,13 @@ $(function () {
     });
 
     dropzone.ondrop = function (e) {
-        document.querySelector("#textnode").src = null;
-            document.querySelector("#dropzone").style.visibility = "hidden";
-            document.querySelector("#dropzone").style.opacity = 0;
+        $('#textnode').hide();
+
+        $uploadModal.addClass('animated fadeIn').show();
+        
+        // document.querySelector("#textnode").src = null;
+        //     document.querySelector("#dropzone").style.visibility = "hidden";
+        //     document.querySelector("#dropzone").style.opacity = 0;
         e.preventDefault();
         for (var i = 0; i < e.dataTransfer.files.length; i++) {
             filediv = document.createElement('div');
