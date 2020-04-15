@@ -31,6 +31,7 @@
 
 <body style="font-family: 'Zilla Slab', serif;">
     <style>
+        
         div#dropzone {
     position: fixed;
     top: 0;
@@ -38,21 +39,23 @@
     z-index: 9999999999;
     width: 100%;
     height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+
     transition: visibility 175ms, opacity 175ms;
-    display: table;
+    display: flex;
     text-shadow: 1px 1px 2px #000;
     color: #fff;
     }
-    div#textnode {
-    display: table-cell;
-    text-align: center;
-    vertical-align: middle;
-    transition: font-size 175ms;
-}
- 
+
+    div#dropzone > img{
+        margin: auto;
+        height: 40%;
+    }
+
+
         </style>
     <div style="visibility:hidden; opacity:0" id="dropzone">
-        <div id="textnode"><img src="https://cdn.dribbble.com/users/621689/screenshots/5703264/tm.gif"></div>
+        <img id="textnode"></img>
     </div>
  
     <ul class="pages">
@@ -65,12 +68,13 @@
                 <div class="modal-content">
                     <span class="close">&times;</span>
                     <p>Public Hangout spots to chat out</p>
-    
+                    
                     <div class="joinServerList">
                     </div>
+
                 </div>
                
-                </div>
+            </div>
             <!-- Nav Start -->
             <div class="navcontainer animated slideInDown delay-2s">
                 <nav class="navbar navbar-expand-lg navbar-dark ">
@@ -199,7 +203,10 @@
                         
                     <div class="chatArea flex-grow animated fadeIn delay-3s">
                         
-                        <ul class="messages"></ul>
+
+                        <ul class="messages">
+
+                        </ul>
                         <div class="inputContainer">
                             <i class="flex large material-icons buttons">add</i>
                             <input class="inputMessage flex-grow"  placeholder="Type here or drag file to upload..." />
