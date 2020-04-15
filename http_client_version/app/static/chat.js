@@ -119,7 +119,8 @@ $(function() {
     }
     var $usernameDiv = $('<span class="username"/>')
       .text(data.username)
-      .css('color', getUsernameColor(data.username));
+      .css('color', '#1DB6EF');
+      //getUsernameColor(data.username)
     var $messageBodyDiv = $('<span class="messageBody">')
       .html(linkify(data.message || ' '));
     

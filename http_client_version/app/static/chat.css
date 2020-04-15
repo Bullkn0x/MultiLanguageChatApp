@@ -154,7 +154,21 @@
     height: 86.9%;
     margin: 4px 4px 16px 16px;
   }
+
+  /*Hover effect  */
+
+  .message:hover{
+    background-color: #333333;
+  }
+
+  /* padding to the each message  */
   
+  li.message {
+    padding-left: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+  }
+
   .messages {
     font-size: 150%;
     height: 100%;
