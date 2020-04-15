@@ -22,6 +22,8 @@
 <link rel="stylesheet" href="{{url_for('static', filename='userlist.css')}}">
 <link rel="stylesheet" href="{{url_for('static', filename='filebox.css')}}">
 <link rel="stylesheet" href="{{url_for('static', filename='modal.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='uploadModal.css')}}">
+
 
 <!-- End -->
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
@@ -30,7 +32,34 @@
 </head>
 
 <body style="font-family: 'Zilla Slab', serif;">
+    <style>
+        
+        div#dropzone {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999999999;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
 
+    transition: visibility 175ms, opacity 175ms;
+    display: flex;
+    text-shadow: 1px 1px 2px #000;
+    color: #fff;
+    }
+
+    div#dropzone > img{
+        margin: auto;
+        height: 40%;
+    }
+
+
+        </style>
+    <div style="visibility:hidden; opacity:0" id="dropzone">
+        <img id="textnode"></img>
+    </div>
+ 
     <ul class="pages">
 
         <li class="chat page">
@@ -41,12 +70,30 @@
                 <div class="modal-content">
                     <span class="close">&times;</span>
                     <p>Public Hangout spots to chat out</p>
-    
+                    
                     <div class="joinServerList">
                     </div>
+
                 </div>
                
+            </div>
+            <div class="uploadModalContainer">
+                <div class="uploadModal">
+
+                    <div class = "info flex-grow">
+                        <p>Add Message? (OPTIONAL)</p>
+                        <input class="uploadMessage" placeholder="Well, well, what is this file here... ">
+                    </div>
+                    <div class="actions ">
+            
+                        <button class="btn btn-secondary" type="submit flex">Cancel</button>
+                        <button class="btn btn-success" type="submit flex">Upload</button>
+            
+                    </div>
                 </div>
+            </div>
+
+
             <!-- Nav Start -->
             <div class="navcontainer animated slideInDown delay-2s">
                 <nav class="navbar navbar-expand-lg navbar-dark ">
@@ -175,10 +222,13 @@
                         
                     <div class="chatArea flex-grow animated fadeIn delay-3s">
                         
-                        <ul class="messages"></ul>
+
+                        <ul class="messages">
+
+                        </ul>
                         <div class="inputContainer">
                             <i class="flex large material-icons buttons">add</i>
-                            <input class="inputMessage flex-grow" id="dropzone" placeholder="Type here or drag file to upload..." />
+                            <input class="inputMessage flex-grow"  placeholder="Type here or drag file to upload..." />
                             <i class="flex large material-icons buttons emojiZone">insert_emoticon</i>
                         </div>
                         <button id="upload">Upload files</button>
