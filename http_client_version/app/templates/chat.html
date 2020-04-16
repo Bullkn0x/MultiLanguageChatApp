@@ -23,6 +23,8 @@
 <link rel="stylesheet" href="{{url_for('static', filename='filebox.css')}}">
 <link rel="stylesheet" href="{{url_for('static', filename='modal.css')}}">
 <link rel="stylesheet" href="{{url_for('static', filename='uploadModal.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='themeToggler.css')}}">
+
 
 
 <!-- End -->
@@ -87,7 +89,7 @@
                     <div class="actions ">
             
                         <button class="btn btn-secondary" type="submit flex">Cancel</button>
-                        <button class="btn btn-success" type="submit flex">Upload</button>
+                        <button id="upload" class="btn btn-success" type="submit flex">Upload</button>
             
                     </div>
                 </div>
@@ -95,7 +97,7 @@
 
 
             <!-- Nav Start -->
-            <div class="navcontainer animated slideInDown delay-2s">
+            <div class="navcontainer animated slideInDown delay-1s">
                 <nav class="navbar navbar-expand-lg navbar-dark ">
                     <a class="navbar-brand" href="#">Anychat.io</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09"
@@ -131,7 +133,7 @@
             <!-- Chat And Side Bar Container  -->
             <div class="components" style="height: 100%;" id="body-row">
                     <!-- Sidebar -->
-                    <div id="sidebar-container" class="flex sidebar-expanded d-none d-md-block animated slideInLeft delay-1s"><!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
+                    <div id="sidebar-container" class="flex sidebar-expanded d-none d-md-block animated slideInLeft delay-0.5s"><!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
                         <!-- Bootstrap List Group -->
                         <ul class="list-group">
                             <!-- Separator with title -->
@@ -215,26 +217,27 @@
                             <!-- Logo -->
                             <li class="list-group-item logo-separator d-flex justify-content-center">
                                 <img src="{{url_for('static', filename='assets/images/logo/logo.png')}}" width="30" height="30" />    
-                            </li>   
+                            </li>
+                            <div class="toggle toggle--daynight">
+                                <input type="checkbox" id="toggle--daynight" class="toggle--checkbox">
+                                <label class="toggle--btn" for="toggle--daynight"><span class="toggle--feature"></span></label>
+                            </div>    
                         </ul><!-- List Group END-->
                     </div><!-- sidebar-container END -->
                     <!-- MAIN -->
                         
-                    <div class="chatArea flex-grow animated fadeIn delay-3s">
+                    <div class="chatArea flex-grow">
                         
 
-                        <ul class="messages">
+                        <ul class="messages animated fadeIn delay-2s">
 
                         </ul>
-                        <div class="inputContainer">
+                        <div class="inputContainer  animated slideInUp delay-1s">
                             <i class="flex large material-icons buttons">add</i>
                             <input class="inputMessage flex-grow"  placeholder="Type here or drag file to upload..." />
                             <i class="flex large material-icons buttons emojiZone">insert_emoticon</i>
                         </div>
-                        <button id="upload">Upload files</button>
-                        <div id='filelist'></div>
 
-                        <a href="/download">TEST</a>
                     </div>
                         
                     <!-- <div class="flex userList left-right"> -->
@@ -313,6 +316,8 @@
 <script src="{{url_for('static', filename='chat.js')}}"></script>
 <script src="{{url_for('static', filename='userlist.js')}}"></script>
 <script src="{{url_for('static', filename='modal.js')}}"></script>
+<script src="{{url_for('static', filename='themeToggler.js')}}"></script>
+
 
 
 

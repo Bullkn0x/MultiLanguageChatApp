@@ -1,3 +1,33 @@
+
+:root {
+    --theme-name: dark;
+    --bg-color: #212529;
+    --primary-color: #333;
+    --secondary-color: #343a40;
+    --font-color: white;
+    --header-font-color: #6c757d;
+    --secondary-font-color: #222331;
+
+    --heading-color: #292922;
+    --message-bg-other:  #E9EAF3;
+    --message-bg-mine: #495057;
+    --chat-top-bar-color: #2196f3;
+}
+
+
+:root[theme='light'] {
+    --theme-name: light;
+    --bg-color: #d6d7d9;
+    --primary-color: #c2c2c2 !important;
+    --secondary-color: #a8aaac;
+    --font-color: #434141;
+    --header-font-color: #6c757d;
+    --secondary-font-color: #f9f9ff;
+    --heading-color: #b1b121;
+    --message-bg-other: #2196f3;
+    --message-bg-mine: #ced3d8;
+    --chat-top-bar-color: #2196f3;
+}
 /* Online list  */
 .left-right {
   overflow:hidden;
@@ -47,10 +77,12 @@
   }
   
   html, body {
-    background-color: #212529 !important;
+    background-color: var(--bg-color) !important;
     height: 100%;
     margin: 0;
     padding: 0;
+    overflow: hidden;
+
   }
   
   ul {
@@ -120,8 +152,7 @@
     margin: auto;
 }
 .navbar {
-    background-color: #333;
-    border-bottom: solid 1px;
+    background-color: var(--primary-color);
     border-bottom-left-radius: 40px;
     border-bottom-right-radius: 40px;
 }
@@ -150,23 +181,11 @@
   /* Messages */
   
   .chatArea {
-    color: #ffffff;
+    color: var(--font-color);
     height: 86.9%;
     margin: 4px 4px 16px 16px;
   }
-
-  /*Hover effect  */
-
-  .message:hover{
-    background-color: #333333;
-  }
-
-  /* padding to the each message  */
   
-  li.message {
-    padding-left: 20px;
-  }
-
   .messages {
     font-size: 150%;
     height: 100%;
@@ -195,7 +214,7 @@
   /* input message box */
 .inputContainer {
   display: flex;
-  background-color: #343a40;
+  background-color: var(--primary-color) ;
   padding: 10px 0 10px 0 ;
   border-radius: 8px;
   width: 99%;
@@ -205,7 +224,7 @@
 .inputContainer > .buttons {
   align-self: center;
   text-align: center;
-  color: white;
+  color: var(--font-color);
   width: 37px;
 }
 
