@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 
     <!-- Side Bar -->
-    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css'>
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
 <link rel="stylesheet" href="{{url_for('static', filename='sidebar.css')}}">
 <link rel="stylesheet" href="{{url_for('static', filename='userlist.css')}}">
@@ -24,6 +23,10 @@
 <link rel="stylesheet" href="{{url_for('static', filename='modal.css')}}">
 <link rel="stylesheet" href="{{url_for('static', filename='uploadModal.css')}}">
 <link rel="stylesheet" href="{{url_for('static', filename='themeToggler.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='tools.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='topnav.css')}}">
+
+
 
 
 
@@ -64,7 +67,7 @@
  
     <ul class="pages">
 
-        <li class="chat page">
+        <li class="chat page flex-col">
             <!-- The Modal -->
             <div id="myModal" class="modal">
 
@@ -98,7 +101,7 @@
 
             <!-- Nav Start -->
             <div class="navcontainer animated slideInDown delay-1s">
-                <nav class="navbar navbar-expand-lg navbar-dark ">
+                <nav class="navbar navbar-expand-lg">
                     <a class="navbar-brand" href="#">Anychat.io</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09"
                         aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
@@ -108,7 +111,7 @@
                         <ul class="navbar-nav mr-auto">
 
                             <li class="nav-item dropdown">
-                                <a id="language" class="nav-link dropdown-toggle text-white" href="http://example.com"
+                                <a id="language" class="nav-link dropdown-toggle" href="http://example.com"
                                     id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="flag-icon flag-icon-us"> </span> English</a>
                                 <div class="dropdown-menu" aria-labelledby="dropdown09">
@@ -131,7 +134,7 @@
 
 
             <!-- Chat And Side Bar Container  -->
-            <div class="components" style="height: 100%;" id="body-row">
+            <div class="components flex-row" style="height: 100%;" id="body-row">
                     <!-- Sidebar -->
                     <div id="sidebar-container" class="flex sidebar-expanded d-none d-md-block animated slideInLeft delay-0.5s"><!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
                         <!-- Bootstrap List Group -->
@@ -226,16 +229,18 @@
                     </div><!-- sidebar-container END -->
                     <!-- MAIN -->
                         
-                    <div class="chatArea flex-grow">
+                    <div class="chatArea flex-col flex-grow">
                         
 
-                        <ul class="messages animated fadeIn delay-2s">
+                        <ul class="flex-grow messages animated fadeIn delay-2s">
 
                         </ul>
-                        <div class="inputContainer  animated slideInUp delay-1s">
-                            <i class="flex large material-icons buttons">add</i>
-                            <input class="inputMessage flex-grow"  placeholder="Type here or drag file to upload..." />
-                            <i class="flex large material-icons buttons emojiZone">insert_emoticon</i>
+                        <div class="inhold animated slideInUp delay-1s">
+                            <div class="flex inputContainer" style= "margin-bottom: 20px;">
+                                <i class="flex large material-icons buttons">add</i>
+                                <input class="inputMessage flex-grow"  placeholder="Type here or drag file to upload..." />
+                                <i class="flex large material-icons buttons emojiZone">insert_emoticon</i>
+                            </div>
                         </div>
 
                     </div>
@@ -244,10 +249,7 @@
                     <div class="flex usersOnline">
                         <div class="sidebar-content">
             
-                            <div class="search">
-                            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/elastic-srch.png" alt="" class="search__img" />
-                            <input type="text" class="search__input" placeholder="Search" />
-                            </div>
+                           
                         </div>
                         <div class="chats">
                             <span class="chats__back"></span>
