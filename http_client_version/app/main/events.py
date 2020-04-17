@@ -145,6 +145,18 @@ def DB_insert_private_msg(from_user, to_user, message):
     cursor.close()
 
 
+def DB_get_pm_chat_log(me, them):
+    cursor = conn.cursor()
+    SQL_GET_PRIVATE_MESSAGE_LOG = """select to_user, from_user,
+                                     message, from_user = %s 'mymsg' from 
+                                    ( select * from private_messages pm where to_user in (%s, %s)) as sub 
+                                    where from_user in (%s, %s)"""
+    sql_where = (me, me, them, me, them, )
+    cursor.execute(SQL_GET_PRIVATE_MESSAGE_LOG, sql_where)
+    pm_chat_log = cursor.fetchall()
+    return pm_chat_log
+
+
 @socketio.on('connect', namespace='/')
 def connect():
     print('USER CONNECTED')
@@ -247,10 +259,15 @@ def join_server(data):
 
 @socketio.on('pm open', namespace='/')
 def update_pm(data):
+    
+    my_user = session['id']
+    other_user = data['active_pm_id']
     print('pm data', data)
     user_obj = session['user_obj']
-    user_obj.active_pm = int(data['active_pm_id'])
-
+    user_obj.active_pm = int(other_user)
+    pm_chat_log = DB_get_pm_chat_log(my_user, other_user)
+    print(pm_chat_log)
+    emit('pm log', pm_chat_log, room=request.sid)
     
 
 

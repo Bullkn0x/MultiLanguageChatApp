@@ -125,7 +125,7 @@ $(function () {
                 var $pmMsgBody = $('<div class="chats__message mine" />').text(message);
                 var $pmMsgDiv = $('<div class="chats__msgRow" />').append($pmMsgBody);
                 $privateMessages.append($pmMsgDiv);
-                $privateMessages[0].scrollTop = $messages[0].scrollHeight;
+                $privateMessages[0].scrollTop = $privateMessages[0].scrollHeight;
                 socket.emit('private message', {
                     room_id: roomid,
                     recipient_id: recipient_id,
@@ -611,6 +611,24 @@ $(function () {
         addChatMessage(data);
     });
 
+
+    socket.on('pm log', function (data) {
+        $privateMessages.html('');
+        data.forEach( function(userMessage) {
+            if (userMessage.mymsg) {
+                var $pmMsgBody = $('<div class="chats__message mine" />').text(userMessage.message);
+                var $pmMsgDiv = $('<div class="chats__msgRow" />').append($pmMsgBody);
+                $privateMessages.append($pmMsgDiv);
+                
+            } else {
+                var $pmMsgBody = $('<div class="chats__message notMine" />').text(userMessage.message);
+                var $pmMsgDiv = $('<div class="chats__msgRow" />').append($pmMsgBody);
+                $privateMessages.append($pmMsgDiv);
+
+            }
+        });
+
+    });
     socket.on('new private message', function (data) {
         sender_id= data.sender_id.toString();
         console.log(recipient_id == sender_id);
@@ -619,7 +637,7 @@ $(function () {
             var $pmMsgBody = $('<div class="chats__message notMine" />').text(data.message);
             var $pmMsgDiv = $('<div class="chats__msgRow" />').append($pmMsgBody);
             $privateMessages.append($pmMsgDiv);
-            $privateMessages[0].scrollTop = $messages[0].scrollHeight;
+            $privateMessages[0].scrollTop = $privateMessages[0].scrollHeight;
 
             
             console.log(data);
