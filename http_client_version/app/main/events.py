@@ -254,9 +254,17 @@ def text(msg_data):
     message=msg_data['message']
     sender_name = session.get('user')
     receiver = rooms[room_id][recipient_id]
-    if receiver.active_pm == sender_id:
-        emit('new private message', {
-            'sender': sender_id,
+
+    # only send if user has window open handle notification serverside
+    # if receiver.active_pm == sender_id:
+    #     emit('new private message', {
+    #         'sender': sender_id,
+    #         'message' : message
+    #         }, include_self=False, room=receiver.socket_id)
+
+    # Send and have client handle notification
+    emit('new private message', {
+            'sender_id': sender_id,
             'message' : message
             }, include_self=False, room=receiver.socket_id)
 

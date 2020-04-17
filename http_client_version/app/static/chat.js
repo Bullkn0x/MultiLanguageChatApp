@@ -13,6 +13,7 @@ $(function () {
     var $window = $(window);
     var $usernameInput = $('.usernameInput'); // Input for username
     var $messages = $('.messages'); // Messages area
+    var $privateMessages = $('.chats__messages'); 
     var $inputMessage = $('.inputMessage'); // Input message input box
 
     var $loginPage = $('.login.page'); // The login page
@@ -34,6 +35,7 @@ $(function () {
     var lastTypingTime;
     var $currentInput = $usernameInput;
     var recipient_id;
+    var pm_opened = false; 
     var directMessage = false
     var socket = io.connect(null, {
         port: 5000,
@@ -41,12 +43,12 @@ $(function () {
     });
 
 
-    $('.contact').on('click', function () {
-        console.log('pm open');
-        recipient_id = $(this).attr('user_id');
-        socket.emit('pm open',{active_pm_id: recipient_id});
 
-    });
+    $('.chats__back').on('click', function(){
+        recipient_id = null;
+        pm_opened = false;
+        console.log(pm_opened)
+        console.log('chat closed');});
 
     $('input').on('click', function () {
         $inputMessage = $(this);
@@ -102,6 +104,7 @@ $(function () {
 
     $usersList.on('click', 'div' , function () {
         console.log('pm open');
+        pm_opened = true;
         recipient_id = $(this).attr('user_id');
         socket.emit('pm open',{active_pm_id: recipient_id});
 
@@ -119,6 +122,10 @@ $(function () {
         if (message && connected) {
 
             if (directMessage) { 
+                var $pmMsgBody = $('<div class="chats__message mine" />').text(message);
+                var $pmMsgDiv = $('<div class="chats__msgRow" />').append($pmMsgBody);
+                $privateMessages.append($pmMsgDiv);
+                $privateMessages[0].scrollTop = $messages[0].scrollHeight;
                 socket.emit('private message', {
                     room_id: roomid,
                     recipient_id: recipient_id,
@@ -605,7 +612,18 @@ $(function () {
     });
 
     socket.on('new private message', function (data) {
-        console.log(data);
+        sender_id= data.sender_id.toString();
+        console.log(recipient_id == sender_id);
+        // user has the private chat from sender open
+        if (pm_opened && recipient_id == sender_id) {
+            var $pmMsgBody = $('<div class="chats__message notMine" />').text(data.message);
+            var $pmMsgDiv = $('<div class="chats__msgRow" />').append($pmMsgBody);
+            $privateMessages.append($pmMsgDiv);
+            $privateMessages[0].scrollTop = $messages[0].scrollHeight;
+
+            
+            console.log(data);
+        }
     });
 
     // Whenever the server emits 'user joined', log it in the chat body

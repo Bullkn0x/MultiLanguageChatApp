@@ -230,6 +230,8 @@
     left: 2.5rem;
     padding-right: 2.5rem;
     overflow-y: auto;
+    /* CHANGE */
+    height: 87%;
   }
   .chats__msgRow {
     margin-bottom: 0.5rem;
