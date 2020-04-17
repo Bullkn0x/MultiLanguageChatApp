@@ -134,6 +134,17 @@ def DB_get_user_info(user_id):
 
     return user_info
 
+
+def DB_insert_private_msg(from_user, to_user, message):
+    cursor = conn.cursor()
+
+    SQL_PRIVATE_MESSAGE = 'INSERT INTO private_messages (to_user , from_user, message) VALUES (%s, %s, %s);'
+    sql_values = (from_user, to_user, message, )
+    cursor.execute(SQL_PRIVATE_MESSAGE, sql_values)
+    conn.commit()
+    cursor.close()
+
+
 @socketio.on('connect', namespace='/')
 def connect():
     print('USER CONNECTED')
@@ -268,6 +279,7 @@ def text(msg_data):
             'message' : message
             }, include_self=False, room=receiver.socket_id)
 
+    DB_insert_private_msg(sender_id, recipient_id, message)
 @socketio.on('new message',namespace='/')
 def text(msg_data):
     """Sent by a client when the user entered a new message.
