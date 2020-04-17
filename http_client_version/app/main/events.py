@@ -247,7 +247,7 @@ def join_server(data):
 
 @socketio.on('pm open', namespace='/')
 def update_pm(data):
-    print(data)
+    print('pm data', data)
     user_obj = session['user_obj']
     user_obj.active_pm = int(data['active_pm_id'])
 
