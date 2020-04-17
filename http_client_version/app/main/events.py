@@ -108,16 +108,42 @@ def DB_get_public_servers():
                         """
     cursor.execute(SQL_GET_SERVERS)
     public_servers = cursor.fetchall()
+    cursor.close()
 
     return public_servers
+
+def DB_get_user_info(user_id):
+    cursor = conn.cursor()
+
+    SQL_GET_USER = """SELECT * FROM users
+                         WHERE user_id = %s;
+                        """
+    cursor.execute(SQL_GET_USER, user_id)
+    user_info = cursor.fetchone();
+    
+    return user_info
+
+def DB_get_user_info(user_id):
+    cursor = conn.cursor()
+
+    SQL_GET_USER = """SELECT * FROM users
+                         WHERE user_id = %s;
+                        """
+    cursor.execute(SQL_GET_USER, user_id)
+    user_info = cursor.fetchone();
+
+    return user_info
 
 @socketio.on('connect', namespace='/')
 def connect():
     print('USER CONNECTED')
     socket_id = request.sid
     user_id = session['id']
+
+    db_user_info = DB_get_user_info(user_id)
+    print(db_user_info)
     username = session['user']
-    last_room = session['last_room'] or 1
+    last_room = db_user_info['last_room_id'] or 1
 
     # get users for room
     
@@ -137,7 +163,7 @@ def connect():
     current_server_name= 'General Chat'
     for server in server_list:
         room_id = server['room_id'] 
-        rooms[room_id][username] = new_user
+        rooms[room_id][user_id] = new_user
         if server['room_id'] == last_room:
             current_server_name = server['room_name']
     
@@ -175,6 +201,7 @@ def query_server():
 
 
 
+
 @socketio.on('join server', namespace='/')
 def join_server(data):
     # get chat logs for server
@@ -184,6 +211,7 @@ def join_server(data):
     session['last_room'] = join_room
     user_obj = session['user_obj']
     user_obj.current_room = join_room
+    print(user_obj.__dict__)
     
     rooms[join_room][username] = user_obj
     print_rooms()
@@ -192,13 +220,7 @@ def join_server(data):
     # get users for room
     server_users = DB_get_server_users(join_room)
     
-    cursor= conn.cursor()
-    #update user info (current room) 
-    sql_update_user_room = "UPDATE  users SET last_room_id = (%s) where username = %s ;"
-    sql_room_value = (join_room, username, )
-    cursor.execute(sql_update_user_room, sql_room_value)
-    conn.commit()
-    cursor.close()
+
     for user in server_users:
             if user['username'] in rooms[join_room]:
                 user['status'] = 'online'
@@ -212,14 +234,31 @@ def join_server(data):
         })
 
 
+@socketio.on('pm open', namespace='/')
+def update_pm(data):
+    print(data)
+    user_obj = session['user_obj']
+    user_obj.active_pm = int(data['active_pm_id'])
+
+    
+
+
+
 @socketio.on('private message',namespace='/')
 def text(msg_data):
-    receiver = msg_data['recipient']
+    print(msg_data)
+    sender_id = int(session['id'])
+    room_id = int(msg_data['room_id'])
+    recipient_id = int(msg_data['recipient_id'])
+    print(rooms[room_id][recipient_id])
     message=msg_data['message']
     sender_name = session.get('user')
-    user_id = int(session.get('id'))
-    room_id = session['last_room']
-    receiver = rooms[room_id]
+    receiver = rooms[room_id][recipient_id]
+    if receiver.active_pm == sender_id:
+        emit('new private message', {
+            'sender': sender_id,
+            'message' : message
+            }, include_self=False, room=receiver.socket_id)
 
 @socketio.on('new message',namespace='/')
 def text(msg_data):
@@ -230,7 +269,7 @@ def text(msg_data):
     sender_name = session.get('user')
     user_id = int(session.get('id'))
     room_id = session['last_room']
-    sender =rooms[room_id][sender_name]
+    sender =rooms[room_id][user_id]
 
     DB_insert_msg(user_id, message, room_id)
     
@@ -282,16 +321,7 @@ def user_stopped_typing():
         if receiver.current_room == room_id:
             emit('stop typing', { 'username':session['user'] }, broadcast=True, include_self=False)
 
-@socketio.on('disconnect',namespace='/' )
-def disconnect():
-    """Sent by rooms when they leave a room.
-    A status message is broadcast to all people in the room."""
-    # decrease user count
-    global num_users
-    num_users -= 1
-    print(num_users)
-    emit('user left', {'username':session['user'], 'numUsers':num_users}, broadcast=True)
-    print('client disconnected')
+
 
 
 @socketio.on('start-transfer', namespace='/')
@@ -340,3 +370,25 @@ def put_s3(file_data):
         if receiver.current_room == room_id:
             print(receiver.username)
             emit('file link', {'username': sender_name, 'file_url':file_url, 'filename': file_title}, room=receiver.socket_id)
+
+
+
+@socketio.on('disconnect',namespace='/' )
+def disconnect():
+    """Sent by rooms when they leave a room.
+    A status message is broadcast to all people in the room."""
+    # decrease user count
+    global num_users
+    user_id = int(session['id'])
+    last_room = session['user_obj'].current_room
+    cursor= conn.cursor()
+    #update user info (last room) 
+    sql_update_user_room = "UPDATE  users SET last_room_id = (%s) where user_id = %s ;"
+    sql_room_value = (last_room, user_id )
+    cursor.execute(sql_update_user_room, sql_room_value)
+    conn.commit()
+    cursor.close()
+    num_users -= 1
+    print(num_users)
+    emit('user left', {'username':session['user'], 'numUsers':num_users}, broadcast=True)
+    print('client disconnected')

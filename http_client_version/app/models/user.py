@@ -1,6 +1,6 @@
 class User:
 
-    def __init__(self,username,socket_id, language='english', current_room=None):
+    def __init__(self,username,socket_id, language='english', current_room=None, active_pm=None):
 
 
         self.username= username
@@ -10,5 +10,7 @@ class User:
             self.current_room = 1
         else:
             self.current_room = current_room
+
+        self.active_pm = active_pm
     def update_language_pref(self,language):
         self.language = language

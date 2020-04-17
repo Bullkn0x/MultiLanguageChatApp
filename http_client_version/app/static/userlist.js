@@ -129,6 +129,9 @@ $(document).ready(function() {
       var that = this,
           name = $(this).find(".contact__name").text(),
           online = $(this).find(".contact__status").hasClass("online");
+          user_id = $(this).attr('user_id');
+    
+    console.log(user_id);
       $(".chats__name").text(name);
       $(".chats__online");
       if (online) $(".chats__online").addClass("active");
@@ -144,7 +147,7 @@ $(document).ready(function() {
             animatePathD($path, clickD, animTime*2/3, true, function() {
               $chat.show();
               $chat.css("top");
-              $chat.addClass("active");
+              $chat.addClass("active").attr('user_id', user_id);
               animating = false;
               if ($('div.chats.active > img').length){
                 $('div.chats.active > img').remove(); 
