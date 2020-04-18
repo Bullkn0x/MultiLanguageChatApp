@@ -25,6 +25,9 @@
 <link rel="stylesheet" href="{{url_for('static', filename='themeToggler.css')}}">
 <link rel="stylesheet" href="{{url_for('static', filename='tools.css')}}">
 <link rel="stylesheet" href="{{url_for('static', filename='topnav.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='searchModal.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='hover-min.css')}}">
+
 
 
 
@@ -70,17 +73,41 @@
         <li class="chat page flex-col">
             <!-- The Modal -->
             <div id="myModal" class="modal">
-
-                <!-- Modal content -->
                 <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <p>Public Hangout spots to chat out</p>
-                    
-                    <div class="joinServerList">
+                    <div id="container" class="view-initial flex-col">
+                        <div id="banner-bkgrd">
+                            <div id="banner-overlay" class="expand-vertical">
+                                <header id="search-container" class="flex-column flex-center">
+                                    <input id="back-btn" type="submit"" class="fa hvr-pulse-grow"
+                                            value="&#xf053;" title="Search" />
+                                    <div id="search-heading">
+                                        <h1>Find Your Community</h1>
+                                    </div>
+                                    <form id="search-form" class="flex-inline">
+                                        <input id="search-input" type="text" autocomplete="off" tabindex="1"
+                                            autocapitalize="off" autocorrect="off" name="search-query"
+                                            placeholder="I'm feeling chatty about..." />
+                                        <input id="search-clear" class "" type="button" tabindex="3" value="×">
+                                        <input id="search-btn" type="submit" tabindex="2" class="fa fa-lg"
+                                            value="&#xf002;" title="Search" />
+                                    </form>
+                                    <form  class="search-options flex-row ">
+                                        <button id="searchTopServers">Browse Top</button>
+                                        <button>Have Invite Link?</button>
+                                    </form>
+                                
+                                </header>
+                            </div>
+                            <!--/banner-overlay-->
+                        </div>
+                        <!--/banner-->
+                        <main id="results">
+                            <div id="cards" class="flex-row flex-wrap"></div>
+                        </main>
+                        <!--/results-->
                     </div>
-
+                    <!--/container-->
                 </div>
-               
             </div>
             <div class="uploadModalContainer">
                 <div class="uploadModal">
@@ -323,6 +350,8 @@
 <script src="{{url_for('static', filename='chat.js')}}"></script>
 <script src="{{url_for('static', filename='modal.js')}}"></script>
 <script src="{{url_for('static', filename='themeToggler.js')}}"></script>
+<script src="{{url_for('static', filename='searchModal.js')}}"></script>
+
 
 
 

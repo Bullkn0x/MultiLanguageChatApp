@@ -98,15 +98,25 @@ def DB_get_server_users(room_id):
 
     return server_users
 
-def DB_get_public_servers():
+def DB_get_public_servers(search_term=None):
     cursor = conn.cursor()
-    SQL_GET_SERVERS = """SELECT
+    if search_term:
+        SQL_GET_SERVERS = """SELECT          
+                                room_id, room_name, room_logo_url
+                            FROM 
+                                rooms
+                            WHERE room_name LIKE %s;
+                          """
+        sql_where= f'%{search_term}%'
+    else:
+        SQL_GET_SERVERS = """SELECT
                          room_id, room_name, room_logo_url
                          FROM 
                          rooms
                          where public_access = True and room_id > 1 ;
                         """
-    cursor.execute(SQL_GET_SERVERS)
+        sql_where = None
+    cursor.execute(SQL_GET_SERVERS, sql_where)
     public_servers = cursor.fetchall()
     cursor.close()
 
@@ -215,10 +225,9 @@ def connect():
     emit('user joined', {'username':username, 'numUsers':len(rooms)}, broadcast=True, include_self=False)
    
 @socketio.on('query servers', namespace='/')
-def query_server():
+def query_server(search_term = None):
     socket_id = request.sid
-
-    server_suggestions = DB_get_public_servers()
+    server_suggestions = DB_get_public_servers(search_term)
 
     emit('query servers', {"servers": server_suggestions} ,room=socket_id)
 
