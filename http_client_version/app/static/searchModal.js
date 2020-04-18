@@ -51,6 +51,15 @@ $(document).ready(function () {
         setCardImgHeight();
     });
 
+
+
+    // when a user clicks on a server card 
+    
+    $('#cards').on('click','div.card', function() {
+        console.log('server');
+    });
+    
+    
 });
 
 
@@ -165,6 +174,4 @@ function encapsulate(content, tag, attr) {
         return '<' + tag + " " + attr + '>' + content + '</' + tag + '>';
     }
 }
-
-
 

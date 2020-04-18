@@ -76,18 +76,16 @@
   }
   
   
-  .joinServerList  button {
-    color: var(--color);
+  #cards > div.cards {
     -webkit-transition: 0.5s;
     transition: 0.5s;
-    border-radius: 8px;
 
   }
   .joinServerList  button > img {
       height: 128px;
       border-radius: 50%;
   }
-  .joinServerList  button:hover, button:focus {
+  #cards > div.cards:hover, div.cards:focus {
     border-color: var(--hover);
     color: #fff;
   }
