@@ -167,6 +167,14 @@ def DB_get_pm_chat_log(me, them):
     return pm_chat_log
 
 
+def DB_add_user_to_server(user_id, room_id):
+    cursor = conn.cursor()
+    SQL_ADD_USER_TO_SERVER = "INSERT INTO room_users (room_id, user_id) VALUES (%s, %s);"
+    sql_values = (room_id, user_id)
+    cursor.execute(SQL_ADD_USER_TO_SERVER, sql_values)
+    conn.commit()
+    cursor.close()
+
 @socketio.on('connect', namespace='/')
 def connect():
     print('USER CONNECTED')
@@ -231,6 +239,14 @@ def query_server(search_term = None):
 
     emit('query servers', {"servers": server_suggestions} ,room=socket_id)
 
+
+@socketio.on('add server', namespace='/')
+def query_server(server_info):
+    user_id = int(session['id'])
+    room_id = int(server_info['server_id'])
+    DB_add_user_to_server(user_id, room_id)
+
+    print('added user to room')
 
 
 

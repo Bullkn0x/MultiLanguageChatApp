@@ -132,6 +132,10 @@ socket.on('query servers', function (search_data) {
     } else {
         $("#cards").append(encapsulate("No results found", "p", ""));
     }
+
+
+    // When user clicks server card submit button 
+
     $(".button-wrapperSub").on('click', function (e) {
         if ($(this).not(".checked")) {
             $(this).addClass("checked");
@@ -190,27 +194,16 @@ function makeServerCard(server) {
 
 
 
-
+// Socket Events
 // when a user clicks on a server card 
 
 $('#cards').on('click', 'div.card', function (e) {
     // $('div.card').removeClass('active animated bounce');
     // $(this).addClass('active animated bounce');
-    console.log($(this).attr('room_id'));
+    var room_id = $(this).attr('room_id');
+    socket.emit('add server', {server_id: room_id});
     console.log('server wanted');
 });
 
 
 
-
-// When user clicks server card submit button 
-var	wrapper = $( "#button-wrapper" );
-
-$( ".submit" ).click(function() {
-      if(wrapper.not( ".checked" )) {
-            wrapper.addClass( "checked" );
-            setTimeout(function(){
-                wrapper.removeClass( "checked" );
-            }, 8000);
-       }
-});
