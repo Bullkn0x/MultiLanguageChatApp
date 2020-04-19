@@ -182,6 +182,7 @@ def connect():
     user_id = session['id']
 
     db_user_info = DB_get_user_info(user_id)
+    language = db_user_info['language']
     print(db_user_info)
     username = session['user']
     last_room = db_user_info['last_room_id'] or 1
@@ -193,7 +194,7 @@ def connect():
     server_list = DB_get_user_servers(user_id)
 
     # Create user object
-    new_user = User(username=username,socket_id=socket_id, current_room=last_room)
+    new_user = User(username=username, language=language, socket_id=socket_id, current_room=last_room)
     session['user_obj'] = new_user
     
 
@@ -208,20 +209,23 @@ def connect():
         if server['room_id'] == last_room:
             current_server_name = server['room_name']
     
-    for user in server_users:
-        if user['username'] in rooms[last_room]:
-            user['status'] = 'online'
-        else:
-            user['status'] = 'offline'
+   
     print(dumps(server_users, indent=4))
 
     # DEBUG PRINTING
     print_user_details(user_id,username,socket_id,last_room)
     print_rooms()
     session['last_room'] =new_user.current_room
-    emit('login', {'username' : username, 'numUsers':len(rooms)})
+    emit('login', {'username' : username, 'numUsers':len(rooms),'language':language})
 
     chat_log = DB_get_chat_logs(last_room)
+
+    print(server_users)
+    for user in server_users:
+        if int(user['user_id']) in rooms[last_room]:
+            user['status'] = 'online'
+        else:
+            user['status'] = 'offline'
 
     emit('join server', {
         "server_id":last_room,
@@ -230,7 +234,7 @@ def connect():
         "server_users":server_users
         })
     emit('server info',{'server_list':server_list, "server_users":server_users})
-    emit('user joined', {'username':username, 'numUsers':len(rooms)}, broadcast=True, include_self=False)
+    emit('user joined', {'user_id': user_id, 'username':username, 'numUsers':len(rooms)}, broadcast=True, include_self=False)
    
 @socketio.on('query servers', namespace='/')
 def query_server(search_term = None):
@@ -272,7 +276,7 @@ def join_server(data):
     
 
     for user in server_users:
-            if user['username'] in rooms[join_room]:
+            if int(user['user_id']) in rooms[join_room]:
                 user['status'] = 'online'
             else:
                 user['status'] = 'offline'
@@ -365,10 +369,7 @@ def text(msg_data):
 @socketio.on('change language',namespace='/')
 def update_language(language):
     user = session['user_obj']
-    
-    print(user.__dict__)
     user.update_language_pref(language)
-    print(user.__dict__)
 
 @socketio.on('typing',namespace='/')
 def user_typing():
@@ -441,9 +442,10 @@ def put_s3(file_data):
 def disconnect():
     """Sent by rooms when they leave a room.
     A status message is broadcast to all people in the room."""
-    # decrease user count
-    global num_users
     user_id = int(session['id'])
+
+   
+    
     last_room = session['user_obj'].current_room
     language = session['user_obj'].language
     cursor= conn.cursor()
@@ -453,7 +455,12 @@ def disconnect():
     cursor.execute(sql_update_user_room, sql_room_value)
     conn.commit()
     cursor.close()
-    num_users -= 1
-    print(num_users)
-    emit('user left', {'username':session['user'], 'numUsers':num_users}, broadcast=True)
+
+    # delete user from cache
+    for room, user_ids in rooms.items():
+        if user_id in user_ids:
+            del rooms[room][user_id]
+
+
+    emit('user left', {'user_id':user_id, 'username':session['user'], 'numUsers':num_users}, broadcast=True)
     print('client disconnected')
