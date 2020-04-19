@@ -239,13 +239,15 @@ def join_server(data):
     # get chat logs for server
     join_room = int(data['roomID'])
     print(join_room)
+    user_id = session['id']
+
     username = data['username']
     session['last_room'] = join_room
     user_obj = session['user_obj']
     user_obj.current_room = join_room
     print(user_obj.__dict__)
     
-    rooms[join_room][username] = user_obj
+    rooms[join_room][user_id] = user_obj
     print_rooms()
     # get chat logs (list of dictionaries) 
     room_chat_log = DB_get_chat_logs(join_room)
