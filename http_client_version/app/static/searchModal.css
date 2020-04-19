@@ -168,7 +168,7 @@
 
 #results {
     padding: 10px 0;
-    overflow-y: scroll;
+    overflow-y: auto;
     
     display: flex;
     flex-direction: column;
@@ -182,6 +182,7 @@
 /* CARDS */
 
 #cards {
+    overflow: inherit;
 	max-width: 1200px;
 	margin: auto;
     padding: 0 8px;
