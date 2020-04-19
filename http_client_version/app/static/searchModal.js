@@ -46,20 +46,7 @@ $(document).ready(function () {
         }
     });
 
-    // bind window resize to manually adjust card image height, in order to maintain required aspect ratio of card images
-    $(window).resize(function () {
-        setCardImgHeight();
-    });
 
-
-
-    // when a user clicks on a server card 
-    
-    $('#cards').on('click','div.card', function() {
-        console.log('server');
-    });
-    
-    
 });
 
 
@@ -103,7 +90,7 @@ function showViewResults() {
 }
 
 
-$('#searchTopServers').on('click', function() {
+$('#searchTopServers').on('click', function () {
     socket.emit('query servers');
     $('#back-btn').show();
     $('#search-container').removeClass('flex-column');
@@ -137,41 +124,93 @@ socket.on('query servers', function (search_data) {
     $("#cards").html('');
     var servers = search_data.servers;
     if (servers.length) {
+        servers.forEach(function (server) {
+            $("#cards").append(makeServerCard(server));
 
-        $("#cards").append(makeServerCard(servers));
+        });
         // manually set height of card images, since the width is already known
     } else {
         $("#cards").append(encapsulate("No results found", "p", ""));
     }
+    $(".button-wrapperSub").on('click', function (e) {
+        if ($(this).not(".checked")) {
+            $(this).addClass("checked");
+            setTimeout(function () {
+                var $card = $(e.target).closest('.card')
+                $card.addClass('animated fadeOut');
+                setTimeout(function () {
+                    $card.remove()},2000);
+                $(this).removeClass("checked");
+            }, 5000);
+        }
     
-     
-
-});
-
-// Build cards elements from 'search results' array
-function makeServerCard(search_results) {
-    var html = "";
-    search_results.forEach(function (server) {
-        var imgSrc = server.room_logo_url || "https://placehold.it/200x150/e6e6e6?text=Image+unavailable"
-        // build elements to be appended to #cards
-        var image = encapsulate(false, "img", "src='" + imgSrc + "' alt='Server image for " + server.room_name + "'");
-        var imageDiv = encapsulate(image, "div", "class='card-image'");
-        var title = encapsulate(server.room_name, "h2", "");
-        var titleDiv = encapsulate(title, "div", "class='flex card-title'");
-        var action = encapsulate("More Info", "a", "room_id=" + server.room_id);
-        var actionDiv = encapsulate(action, "div", "class='flex card-actions'");
-        html = html + encapsulate(imageDiv + titleDiv + actionDiv, "div", "class='flex-col card'");
+    });
+    $(".card").hover(function(){
+        console.log($(this).children('.button-wrapperSub').addClass('animated slideInRight fastest').show());
+    },function(){
+        if (!$(this).children('.button-wrapperSub').hasClass("checked")) {
+        $(this).children('.button-wrapperSub').hide();}
     });
 
-    return html;
+
+
+
+});
+// Build cards elements from 'search results' array
+function makeServerCard(server) {
+    var buttonDiv = '<div class="button-wrapperSub">' +
+        '<a class="submit" href="#">Join</a>' +
+        '<div class="loader-wrapper">' +
+        '<span class="loader yellow"></span>' +
+        '<span class="loader pink"></span></div>' +
+        '<span class="loader orange"></span>' +
+        '<div class="check-wrapper">' +
+        '<svg version="1.1" width="65px" height="38px" viewBox="0 0 64.5 37.4">' +
+        '<polyline class="check" points="5,13 21.8,32.4 59.5,5 " /></svg></div></div>'
+
+    var $serverCard = $('<div/>').addClass('flex-col card hvr-glow').attr('room_id', server.room_id).append(
+        $('<div/>').addClass('card-image').append(
+            $('<img/>').attr({
+                'src': server.room_logo_url || 'http://d1cpyz6yyb1kha.cloudfront.net/59c06463b972775e7c31ebc446d11919.png?size=128',
+                'alt': 'Server image for' + server.room_name
+            })
+        ),
+        $('<div/>').addClass('flex card-title').append(
+            $('<h2/>').text(server.room_name)
+        ),
+        $('<div/>').addClass('flex card-actions').append(
+            $('<a/>').text('More Info')
+        ),
+        buttonDiv
+    );
+    return $serverCard
 }
 
-// wrap content in given html tags, with given attributes
-function encapsulate(content, tag, attr) {
-    if (false === content) {
-        return "<" + tag + " " + attr + " />";
-    } else {
-        return '<' + tag + " " + attr + '>' + content + '</' + tag + '>';
-    }
-}
 
+
+
+
+
+// when a user clicks on a server card 
+
+$('#cards').on('click', 'div.card', function (e) {
+    // $('div.card').removeClass('active animated bounce');
+    // $(this).addClass('active animated bounce');
+    console.log($(this).attr('room_id'));
+    console.log('server wanted');
+});
+
+
+
+
+// When user clicks server card submit button 
+var	wrapper = $( "#button-wrapper" );
+
+$( ".submit" ).click(function() {
+      if(wrapper.not( ".checked" )) {
+            wrapper.addClass( "checked" );
+            setTimeout(function(){
+                wrapper.removeClass( "checked" );
+            }, 8000);
+       }
+});

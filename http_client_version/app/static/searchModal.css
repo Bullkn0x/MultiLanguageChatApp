@@ -3,9 +3,17 @@
     height: 100%;
 }
 
+.hvr-glow:hover, .hvr-glow:focus, .card.active {
+    box-shadow: 0 0 9px #dc3545 !important;
+}
+
+.hvr-glow:hover
+.card.animated.bounce {
+    animation-delay: 0 !important;
+}
+
 
 /* BANNER */
-
 
 
 .view-results #banner-bkgrd {
@@ -168,7 +176,7 @@
 
 #results {
     padding: 10px 0;
-    overflow-y: auto;
+    overflow-y: scroll;
     
     display: flex;
     flex-direction: column;
@@ -182,7 +190,6 @@
 /* CARDS */
 
 #cards {
-    overflow: inherit;
 	max-width: 1200px;
 	margin: auto;
     padding: 0 8px;

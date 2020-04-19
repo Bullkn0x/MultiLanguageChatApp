@@ -45,47 +45,20 @@
     cursor: pointer;
   }
   
-  /* modal content */
-  /*
-    https://developer.mozilla.org/en/docs/Web/CSS/box-shadow
-    box-shadow: [inset?] [top] [left] [blur] [size] [color];
-  
-    Tips:
-      - We're setting all the blurs to 0 since we want a solid fill.
-      - Add the inset keyword so the box-shadow is on the inside of the element
-      - Animating the inset shadow on hover looks like the element is filling in from whatever side you specify ([top] and [left] accept negative values to become [bottom] and [right])
-      - Multiple shadows can be stacked
-      - If you're animating multiple shadows, be sure to keep the same number of shadows so the animation is smooth. Otherwise, you'll get something choppy.
-  */
   
   
-  
-  
-  
-   .slide:hover,
-    .slide:focus {
-    box-shadow: inset 12.5em 0 0 0 var(--hover);
-  }
-  
-  
-  
-  
-  .slide {
-    --color: #8fc866;
-    --hover: #66c887;
-  }
-  
-  
-  #cards > div.cards {
+  .joinServerList  button {
+    color: var(--color);
     -webkit-transition: 0.5s;
     transition: 0.5s;
+    border-radius: 8px;
 
   }
   .joinServerList  button > img {
       height: 128px;
       border-radius: 50%;
   }
-  #cards > div.cards:hover, div.cards:focus {
+  .joinServerList  button:hover, button:focus {
     border-color: var(--hover);
     color: #fff;
   }
@@ -115,9 +88,3 @@
     overflow-y: scroll;
   
   }
-
-
-  
-
-
-  /* submit button */
