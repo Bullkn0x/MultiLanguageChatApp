@@ -364,8 +364,9 @@ def text(msg_data):
 
 @socketio.on('change language',namespace='/')
 def update_language(language):
-    username = session.get('user')
-    user =rooms[username]
+    user = session['user_obj']
+    
+    print(user.__dict__)
     user.update_language_pref(language)
     print(user.__dict__)
 
@@ -413,7 +414,6 @@ def write_chunk(filename, offset, data):
         with open(current_app.config['FILEDIR'] + filename, 'r+b') as f:
             f.seek(offset)
             f.write(data)
-        # upload_file(fileloc, 'anychatio', '{}/{}'.format(filename))
     except IOError:
         return False
     return True
@@ -445,10 +445,11 @@ def disconnect():
     global num_users
     user_id = int(session['id'])
     last_room = session['user_obj'].current_room
+    language = session['user_obj'].language
     cursor= conn.cursor()
     #update user info (last room) 
-    sql_update_user_room = "UPDATE  users SET last_room_id = (%s) where user_id = %s ;"
-    sql_room_value = (last_room, user_id )
+    sql_update_user_room = "UPDATE  users SET last_room_id = (%s), language = %s  where user_id = %s ;"
+    sql_room_value = (last_room, language, user_id )
     cursor.execute(sql_update_user_room, sql_room_value)
     conn.commit()
     cursor.close()
