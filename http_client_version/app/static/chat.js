@@ -710,6 +710,8 @@ $(function () {
         });
     });
 
+
+
     // Whenever the server emits 'user left', log it in the chat body
     socket.on('user left', function (data) {
         console.log(data);

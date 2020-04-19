@@ -143,17 +143,19 @@ socket.on('query servers', function (search_data) {
                 var $card = $(e.target).closest('.card')
                 $card.addClass('animated fadeOut');
                 setTimeout(function () {
-                    $card.remove()},2000);
+                    $card.remove()
+                }, 2000);
                 $(this).removeClass("checked");
             }, 5000);
         }
-    
+
     });
-    $(".card").hover(function(){
+    $(".card").hover(function () {
         console.log($(this).children('.button-wrapperSub').addClass('animated slideInRight fastest').show());
-    },function(){
+    }, function () {
         if (!$(this).children('.button-wrapperSub').hasClass("checked")) {
-        $(this).children('.button-wrapperSub').hide();}
+            $(this).children('.button-wrapperSub').hide();
+        }
     });
 
 
@@ -197,12 +199,29 @@ function makeServerCard(server) {
 // Socket Events
 // when a user clicks on a server card 
 
-$('#cards').on('click', 'div.card', function (e) {
-    // $('div.card').removeClass('active animated bounce');
-    // $(this).addClass('active animated bounce');
-    var room_id = $(this).attr('room_id');
-    socket.emit('add server', {server_id: room_id});
-    console.log('server wanted');
+$('#cards').on('click', 'div.card', function () {
+    console.log('this is working');
+    var server_id = $(this).attr('room_id');
+    socket.emit('add server', { server_id: server_id });
+    
+    
+    // refresh the server list with the new server
+    var $serverList = $('.serverList');
+    var server_name = $(this).children('.card-title').children('h2').text();
+    var server_img = $(this).children('.card-image').children().attr('src');
+    var $imgDiv = $('<img />').attr("src", server_img).css({
+        "max-height": "133%",
+        "border-radius": "16%",
+        "margin-right": "10px",
+    });
+
+    // add to serverlist
+    var $serverNameDiv = $('<span class="menu-collapsed"/>')
+        .text(server_name);
+    var $tableCellDiv = $('<a href="#" class="list-group-item list-group-item-action bg-dark text-white">').append(
+        $imgDiv).append($serverNameDiv);
+    $serverList.append($tableCellDiv.attr('room_id', server_id));
+
 });
 
 
