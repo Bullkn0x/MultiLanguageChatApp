@@ -1,3 +1,6 @@
+
+
+var $serverList = $('.serverList');
 // Hide submenus
 $('#body-row .collapse').collapse('hide'); 
 
@@ -26,3 +29,20 @@ function SidebarCollapse () {
     // Collapse/Expand icon
     $('#collapse-icon').toggleClass('fa-angle-double-left fa-angle-double-right');
 }
+
+socket.on('new server', function(server) {
+
+    var $imgDiv = $('<img />').attr("src", server.room_logo_url).css({
+        "max-height": "133%",
+        "border-radius": "16%",
+        "margin-right": "10px",
+    });
+
+    var $serverNameDiv = $('<span class="menu-collapsed"/>')
+        .text(server.room_name);
+    var $tableCellDiv = $('<a href="#" class="list-group-item list-group-item-action bg-dark">').attr('room_id', server.room_id).append($imgDiv).append($serverNameDiv);
+    $serverList.append($tableCellDiv);
+    $tableCellDiv.click();
+
+});
+

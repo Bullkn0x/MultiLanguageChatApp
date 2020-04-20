@@ -31,7 +31,7 @@
 
 
   #newServerModal .modal-content {
-      margin: auto 25%;
+      width: 575px;
   }
 
   #newServerModal .serverOptions {

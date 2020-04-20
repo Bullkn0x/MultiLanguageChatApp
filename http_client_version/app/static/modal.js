@@ -15,7 +15,7 @@
   });
  
  
-  $$createBtn.on('click', function() {
+  $createBtn.on('click', function() {
      $createModal.css('display', "flex");
    });
    

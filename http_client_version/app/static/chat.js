@@ -409,6 +409,8 @@ $(function () {
             if (username) {
                 if (event.target.id == 'search-input') {
                     console.log('searc babyyy');
+                } else if (event.target.id == 'serverName') {
+                    console.log('create Baby');
                 } else {
                     sendMessage();
                     socket.emit('stop typing');

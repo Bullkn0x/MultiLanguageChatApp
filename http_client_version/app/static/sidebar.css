@@ -10,6 +10,11 @@
 
 
 }
+
+.serverList {
+    height: 150px !important;
+    overflow-y: scroll;
+}
 #sidebar-container {
     min-height: 100vh;   
     background-color: var(--primary-color);
