@@ -692,7 +692,7 @@ $(function () {
 
             var $serverNameDiv = $('<span class="menu-collapsed"/>')
                 .text(server.room_name);
-            var $tableCellDiv = $('<a href="#" class="list-group-item list-group-item-action bg-dark text-white">').append($imgDiv).append($serverNameDiv);
+            var $tableCellDiv = $('<a href="#" class="list-group-item list-group-item-action bg-dark">').append($imgDiv).append($serverNameDiv);
             $serverList.append($tableCellDiv.attr('room_id', server.room_id));
         });
 

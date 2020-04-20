@@ -4,7 +4,7 @@
                             
  // Side Menu Selector for modals
  var $discoverBtn = $("#discoverServer");
- var $$createBtn = $("#createServer");
+ var $createBtn = $("#createServer");
  
 
   // When the user clicks the button, open the modal 
