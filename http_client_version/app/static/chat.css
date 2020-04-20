@@ -149,7 +149,6 @@
   /* Chat page */
   
 .navcontainer {
-    margin: auto 230px;
     z-index: 1;
 }
 .navbar {
@@ -183,7 +182,7 @@
   
   .chatArea {
     color: var(--font-color);
-    margin: 16px 16px 0px 16px;
+    margin: 0px 16px;
     
   }
   
