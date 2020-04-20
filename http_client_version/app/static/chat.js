@@ -49,17 +49,18 @@ $(function () {
     $('.chats__back').on('click', function () {
         recipient_id = null;
         pm_opened = false;
+        socket.emit('pm status', { active_pm_id: null});
+
         console.log(pm_opened)
         console.log('chat closed');
     });
-
+    
     $('input').on('click', function () {
         $inputMessage = $(this);
         console.log($inputMessage);
         if ($inputMessage.hasClass('direct-message')) {
             directMessage = true;
             recipient_id = $inputMessage.closest('.chats.active').attr('user_id');
-            socket.emit('pm open', { active_pm_id: recipient_id });
             console.log(recipient_id);
 
         } else {
@@ -104,10 +105,9 @@ $(function () {
 
 
     $usersList.on('click', 'div', function () {
-        console.log('pm open');
         pm_opened = true;
         recipient_id = $(this).attr('user_id');
-        socket.emit('pm open', { active_pm_id: recipient_id });
+        socket.emit('pm status', { active_pm_id: recipient_id });
 
     });
     // Sends a chat message
@@ -121,6 +121,7 @@ $(function () {
         console.log(message);
         // if there is a non-empty message and a socket connection
         if (message && connected) {
+            $inputMessage.val('');
 
             if (directMessage) {
                 var $pmMsgBody = $('<div class="chats__message mine" />').text(message);
@@ -133,12 +134,9 @@ $(function () {
                     message: message
                 });
 
-                // addPrivateMessage({
-                //     username: username,
-                //     message: message
-                // });
+
+              
             } else {
-                $inputMessage.val('');
                 addChatMessage({
                     username: username,
                     message: message

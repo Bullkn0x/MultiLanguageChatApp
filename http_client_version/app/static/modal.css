@@ -20,12 +20,23 @@
     padding: 20px;
     border: 1px solid #333;
     border-radius: 35px;
-
-    width: 90%;
-    height: 90%;
     color: var(--font-color);
   }
   
+
+.privateSelect {
+    align-items: center;
+
+}
+
+
+  #newServerModal .modal-content {
+      margin: auto 25%;
+  }
+
+  #newServerModal .serverOptions {
+    justify-content: space-between;
+  }
   .modal-content > p {
       text-align: center;
   }

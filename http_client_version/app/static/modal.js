@@ -1,24 +1,54 @@
- // Get the modal
- var $modal = $("#myModal");
+ //  Modals
+ var $discoverModal = $("#discoverModal");
+ var $createModal= $("#newServerModal");
                             
- // Get the button that opens the modal
- var $btn = $(".addServer");
+ // Side Menu Selector for modals
+ var $discoverBtn = $("#discoverServer");
+ var $$createBtn = $("#createServer");
  
- // Get the <span> element that closes the modal
- var span = $("close")[0];
+
+  // When the user clicks the button, open the modal 
+ $discoverBtn.on('click', function() {
+    $discoverModal.css('display', "flex");
+    $('#search-heading').addClass('animated fadeIn')
+    $options.addClass('animated slideInDown delay-1s');
+  });
  
- var $options = $('.search-options');
- // When the user clicks the button, open the modal 
- $btn.on('click', function() {
-   $modal.css('display', "flex");
-   $('#search-heading').addClass('animated fadeIn')
-   $options.addClass('animated slideInDown delay-1s');
- });
  
- // When the user clicks on <span> (x), close the modal
- $("#myModal").click( function(e) {
+  $$createBtn.on('click', function() {
+     $createModal.css('display', "flex");
+   });
+   
+
+//CREATE MODAL
+var $createSubmit = $("#createServerSubmit");
+var $serverName = $("#serverName");
+
+
+ //As Soon as user click submit, exit the modal.
+
+$createSubmit.on('click' , function(){
+    if($serverName.val()){
+        // $createModal.hide();
+      // $serverName.clear();
+      var room_name=$serverName.val();
+      var public = $('#_checkbox').is(":not(:checked)")
+      socket.emit('create server', {
+        room_name:room_name,
+        public:public
+      });
+    }
+  });
+
+// SEARCH MODAL
+var $options = $('.search-options');
+
+ 
+
+ // When the user clicks off the modal, close it
+ $(".modal").click( function(e) {
     if(e.target == e.currentTarget) {
-        $modal.css('display', "none");
+        $(this).hide();
     }
 });
 

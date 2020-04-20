@@ -175,6 +175,14 @@ def DB_add_user_to_server(user_id, room_id):
     conn.commit()
     cursor.close()
 
+def DB_create_server(room_name, public_access, user_id):
+    cursor = conn.cursor()
+    CREATE_SERVER_SQL="CALL ADD_ROOM(%s, %s, %s);"
+    sql_values = (room_name, public_access, user_id, )
+    cursor.execute(CREATE_SERVER_SQL, sql_values)
+    conn.commit()
+    cursor.close()
+
 @socketio.on('connect', namespace='/')
 def connect():
     print('USER CONNECTED')
@@ -195,6 +203,7 @@ def connect():
 
     # Create user object
     new_user = User(username=username, language=language, socket_id=socket_id, current_room=last_room)
+
     session['user_obj'] = new_user
     
 
@@ -244,6 +253,15 @@ def query_server(search_term = None):
     emit('query servers', {"servers": server_suggestions} ,room=socket_id)
 
 
+
+@socketio.on('create server', namespace='/')
+def create_server(data):
+    user_id = int(session['id'])
+    room_name=data['room_name']
+    public = data['public']
+    DB_create_server(room_name, public, user_id)
+   
+
 @socketio.on('add server', namespace='/')
 def query_server(server_info):
     user_id = int(session['id'])
@@ -288,17 +306,21 @@ def join_server(data):
         })
 
 
-@socketio.on('pm open', namespace='/')
+@socketio.on('pm status', namespace='/')
 def update_pm(data):
     
     my_user = session['id']
-    other_user = data['active_pm_id']
-    print('pm data', data)
     user_obj = session['user_obj']
-    user_obj.active_pm = int(other_user)
-    pm_chat_log = DB_get_pm_chat_log(my_user, other_user)
-    print(pm_chat_log)
-    emit('pm log', pm_chat_log, room=request.sid)
+    other_user = data['active_pm_id']
+    if other_user:
+        user_obj.active_pm = int(other_user)
+        pm_chat_log = DB_get_pm_chat_log(my_user, other_user)
+        emit('pm log', pm_chat_log, room=request.sid)
+    else:
+        user_obj.active_pm = None
+
+    
+
     
 
 

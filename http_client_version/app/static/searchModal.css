@@ -3,6 +3,12 @@
     height: 100%;
 }
 
+#discoverModal .modal-content {
+    height: 90%;
+    width: 90%;
+}
+
+
 .hvr-glow:hover, .hvr-glow:focus, .card.active {
     box-shadow: 0 0 9px #dc3545 !important;
 }
