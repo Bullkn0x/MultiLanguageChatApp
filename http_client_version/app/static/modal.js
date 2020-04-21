@@ -19,18 +19,22 @@ $discoverBtn.on('click', function() {
 });
 
 
-//Leave Server Modal
-
-//Gets the cancel button and hide the modal if cancel is pressed.
-var $leaveServerCancel=$('cancelLeave');
-$leaveServerCancel.on('click', function(){
-  $leaveModal.css('display', 'hidden');
-});
+//Leave Server Modal AREA ------------
 //Temp button to bring up the modal
 $helpBtn.on('click', function(){
   $leaveModal.css('display', 'flex');
 });
- 
+//Gets the cancel button and hide the modal if cancel is pressed.
+var $leaveServerCancel = $('cancelLeave');
+//Function is not working for some reason....
+$leaveServerCancel.on('click', function(){
+  // $leaveModal.css('display', 'none');
+  $leaveModal.hide();
+  // $('.modal').css('display', 'none');
+});
+
+
+
 
 //When right click on all the servers on the serverList... Do something HERE...
 //Currently Returns the text and room_id of which ever you click on
