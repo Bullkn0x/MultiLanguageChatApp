@@ -24,10 +24,14 @@
   }
   
 
-.privateSelect {
-    align-items: center;
+  .privateSelect {
+      align-items: center;
 
-}
+  }
+
+  #leaveConfirmModal .modal-content{
+    width: 450px;
+  }
 
 
   #newServerModal .modal-content {

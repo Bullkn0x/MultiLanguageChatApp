@@ -27,6 +27,7 @@ $(function () {
     var $onlineNumber = $('.online span');
     var $languagePref = $('#language');
     var $serverList = $('.serverList');
+    var $serverIconList = $('#serverIcons');
     var $usersList = $('.sidebar-content');
     var $addServerModal = $('#addServer');
     var $uploadModal = $('.uploadModalContainer')
@@ -409,8 +410,8 @@ $(function () {
             if (username) {
                 if (event.target.id == 'search-input') {
                     console.log('searc babyyy');
-                } else if (event.target.id == 'serverName') {
-                    console.log('create Baby');
+                } else if (even.target.id =='serverName') {
+                    console.log('Your Social Security Number is being tracked!');
                 } else {
                     sendMessage();
                     socket.emit('stop typing');
@@ -685,6 +686,7 @@ $(function () {
         console.log(data);
         $serverList.html('');
         $usersList.html('');
+        $serverIconList.html('');
         data.server_list.forEach(function (server) {
             var $imgDiv = $('<img />').attr("src", server.room_logo_url).css({
                 "max-height": "133%",
@@ -694,8 +696,10 @@ $(function () {
 
             var $serverNameDiv = $('<span class="menu-collapsed"/>')
                 .text(server.room_name);
-            var $tableCellDiv = $('<a href="#" class="list-group-item list-group-item-action bg-dark">').append($imgDiv).append($serverNameDiv);
+            var $tableCellDiv = $('<a href="#" class="list-group-item your-server list-group-item-action bg-dark">').append($imgDiv).append($serverNameDiv);
             $serverList.append($tableCellDiv.attr('room_id', server.room_id));
+
+            $serverIconList.append($('<img/>').attr('src' ,server.room_logo_url));
         });
 
         data.server_users.forEach(function (user) {

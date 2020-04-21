@@ -1,11 +1,15 @@
  //  Modals
  var $discoverModal = $("#discoverModal");
  var $createModal= $("#newServerModal");
-                            
+ var $leaveModal = $("#leaveConfirmModal"); 
+ var $serverOptionModal = $("serverOptionModal");
+
  // Side Menu Selector for modals
  var $discoverBtn = $("#discoverServer");
  var $createBtn = $("#createServer");
- 
+  //temporary help button'
+ var $helpBtn = $("#help");
+
 
   // When the user clicks the button, open the modal 
  $discoverBtn.on('click', function() {
@@ -14,11 +18,25 @@
     $options.addClass('animated slideInDown delay-1s');
   });
  
+  $helpBtn.on('click', function(){
+    $leaveModal.css('display','flex');
+    
+  });
  
   $createBtn.on('click', function() {
      $createModal.css('display', "flex");
    });
    
+
+
+$(document).on("contextmenu", ".your-server", function(e){
+    alert($(this).text());
+    alert($(this).attr('room_id'));
+    $(this).on()
+    $serverOptionModal.css('display', "flex");
+
+    return false;
+ });
 
 //CREATE MODAL
 var $createSubmit = $("#createServerSubmit");

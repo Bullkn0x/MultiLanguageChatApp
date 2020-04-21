@@ -1,50 +1,45 @@
-
-
 var $serverList = $('.serverList');
 // Hide submenus
-$('#body-row .collapse').collapse('hide'); 
+$('#body-row .collapse').collapse('hide');
 
 // Collapse/Expand icon
-$('#collapse-icon').addClass('fa-angle-double-left'); 
+$('#collapse-icon').addClass('fa-angle-double-left');
 
 // Collapse click
-$('[data-toggle=sidebar-colapse]').click(function() {
+$('[data-toggle=sidebar-colapse]').click(function () {
     SidebarCollapse();
 });
 
 
-$serverList.mouseover(function(){
-    
-    $(this).css('background-color','red');
-    // $(this).mousedown(function(e){
-    //     if (e.which===3){
-    //         alert($(this).text())
-    //     }else{
-    //         alert("Somethign else is pressed")
-    //     }
-    // });
-});
+// $allserver.mouseover(function () {
+//     $(this).mousedown(function (e) {
+//         if (e.which == 3) {
+//             alert($(this).text());
+//             alert($(this).attr('room_id'));
+//         }
+//     });
+// });
 
 
-function SidebarCollapse () {
+function SidebarCollapse() {
     $('.menu-collapsed').toggleClass('d-none');
     $('.sidebar-submenu').toggleClass('d-none');
     $('.submenu-icon').toggleClass('d-none');
     $('#sidebar-container').toggleClass('sidebar-expanded sidebar-collapsed');
-    
+
     // Treating d-flex/d-none on separators with title
     var SeparatorTitle = $('.sidebar-separator-title');
-    if ( SeparatorTitle.hasClass('d-flex') ) {
+    if (SeparatorTitle.hasClass('d-flex')) {
         SeparatorTitle.removeClass('d-flex');
     } else {
         SeparatorTitle.addClass('d-flex');
     }
-    
+
     // Collapse/Expand icon
     $('#collapse-icon').toggleClass('fa-angle-double-left fa-angle-double-right');
 }
 
-socket.on('new server', function(server) {
+socket.on('new server', function (server) {
 
     var $imgDiv = $('<img />').attr("src", server.room_logo_url).css({
         "max-height": "133%",
@@ -59,4 +54,3 @@ socket.on('new server', function(server) {
     $tableCellDiv.click();
 
 });
-

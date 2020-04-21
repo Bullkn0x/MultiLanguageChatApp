@@ -174,6 +174,15 @@ def DB_create_server(room_name, public_access, user_id):
     conn.commit()
     cursor.close()
 
+def DB_leave_server(user_id, room_id):
+    cursor = conn.cursor()
+    LEAVE_SERVER_SQL ='DELETE FROM room_user WHERE user_id=%s AND room_id=%s;'
+    sql_values = (user_id,room_id )
+    cursor.execute(LEAVE_SERVER_SQL, sql_values)
+    conn.commit()
+    cursor.close()
+
+
 @socketio.on('connect', namespace='/')
 def connect():
     print('USER CONNECTED')
@@ -255,8 +264,10 @@ def add_server(server_info):
 
 @socketio.on('leave server', namespace='/')
 def leave_server(data):
-
+    user_id = int(session['id'])
     print(data['user'])
+    DB_leave_server(user_id, data['room_id'])
+    
     print('user left the server')
 
 
