@@ -12,6 +12,20 @@ $('[data-toggle=sidebar-colapse]').click(function() {
     SidebarCollapse();
 });
 
+
+$serverList.mouseover(function(){
+    
+    $(this).css('background-color','red');
+    // $(this).mousedown(function(e){
+    //     if (e.which===3){
+    //         alert($(this).text())
+    //     }else{
+    //         alert("Somethign else is pressed")
+    //     }
+    // });
+});
+
+
 function SidebarCollapse () {
     $('.menu-collapsed').toggleClass('d-none');
     $('.sidebar-submenu').toggleClass('d-none');

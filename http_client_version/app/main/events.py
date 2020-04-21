@@ -52,10 +52,10 @@ def DB_get_chat_logs(room_id):
     sql_room_where = (room_id, )
     cursor.execute(sql_room_chat, sql_room_where)
     room_chat_log = cursor.fetchall()
-
     
     cursor.close()
     return room_chat_log
+
 
 def DB_insert_msg(user_id, message, room_id):
     
@@ -65,6 +65,7 @@ def DB_insert_msg(user_id, message, room_id):
     cursor.execute(sql_message,sql_params)
     conn.commit()
     cursor.close()
+
 
 def DB_get_user_servers(user_id):
     cursor = conn.cursor()
@@ -79,6 +80,7 @@ def DB_get_user_servers(user_id):
     server_list = cursor.fetchall()
     cursor.close()
     return server_list
+
 
 def DB_get_server_users(room_id):
     cursor = conn.cursor()
@@ -206,8 +208,8 @@ def connect():
         rooms[room_id][user_id] = new_user
         if server['room_id'] == last_room:
             current_server_name = server['room_name']
-    
-   
+
+
     print(dumps(server_users, indent=4))
 
     # DEBUG PRINTING
@@ -242,6 +244,21 @@ def query_server(search_term = None):
     emit('query servers', {"servers": server_suggestions} ,room=socket_id)
 
 
+@socketio.on('add server', namespace='/')
+def add_server(server_info):
+    user_id = int(session['id'])
+    room_id = int(server_info['server_id'])
+    DB_add_user_to_server(user_id, room_id)
+
+    print('added user to room')
+
+
+@socketio.on('leave server', namespace='/')
+def leave_server(data):
+
+    print(data['user'])
+    print('user left the server')
+
 
 @socketio.on('create server', namespace='/')
 def create_server(data):
@@ -250,15 +267,6 @@ def create_server(data):
     public = data['public']
     DB_create_server(room_name, public, user_id)
    
-
-@socketio.on('add server', namespace='/')
-def query_server(server_info):
-    user_id = int(session['id'])
-    room_id = int(server_info['server_id'])
-    DB_add_user_to_server(user_id, room_id)
-
-    print('added user to room')
-
 
 
 @socketio.on('join server', namespace='/')
@@ -311,7 +319,7 @@ def update_pm(data):
     
 
 @socketio.on('private message',namespace='/')
-def text(msg_data):
+def private_text(msg_data):
     print(msg_data)
     sender_id = int(session['id'])
     room_id = int(msg_data['room_id'])
