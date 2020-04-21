@@ -8,6 +8,7 @@ from .. import mysql
 from json import JSONEncoder, dumps, dump
 import uuid
 import os
+
 # populate room info
 conn = mysql.connect()
 cursor = conn.cursor()
@@ -133,8 +134,6 @@ def DB_get_user_info(user_id):
     
     return user_info
 
-
-
 def DB_insert_private_msg(from_user, to_user, message):
     cursor = conn.cursor()
 
@@ -171,11 +170,7 @@ def DB_create_server(room_name, public_access, user_id):
     sql_values = (room_name, public_access, user_id, )
     cursor.execute(CREATE_SERVER_SQL, sql_values)
     conn.commit()
-    room_details = cursor.fetchone()
     cursor.close()
-
-    return room_details
-    
 
 @socketio.on('connect', namespace='/')
 def connect():
@@ -251,16 +246,10 @@ def query_server(search_term = None):
 @socketio.on('create server', namespace='/')
 def create_server(data):
     user_id = int(session['id'])
-    user_obj = session['user_obj']
     room_name=data['room_name']
     public = data['public']
-    room_info = DB_create_server(room_name, public, user_id)
-    room_id = room_info['room_id']
-    # Add room and user to room monitoring cache
-    rooms[room_id] = {user_id : user_obj}
-    print_rooms()
-    print('server created', room_info)
-    emit('new server', room_info)
+    DB_create_server(room_name, public, user_id)
+   
 
 @socketio.on('add server', namespace='/')
 def query_server(server_info):
@@ -268,6 +257,7 @@ def query_server(server_info):
     room_id = int(server_info['server_id'])
     DB_add_user_to_server(user_id, room_id)
 
+    print('added user to room')
 
 
 
