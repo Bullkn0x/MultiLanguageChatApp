@@ -174,6 +174,8 @@ def DB_create_server(room_name, public_access, user_id):
     conn.commit()
     cursor.close()
 
+
+#Method to delete the row where the user is in the room.
 def DB_leave_server(user_id, room_id):
     cursor = conn.cursor()
     LEAVE_SERVER_SQL ='DELETE FROM room_user WHERE user_id=%s AND room_id=%s;'
@@ -252,7 +254,7 @@ def query_server(search_term = None):
 
     emit('query servers', {"servers": server_suggestions} ,room=socket_id)
 
-
+#Method to Add a server to the User Server List
 @socketio.on('add server', namespace='/')
 def add_server(server_info):
     user_id = int(session['id'])
@@ -261,7 +263,7 @@ def add_server(server_info):
 
     print('added user to room')
 
-
+#Method to leave the server
 @socketio.on('leave server', namespace='/')
 def leave_server(data):
     user_id = int(session['id'])
