@@ -24,7 +24,7 @@ $discoverBtn.on('click', function() {
 //Gets the cancel button and hide the modal if cancel is pressed.
 var $leaveServerCancel=$('cancelLeave');
 $leaveServerCancel.on('click', function(){
-  $leaveModal.css('display', 'none');
+  $leaveModal.css('display', 'hidden');
 });
 //Temp button to bring up the modal
 $helpBtn.on('click', function(){
