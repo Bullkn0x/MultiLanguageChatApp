@@ -73,20 +73,28 @@
 
             <!-- Create New Server Modal -->
             <div id="newServerModal" class="modal">
-                <div class="createModal-content modal-content">
+                <div class="modal-content">
 
-                    <h2 >Creating a new Server? Enter a name!</h2>
-                    <form>
-                        <div class="form-group col-md-6">
+                    <h2>Creating a new Server? Enter a name!</h2>
+                    <form class="flex-row serverOptions">
+                        <div class="form-group flex-col">
                             <label for="serverName">Server name</label>
                             <input type="text" class="form-control" id="serverName">
                         </div>
-                            <div class="container">
-                                <button type="button" id="createServerSubmit" class="btn btn-primary hvr-fade hvr-shrink createModelBtn">Create</button>
-                            </div>
+                        <div class="flex-row privateSelect">
+                            <label>Private Server</label>
+                            <input type="checkbox" id="_checkbox">
+                            <label class="_checkbox" for="_checkbox">
+                                <div id="tick_mark"></div>
+                            </label>
+                        </div>
                     </form>
+                    <div class="container"> <button type="button" id="createServerSubmit"
+                            class="btn btn-primary hvr-fade hvr-shrink createModelBtn">Create</button>
+                    </div>
                 </div>
             </div>
+
 
             <!-- Server Option Modal  -->
             <div id="serverOptionModal" class="modal">
@@ -107,14 +115,14 @@
             </div>
 
             <!-- The Modal -->
-            <div id="myModal" class="modal">
+            <div id="discoverModal" class="modal">
                 <div class="modal-content">
                     <div id="container" class="view-initial flex-col">
                         <div id="banner-bkgrd">
                             <div id="banner-overlay" class="expand-vertical">
                                 <header id="search-container" class="flex-column flex-center">
-                                    <input id="back-btn" type="submit" class="fa hvr-pulse-grow"
-                                            value="&#xf053;" title="Search" />
+                                    <input id="back-btn" type="submit" class="fa hvr-pulse-grow" value="&#xf053;"
+                                        title="Search" />
                                     <div id="search-heading">
                                         <h1>Find Your Community</h1>
                                     </div>
@@ -144,6 +152,8 @@
                     <!--/container-->
                 </div>
             </div>
+
+
             <div class="uploadModalContainer">
                 <div class="uploadModal">
 
