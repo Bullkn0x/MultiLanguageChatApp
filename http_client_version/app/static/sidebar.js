@@ -11,6 +11,8 @@ $('[data-toggle=sidebar-colapse]').click(function () {
 });
 
 
+
+
 // $allserver.mouseover(function () {
 //     $(this).mousedown(function (e) {
 //         if (e.which == 3) {
