@@ -129,20 +129,10 @@ def DB_get_user_info(user_id):
                          WHERE user_id = %s;
                         """
     cursor.execute(SQL_GET_USER, user_id)
-    user_info = cursor.fetchone();
+    user_info = cursor.fetchone()
     
     return user_info
 
-def DB_get_user_info(user_id):
-    cursor = conn.cursor()
-
-    SQL_GET_USER = """SELECT * FROM users
-                         WHERE user_id = %s;
-                        """
-    cursor.execute(SQL_GET_USER, user_id)
-    user_info = cursor.fetchone();
-
-    return user_info
 
 
 def DB_insert_private_msg(from_user, to_user, message):
@@ -330,10 +320,6 @@ def update_pm(data):
 
     
 
-    
-
-
-
 @socketio.on('private message',namespace='/')
 def text(msg_data):
     print(msg_data)
@@ -359,6 +345,8 @@ def text(msg_data):
             }, include_self=False, room=receiver.socket_id)
 
     DB_insert_private_msg(sender_id, recipient_id, message)
+
+
 @socketio.on('new message',namespace='/')
 def text(msg_data):
     """Sent by a client when the user entered a new message.
