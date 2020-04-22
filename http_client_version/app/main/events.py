@@ -172,7 +172,11 @@ def DB_create_server(room_name, public_access, user_id):
     sql_values = (room_name, public_access, user_id, )
     cursor.execute(CREATE_SERVER_SQL, sql_values)
     conn.commit()
+    room_details = cursor.fetchone()
     cursor.close()
+
+    return room_details
+
 
 
 #Method to delete the row where the user is in the room.
