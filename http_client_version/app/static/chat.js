@@ -410,8 +410,8 @@ $(function () {
             if (username) {
                 if (event.target.id == 'search-input') {
                     console.log('searc babyyy');
-                } else if (event.target.id == 'serverName') {
-                    console.log('create Baby');
+                } else if (event.target.id =='serverName') {
+                    console.log('Your Social Security Number is being tracked!');
                 } else {
                     sendMessage();
                     socket.emit('stop typing');
@@ -696,7 +696,7 @@ $(function () {
 
             var $serverNameDiv = $('<span class="menu-collapsed"/>')
                 .text(server.room_name);
-            var $tableCellDiv = $('<a href="#" class="list-group-item list-group-item-action bg-dark">').append($imgDiv).append($serverNameDiv);
+            var $tableCellDiv = $('<a href="#" class="list-group-item your-server list-group-item-action bg-dark">').append($imgDiv).append($serverNameDiv);
             $serverList.append($tableCellDiv.attr('room_id', server.room_id));
 
             $serverIconList.append($('<img/>').attr('src' ,server.room_logo_url));
