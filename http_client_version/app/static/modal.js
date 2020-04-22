@@ -7,6 +7,7 @@
  // Side Menu Selector for modals
  var $discoverBtn = $("#discoverServer");
  var $createBtn = $("#createServer");
+
   //temporary help button'
  var $helpBtn = $("#help");
 
@@ -58,7 +59,7 @@ $createBtn.on('click', function() {
 });
  //As Soon as user click submit, exit the modal.
 
-$createSubmit.on('click' , function(){
+$createSubmit.click( function(){
     if($serverName.val()){
         // $createModal.hide();
       // $serverName.clear();
@@ -68,8 +69,16 @@ $createSubmit.on('click' , function(){
         room_name:room_name,
         public:public
       });
+      $createModal.hide();
     }
+    
   });
+
+$serverName.keypress(function(e){
+  if (e.which==13){
+    $createSubmit.click(); 
+  }
+});
 
 // SEARCH MODAL
 var $options = $('.search-options');

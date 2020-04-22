@@ -410,7 +410,7 @@ $(function () {
             if (username) {
                 if (event.target.id == 'search-input') {
                     console.log('searc babyyy');
-                } else if (even.target.id =='serverName') {
+                } else if (event.target.id =='serverName') {
                     console.log('Your Social Security Number is being tracked!');
                 } else {
                     sendMessage();
