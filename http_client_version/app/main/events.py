@@ -275,11 +275,21 @@ def leave_server(data):
 
 @socketio.on('create server', namespace='/')
 def create_server(data):
+    # user_id = int(session['id'])
+    # room_name=data['room_name']
+    # public = data['public']
+    # DB_create_server(room_name, public, user_id)
     user_id = int(session['id'])
+    user_obj = session['user_obj']
     room_name=data['room_name']
     public = data['public']
-    DB_create_server(room_name, public, user_id)
-   
+    room_info = DB_create_server(room_name, public, user_id)
+    room_id = room_info['room_id']
+    # Add room and user to room monitoring cache
+    rooms[room_id] = {user_id : user_obj}
+    print_rooms()
+    print('server created', room_info)
+    emit('new server', room_info)
 
 
 @socketio.on('join server', namespace='/')
