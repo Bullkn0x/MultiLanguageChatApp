@@ -90,11 +90,32 @@
                             </label>
                         </div>
                     </form>
-                    <div class="container"> <button type="button" id="createServerSubmit"
+                    <div class="container"> 
+                        <button type="button" id="createServerSubmit"
                             class="btn btn-primary hvr-fade hvr-shrink createModelBtn">Create</button>
                     </div>
                 </div>
             </div>
+
+
+            <!-- Server Option Modal  -->
+            <div id="serverOptionModal" class="modal">
+                <div class="serverOptionModal-content">
+                    <button type="button" class="btn btn-outline-danger">Danger</button>
+                </div>
+            </div>
+
+            <!-- Leave Confirmation Modal -->
+            <div id="leaveConfirmModal" class="modal">
+                <div class="leaveConfirmModal-content modal-content">
+                    <h4 class="text-center">Are you sure you want to leave the Server?</h4>
+                    <div class="d-flex justify-content-around">
+                        <button id="cancelLeave" type="button" class="btn btn-secondary">Cancel</button>
+                        <button id="confirmLeave" type="button" class="btn btn-danger">Confirm Leave</button>
+                    </div>
+                </div>
+            </div>
+
             <!-- The Modal -->
             <div id="discoverModal" class="modal">
                 <div class="modal-content">
@@ -111,7 +132,7 @@
                                         <input id="search-input" type="text" autocomplete="off" tabindex="1"
                                             autocapitalize="off" autocorrect="off" name="search-query"
                                             placeholder="I'm feeling chatty about..." />
-                                        <input id="search-clear" class "" type="button" tabindex="3" value="×">
+                                        <input id="search-clear" class="" type="button" tabindex="3" value="×">
                                         <input id="search-btn" type="submit" tabindex="2" class="fa fa-lg"
                                             value="&#xf002;" title="Search" />
                                     </form>
@@ -133,6 +154,8 @@
                     <!--/container-->
                 </div>
             </div>
+
+
             <div class="uploadModalContainer">
                 <div class="uploadModal">
 
@@ -270,10 +293,10 @@
                         <!-- Separator without title -->
                         <li class="list-group-item sidebar-separator menu-collapsed"></li>
                         <!-- /END Separator -->
-                        <a href="#" class="bg-dark list-group-item list-group-item-action">
+                        <a id="help" href="#" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fa fa-question fa-fw mr-3"></span>
-                                <span class="menu-collapsed">Help</span>
+                                <span class="help menu-collapsed">Temp Leave Btn</span>
                             </div>
                         </a>
                         <a href="#" data-toggle="sidebar-colapse"
@@ -283,16 +306,18 @@
                                 <span id="collapse-text" class="menu-collapsed">Collapse</span>
                             </div>
                         </a>
-                        <!-- Logo -->
-                        <li class="list-group-item logo-separator d-flex justify-content-center">
-                            <img src="{{url_for('static', filename='assets/images/logo/logo.png')}}" width="30"
-                                height="30" />
-                        </li>
+
                         <div class="toggle toggle--daynight">
                             <input type="checkbox" id="toggle--daynight" class="toggle--checkbox">
                             <label class="toggle--btn" for="toggle--daynight"><span
                                     class="toggle--feature"></span></label>
                         </div>
+
+
+                        <!-- Logo -->
+                        <!-- <li class="list-group-item logo-separator d-flex justify-content-center">
+                                <img src="{{url_for('static', filename='assets/images/logo/logo.png')}}" width="30" height="30" />    
+                            </li>    -->
                     </ul><!-- List Group END-->
                 </div><!-- sidebar-container END -->
                 <!-- MAIN -->
@@ -340,6 +365,7 @@
                             <i class="flex large material-icons buttons emojiZone">insert_emoticon</i>
                         </div>
                     </div>
+
 
                 </div>
 

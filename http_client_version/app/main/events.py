@@ -8,6 +8,7 @@ from .. import mysql
 from json import JSONEncoder, dumps, dump
 import uuid
 import os
+
 # populate room info
 conn = mysql.connect()
 cursor = conn.cursor()
@@ -51,10 +52,10 @@ def DB_get_chat_logs(room_id):
     sql_room_where = (room_id, )
     cursor.execute(sql_room_chat, sql_room_where)
     room_chat_log = cursor.fetchall()
-
     
     cursor.close()
     return room_chat_log
+
 
 def DB_insert_msg(user_id, message, room_id):
     
@@ -64,6 +65,7 @@ def DB_insert_msg(user_id, message, room_id):
     cursor.execute(sql_message,sql_params)
     conn.commit()
     cursor.close()
+
 
 def DB_get_user_servers(user_id):
     cursor = conn.cursor()
@@ -78,6 +80,7 @@ def DB_get_user_servers(user_id):
     server_list = cursor.fetchall()
     cursor.close()
     return server_list
+
 
 def DB_get_server_users(room_id):
     cursor = conn.cursor()
@@ -129,21 +132,9 @@ def DB_get_user_info(user_id):
                          WHERE user_id = %s;
                         """
     cursor.execute(SQL_GET_USER, user_id)
-    user_info = cursor.fetchone();
+    user_info = cursor.fetchone()
     
     return user_info
-
-def DB_get_user_info(user_id):
-    cursor = conn.cursor()
-
-    SQL_GET_USER = """SELECT * FROM users
-                         WHERE user_id = %s;
-                        """
-    cursor.execute(SQL_GET_USER, user_id)
-    user_info = cursor.fetchone();
-
-    return user_info
-
 
 def DB_insert_private_msg(from_user, to_user, message):
     cursor = conn.cursor()
@@ -185,7 +176,18 @@ def DB_create_server(room_name, public_access, user_id):
     cursor.close()
 
     return room_details
-    
+
+
+
+#Method to delete the row where the user is in the room.
+def DB_leave_server(user_id, room_id):
+    cursor = conn.cursor()
+    LEAVE_SERVER_SQL ='DELETE FROM room_user WHERE user_id=%s AND room_id=%s;'
+    sql_values = (user_id,room_id )
+    cursor.execute(LEAVE_SERVER_SQL, sql_values)
+    conn.commit()
+    cursor.close()
+
 
 @socketio.on('connect', namespace='/')
 def connect():
@@ -221,8 +223,8 @@ def connect():
         rooms[room_id][user_id] = new_user
         if server['room_id'] == last_room:
             current_server_name = server['room_name']
-    
-   
+
+
     print(dumps(server_users, indent=4))
 
     # DEBUG PRINTING
@@ -256,10 +258,31 @@ def query_server(search_term = None):
 
     emit('query servers', {"servers": server_suggestions} ,room=socket_id)
 
+#Method to Add a server to the User Server List
+@socketio.on('add server', namespace='/')
+def add_server(server_info):
+    user_id = int(session['id'])
+    room_id = int(server_info['server_id'])
+    DB_add_user_to_server(user_id, room_id)
+
+    print('added user to room')
+
+#Method to leave the server
+@socketio.on('leave server', namespace='/')
+def leave_server(data):
+    user_id = int(session['id'])
+    print(data['user'])
+    DB_leave_server(user_id, data['room_id'])
+    
+    print('user left the server')
 
 
 @socketio.on('create server', namespace='/')
 def create_server(data):
+    # user_id = int(session['id'])
+    # room_name=data['room_name']
+    # public = data['public']
+    # DB_create_server(room_name, public, user_id)
     user_id = int(session['id'])
     user_obj = session['user_obj']
     room_name=data['room_name']
@@ -271,14 +294,6 @@ def create_server(data):
     print_rooms()
     print('server created', room_info)
     emit('new server', room_info)
-
-@socketio.on('add server', namespace='/')
-def query_server(server_info):
-    user_id = int(session['id'])
-    room_id = int(server_info['server_id'])
-    DB_add_user_to_server(user_id, room_id)
-
-
 
 
 @socketio.on('join server', namespace='/')
@@ -330,12 +345,8 @@ def update_pm(data):
 
     
 
-    
-
-
-
 @socketio.on('private message',namespace='/')
-def text(msg_data):
+def private_text(msg_data):
     print(msg_data)
     sender_id = int(session['id'])
     room_id = int(msg_data['room_id'])
@@ -359,6 +370,8 @@ def text(msg_data):
             }, include_self=False, room=receiver.socket_id)
 
     DB_insert_private_msg(sender_id, recipient_id, message)
+
+
 @socketio.on('new message',namespace='/')
 def text(msg_data):
     """Sent by a client when the user entered a new message.

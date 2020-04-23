@@ -76,6 +76,12 @@
 #sidebar-container > ul a {
     background-color: var(--secondary-color) !important;
 }
+
+#sidebar-container > ul a:hover{
+    background-color: var(--menu-hover-color) !important;
+}
+
+
 #sidebar-container > ul > li {
     color: var(--header-font-color);
 }
