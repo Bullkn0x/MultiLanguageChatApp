@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Socket.IO Chat Example</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static', filename='chat.css')}}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Zilla+Slab&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@2.12.1/dist/index.min.js"></script>
+
+    <!-- nav Animation -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    <!-- Side Bar -->
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+    <link rel="stylesheet" href="{{url_for('static', filename='sidebar.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='userlist.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='filebox.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='modal.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='uploadModal.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='themeToggler.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='tools.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='topnav.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='searchModal.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='hover-min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='buttons.css')}}">
+
+
+
+
+
+
+
+    <!-- End -->
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+
+
+</head>
+
+<body style="font-family: 'Zilla Slab', serif;">
+    <style>
+        div#dropzone {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999999999;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+
+            transition: visibility 175ms, opacity 175ms;
+            display: flex;
+            text-shadow: 1px 1px 2px #000;
+            color: #fff;
+        }
+
+        div#dropzone>img {
+            margin: auto;
+            height: 40%;
+        }
+    </style>
+    <div style="visibility:hidden; opacity:0" id="dropzone">
+        <img id="textnode"></img>
+    </div>
+
+    <ul class="pages">
+
+        <li class="chat page flex-col">
+
+            <!-- Create New Server Modal -->
+            <div id="newServerModal" class="modal">
+                <div class="modal-content">
+
+                    <h2>Creating a new Server? Enter a name!</h2>
+                    <form class="flex-row serverOptions">
+                        <div class="form-group flex-col">
+                            <label for="serverName">Server name</label>
+                            <input type="text" class="form-control" id="serverName">
+
+                        </div>
+                        <div class="flex-row privateSelect">
+                            <label>Private Server</label>
+                            <input type="checkbox" id="_checkbox">
+                            <label class="_checkbox" for="_checkbox">
+                                <div id="tick_mark"></div>
+                            </label>
+                        </div>
+                    </form>
+                    <div class="container"> <button type="button" id="createServerSubmit"
+                            class="btn btn-primary hvr-fade hvr-shrink createModelBtn">Create</button>
+                    </div>
+                </div>
+            </div>
+            <!-- The Modal -->
+            <div id="discoverModal" class="modal">
+                <div class="modal-content">
+                    <div id="container" class="view-initial flex-col">
+                        <div id="banner-bkgrd">
+                            <div id="banner-overlay" class="expand-vertical">
+                                <header id="search-container" class="flex-column flex-center">
+                                    <input id="back-btn" type="submit" class="fa hvr-pulse-grow" value="&#xf053;"
+                                        title="Search" />
+                                    <div id="search-heading">
+                                        <h1>Find Your Community</h1>
+                                    </div>
+                                    <form id="search-form" class="flex-inline">
+                                        <input id="search-input" type="text" autocomplete="off" tabindex="1"
+                                            autocapitalize="off" autocorrect="off" name="search-query"
+                                            placeholder="I'm feeling chatty about..." />
+                                        <input id="search-clear" class "" type="button" tabindex="3" value="×">
+                                        <input id="search-btn" type="submit" tabindex="2" class="fa fa-lg"
+                                            value="&#xf002;" title="Search" />
+                                    </form>
+                                    <form class="search-options flex-row ">
+                                        <button id="searchTopServers">Browse Top</button>
+                                        <button>Have Invite Link?</button>
+                                    </form>
+
+                                </header>
+                            </div>
+                            <!--/banner-overlay-->
+                        </div>
+                        <!--/banner-->
+                        <main id="results">
+                            <div id="cards" class="flex-row flex-wrap"></div>
+                        </main>
+                        <!--/results-->
+                    </div>
+                    <!--/container-->
+                </div>
+            </div>
+            <div class="uploadModalContainer">
+                <div class="uploadModal">
+
+                    <div class="info flex-grow">
+                        <p>Add Message? (OPTIONAL)</p>
+                        <input class="uploadMessage" placeholder="Well, well, what is this file here... ">
+                    </div>
+                    <div class="actions ">
+
+                        <button class="btn btn-secondary" type="submit flex">Cancel</button>
+                        <button id="upload" class="btn btn-success" type="submit flex">Upload</button>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Nav Start -->
+            <!-- <div class="navcontainer animated slideInDown delay-1s">
+                <nav class="navbar navbar-expand-lg">
+                    <a class="navbar-brand" href="#">Anychat.io</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09"
+                        aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse">
+                        <ul class="navbar-nav mr-auto">
+
+                            <li class="nav-item dropdown">
+                                <a id="language" class="nav-link dropdown-toggle" href="http://example.com"
+                                    id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="flag-icon flag-icon-us"> </span> English</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdown09">
+                                    <a class="dropdown-item"><span class="flag-icon flag-icon-us"> </span>
+                                        English</a>
+                                    <a class="dropdown-item"><span class="flag-icon flag-icon-pl"> </span>
+                                        Polish</a>
+                                    <a class="dropdown-item"><span class="flag-icon flag-icon-es"> </span>
+                                        Español</a>
+                                    <a class="dropdown-item"><span class="flag-icon flag-icon-cn"> </span>
+                                        中文</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <span class="online badge badge-primary">Online: <span>1</span> </span>
+                </nav>
+            </div> -->
+            <!-- Nav End -->
+
+
+            <!-- Chat And Side Bar Container  -->
+            <div class="components flex-row" style="height: 100%;" id="body-row">
+                <!-- Sidebar -->
+                <div id="serverIcons" class="flex-col">
+                </div>
+                <div id="sidebar-container"
+                    class="flex sidebar-expanded d-none d-md-block animated slideInLeft delay-0.5s">
+                    <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
+                    <!-- Bootstrap List Group -->
+                    <ul class="list-group">
+                        <!-- Separator with title -->
+                        <li class="list-group-item sidebar-separator-title d-flex align-items-center menu-collapsed">
+                            <small>MAIN MENU</small>
+                        </li>
+                        <!-- /END Separator -->
+                        <!-- Menu with submenu -->
+                        <a id="createServer" href="#" class="menuItem list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fa fa-plus fa-fw mr-3"></span>
+                                <span class="createServer menu-collapsed">Create a Server</span>
+                            </div>
+                        </a>
+
+                        <a id="discoverServer" href="#" class="bg-dark list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fa fa-search-plus fa-fw mr-3"></span>
+                                <span class="addServer menu-collapsed"">Server Discovery</span>
+                                    </div>
+                            </a>
+                            <a href=" #submenu1" data-toggle="collapse" aria-expanded="false"
+                                    class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="d-flex w-100 justify-content-start align-items-center">
+                                        <span class="fa fa-dashboard fa-fw mr-3"></span>
+                                        <span class="menu-collapsed">Your Servers</span>
+                                        <span class="submenu-icon ml-auto"></span>
+                                    </div>
+                        </a>
+                        <!-- Submenu content -->
+                        <div id='submenu1' class="serverList collapse sidebar-submenu">
+
+                        </div>
+                        <a href="#submenu2" data-toggle="collapse" aria-expanded="false"
+                            class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fa fa-user fa-fw mr-3"></span>
+                                <span class="menu-collapsed">Profile</span>
+                                <span class="submenu-icon ml-auto"></span>
+                            </div>
+                        </a>
+                        <!-- Submenu content -->
+                        <div id='submenu2' class="collapse sidebar-submenu">
+                            <a href="#" class="list-group-item list-group-item-action bg-dark ">
+                                <span class="menu-collapsed">Settings</span>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action bg-dark ">
+                                <span class="menu-collapsed">Password</span>
+                            </a>
+                        </div>
+                        <a href="#" class="bg-dark list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fa fa-tasks fa-fw mr-3"></span>
+                                <span class="menu-collapsed">Tasks</span>
+                            </div>
+                        </a>
+                        <!-- Separator with title -->
+                        <li
+                            class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
+                            <small>OPTIONS</small>
+                        </li>
+                        <!-- /END Separator -->
+                        <a href="#" class="bg-dark list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fa fa-cog fa-fw mr-3"></span>
+                                <span class="menu-collapsed">Settings</span>
+                            </div>
+                        </a>
+                        <a href="#" class="bg-dark list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fa fa-envelope-o fa-fw mr-3"></span>
+                                <span class="menu-collapsed">Messages <span class="badge badge-pill ml-2"
+                                        style="background-color: #2196f3;">5</span></span>
+                            </div>
+                        </a>
+                        <!-- Separator without title -->
+                        <li class="list-group-item sidebar-separator menu-collapsed"></li>
+                        <!-- /END Separator -->
+                        <a href="#" class="bg-dark list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fa fa-question fa-fw mr-3"></span>
+                                <span class="menu-collapsed">Help</span>
+                            </div>
+                        </a>
+                        <a href="#" data-toggle="sidebar-colapse"
+                            class="bg-dark list-group-item list-group-item-action d-flex align-items-center">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span id="collapse-icon" class="fa fa-2x mr-3"></span>
+                                <span id="collapse-text" class="menu-collapsed">Collapse</span>
+                            </div>
+                        </a>
+                        <!-- Logo -->
+                        <li class="list-group-item logo-separator d-flex justify-content-center">
+                            <img src="{{url_for('static', filename='assets/images/logo/logo.png')}}" width="30"
+                                height="30" />
+                        </li>
+                        <div class="toggle toggle--daynight">
+                            <input type="checkbox" id="toggle--daynight" class="toggle--checkbox">
+                            <label class="toggle--btn" for="toggle--daynight"><span
+                                    class="toggle--feature"></span></label>
+                        </div>
+                    </ul><!-- List Group END-->
+                </div><!-- sidebar-container END -->
+                <!-- MAIN -->
+
+                <div class="chatArea flex-col flex-grow">
+                    <div class="navcontainer animated slideInDown delay-1s">
+                        <nav class="navbar navbar-expand-lg">
+                            <a class="navbar-brand" href="#">Anychat.io</a>
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09"
+                                aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse">
+                                <ul class="navbar-nav mr-auto">
+        
+                                    <li class="nav-item dropdown">
+                                        <a id="language" class="nav-link dropdown-toggle" href="http://example.com"
+                                            id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="flag-icon flag-icon-us"> </span> English</a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdown09">
+                                            <a class="dropdown-item"><span class="flag-icon flag-icon-us"> </span>
+                                                English</a>
+                                            <a class="dropdown-item"><span class="flag-icon flag-icon-pl"> </span>
+                                                Polish</a>
+                                            <a class="dropdown-item"><span class="flag-icon flag-icon-es"> </span>
+                                                Español</a>
+                                            <a class="dropdown-item"><span class="flag-icon flag-icon-cn"> </span>
+                                                中文</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <span class="online badge badge-primary">Online: <span>1</span> </span>
+                        </nav>
+                    </div>
+
+                    <ul class="flex-grow messages animated fadeIn delay-2s">
+
+                    </ul>
+                    <div class="inhold animated slideInUp delay-1s">
+                        <div class="flex inputContainer" style="margin-bottom: 20px;">
+                            <i class="flex large material-icons buttons">add</i>
+                            <input class="inputMessage chat-message flex-grow"
+                                placeholder="Type here or drag file to upload..." />
+                            <i class="flex large material-icons buttons emojiZone">insert_emoticon</i>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- <div class="flex userList left-right"> -->
+                <div class="flex usersOnline">
+                    <div class="sidebar-content">
+
+
+                    </div>
+                    <div class="chats">
+                        <span class="chats__back"></span>
+                        <span class="chats__status">status</span>
+                        <div class="chats__person">
+                            <span class="chats__online active"></span>
+                            <span class="chats__name">Huehue Huehue</span>
+                        </div>
+                        <div class="chats__messages">
+                            <div class="chats__msgRow">
+                                <div class="chats__message mine">Bro WHATTUP</div>
+                            </div>
+                            <div class="chats__msgRow">
+                                <div class="chats__message notMine">Wow!</div>
+                            </div>
+                            <div class="chats__msgRow">
+                                <div class="chats__message notMine">YOOO</div>
+                            </div>
+
+                        </div>
+                        <div class="inputContainer chats__input">
+                            <i class="flex large material-icons buttons">add</i>
+                            <input class="inputMessage direct-message flex-grow"
+                                placeholder="Type here or drag file to upload...">
+                            <i class="flex large material-icons buttons emojiZone">insert_emoticon</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </li>
+
+    </ul>
+    <!-- filebox -->
+
+    <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/gsap-latest-beta.min.js'></script>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+    <script>
+        var input = document.querySelector('.emojiZone');
+        var messageBox = document.querySelector('.inputMessage');
+        var picker = new EmojiButton({
+            position: 'left-start',
+            style: 'twemoji'
+        })
+
+        picker.on('emoji', function (emoji) {
+            var newEl = document.createElement('span');
+            newEl.innerHTML = emoji;
+            messageBox.appendChild(newEl);
+            console.log(newEl)
+        })
+
+        input.addEventListener('click', function () {
+            picker.pickerVisible ? picker.hidePicker() : picker.showPicker(input);
+
+        })
+    </script>
+
+
+    <!-- Side Bar -->
+    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js'></script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js'></script>
+    <script src="{{url_for('static', filename='chat.js')}}"></script>
+    <script src="{{url_for('static', filename='sidebar.js')}}"></script>
+    <script src="{{url_for('static', filename='userlist.js')}}"></script>
+    <script src="{{url_for('static', filename='modal.js')}}"></script>
+    <script src="{{url_for('static', filename='themeToggler.js')}}"></script>
+    <script src="{{url_for('static', filename='searchModal.js')}}"></script>
+
+
+
+
+
+    <!-- End -->
+</body>
+
+</html>

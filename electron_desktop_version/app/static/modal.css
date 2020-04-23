@@ -1,0 +1,101 @@
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    z-index: 9999;
+  }
+  
+  /* Modal Content */
+  .modal-content {
+
+    background-color: #333;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #333;
+    border-radius: 35px;
+    color: var(--font-color);
+  }
+  
+
+.privateSelect {
+    align-items: center;
+
+}
+
+
+  #newServerModal .modal-content {
+      width: 575px;
+  }
+
+  #newServerModal .serverOptions {
+    justify-content: space-between;
+  }
+  .modal-content > p {
+      text-align: center;
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  
+  
+  .joinServerList  button {
+    color: var(--color);
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    border-radius: 8px;
+
+  }
+  .joinServerList  button > img {
+      height: 128px;
+      border-radius: 50%;
+  }
+  .joinServerList  button:hover, button:focus {
+    border-color: var(--hover);
+    color: #fff;
+  }
+  
+  .joinServerList > .buttons {
+      text-align: center;
+  }
+  
+  .joinServerList  button {
+    background: none;
+    border: 2px solid;
+    font: inherit;
+    line-height: 1;
+    margin: 0.5em;
+    padding: 1.5em 2em;
+  }
+  
+  .joinServerList  h1 {
+    font-weight: 400;
+  }
+  
+   .joinServerList {
+    justify-items: center;
+    display: grid;
+    grid-template: auto / auto auto auto auto;
+    height: 75%;
+    overflow-y: scroll;
+  
+  }

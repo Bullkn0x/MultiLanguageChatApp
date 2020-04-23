@@ -1,0 +1,261 @@
+
+:root {
+    --theme-name: dark;
+    --bg-color: #212529;
+    --primary-color: #333;
+    --secondary-color: #343a40;
+    --font-color: white;
+    --header-font-color: #6c757d;
+    --secondary-font-color: #222331;
+
+    --heading-color: #292922;
+    --message-bg-other:  #E9EAF3;
+    --message-bg-mine: #495057;
+    --chat-top-bar-color: #2196f3;
+}
+
+
+:root[theme='light'] {
+    --theme-name: light;
+    --bg-color: #d6d7d9;
+    --primary-color: #c2c2c2 !important;
+    --secondary-color: #a8aaac;
+    --font-color: #434141;
+    --header-font-color: #6c757d;
+    --secondary-font-color: #f9f9ff;
+    --heading-color: #b1b121;
+    --message-bg-other: #2196f3;
+    --message-bg-mine: #ced3d8;
+    --chat-top-bar-color: #2196f3;
+}
+/* Online list  */
+.left-right {
+  overflow:hidden;
+  height:86.9%;
+  width:0;
+  float: right;
+  background-color:#333;
+}
+
+
+/* Scroll Bar */
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: rgba(34, 33, 33, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: rgba(6, 7, 7, 0.2);
+}
+
+/* Fix user-agent */
+
+* {
+    box-sizing: border-box;
+  }
+  
+  html {
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  html, input {
+    font-family: 
+      "HelveticaNeue-Light",
+      "Helvetica Neue Light",
+      "Helvetica Neue",
+      Helvetica,
+      Arial,
+      "Lucida Grande",
+      sans-serif;
+  }
+  
+  html, body {
+    background-color: var(--bg-color) !important;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  ul {
+    list-style: none;
+    word-wrap: break-word;
+  }
+  
+  /* Pages */
+  
+  .pages {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+  
+  .page {
+    height: 100%;
+    position: absolute;
+    width: 100%;
+  }
+  
+  /* Login Page */
+  
+  .login.page {
+    background-color: #000;
+  }
+  
+  .login.page .form {
+    height: 100px;
+    margin-top: -100px;
+    position: absolute;
+  
+    text-align: center;
+    top: 50%;
+    width: 100%;
+  }
+  
+  .login.page .form .usernameInput {
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #fff;
+    outline: none;
+    padding-bottom: 15px;
+    text-align: center;
+    width: 400px;
+  }
+  .components {
+      overflow: hidden;
+  }
+  .login.page .title {
+    font-size: 200%;
+  }
+  
+  .login.page .usernameInput {
+    font-size: 200%;
+    letter-spacing: 3px;
+  }
+  
+  .login.page .title, .login.page .usernameInput {
+    color: #fff;
+    font-weight: 100 !important;
+  }
+  
+  /* Chat page */
+  
+.navcontainer {
+    z-index: 1;
+}
+.navbar {
+    background-color: var(--primary-color);
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+}
+
+
+  
+  /* Font */
+  
+
+  
+  .inputMessage {
+    background: transparent;
+    border: none;
+    width: 90%;
+    font-size: 100%;
+    color: #ffffff;
+  }
+  
+  .log {
+    color: gray;
+    font-size: 70%;
+    margin: 5px;
+    text-align: center;
+  }
+  
+  /* Messages */
+  
+  .chatArea {
+    color: var(--font-color);
+    margin: 0px 16px;
+    
+  }
+  
+  .messages {
+    font-size: 150%;
+    height: 100%;
+    margin: 0;
+    overflow-y: scroll !important;
+    padding: 10px 20px 10px 20px;
+    
+  }
+  
+  .message.typing .messageBody {
+    color: gray;
+  }
+  
+  .username {
+    float: left;
+    font-weight: 700;
+    overflow: hidden;
+    padding-right: 15px;
+    text-align: right;
+  }
+  
+  /* Input */
+  
+  input:focus, textarea:focus, select:focus{
+    outline: none;
+}
+  /* input message box */
+.inputContainer {
+  display: flex;
+  background-color: var(--primary-color) ;
+  padding: 10px 0 10px 0 ;
+  border-radius: 8px;
+  margin-right: 8px;
+}
+
+.inputContainer > .buttons {
+  align-self: center;
+  text-align: center;
+  color: var(--font-color);
+  width: 37px;
+}
+
+
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+ }
+ 
+ .flex-grow {
+   flex-grow: 1;
+ }
+
+ .usersOnline {
+   width: 230px;
+ }
+
+
+ @keyframes fadeTest {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 100%, 0);
+    }
+  
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+  
+  .fadeTest {
+    animation-name: fadeTest;
+  }
