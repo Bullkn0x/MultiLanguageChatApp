@@ -21,6 +21,22 @@
     padding: 0;
 }
 
+
+#serverIcons {
+    background-color: var(--heading-color);
+    position: relative;
+    width: 80px;
+    overflow-y: scroll;
+}
+
+#serverIcons img {
+    width: 80%;
+    align-self: center;
+    margin-top: 14px;
+    border-radius: 50%;
+    border: solid;
+    border-color: #13b0da;
+}
 /* Sidebar sizes when expanded and expanded */
 .sidebar-expanded {
     width: 230px;
@@ -60,6 +76,12 @@
 #sidebar-container > ul a {
     background-color: var(--secondary-color) !important;
 }
+
+#sidebar-container > ul a:hover{
+    background-color: var(--menu-hover-color) !important;
+}
+
+
 #sidebar-container > ul > li {
     color: var(--header-font-color);
 }
