@@ -1,4 +1,4 @@
-# MultiLanguageChatApp
+
 <p align="center">
   <img src="https://cdn.discordapp.com/attachments/702635184834478151/702635455299977266/website_logo_transparent_background.png">
 </p>
