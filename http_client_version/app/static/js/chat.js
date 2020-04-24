@@ -2,6 +2,10 @@ var socket = io.connect('http://localhost:8000', {
     port: 5000,
     rememberTransport: false,
 });
+var username;
+var connected = false;
+var typing = false;
+var lastTypingTime;
 
 $(function () {
     var FADE_TIME = 150; // ms
@@ -35,11 +39,7 @@ $(function () {
     var currentRoom;
     var sideBarActive = false;
     // Prompt for setting a username
-    var username;
-    var connected = false;
-    var typing = false;
-    var lastTypingTime;
-
+    
 
 
     $('.chats__back').on('click', function () {
