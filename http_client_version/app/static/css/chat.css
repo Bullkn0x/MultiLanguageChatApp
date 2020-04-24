@@ -349,3 +349,7 @@
 	transition: opacity .5s ease-in-out, visibility .5s ease-in-out;
 }
 
+
+.tmpmsg {
+    opacity: 0.2;
+}

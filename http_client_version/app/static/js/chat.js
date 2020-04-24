@@ -32,19 +32,25 @@ $(function () {
     var $addServerModal = $('#addServer');
     var $uploadModal = $('.uploadModalContainer')
     var $modalServerList = $('.joinServerList');
-    
+    var currentRoom;
+    var sideBarActive = false;
+    // Prompt for setting a username
+    var username;
+    var connected = false;
+    var typing = false;
+    var lastTypingTime;
 
 
 
     $('.chats__back').on('click', function () {
         recipient_id = null;
         pm_opened = false;
-        socket.emit('pm status', { active_pm_id: null});
+        socket.emit('pm status', { active_pm_id: null });
 
         console.log(pm_opened)
         console.log('chat closed');
     });
-    
+
     $('input').on('click', function () {
         $inputMessage = $(this);
         console.log($inputMessage);
@@ -77,7 +83,7 @@ $(function () {
         socket.emit('change language', language);
     }
 
- 
+
 
 
     $usersList.on('click', 'div', function () {
@@ -111,21 +117,34 @@ $(function () {
                 });
 
 
-              
+
             } else {
+                let temp_msg_id = makeid(5)
                 addChatMessage({
                     username: username,
-                    message: message
+                    message: message,
+                    self: true,
+                    temp_msg_id: temp_msg_id
+
                 });
                 // tell server to execute 'new message' and send along one parameter
                 socket.emit('new message', {
                     message: message,
-                    room_id: roomid
+                    room_id: roomid,
+                    temp_msg_id: temp_msg_id
                 });
             }
         }
     }
-
+    function makeid(length) {
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for (var i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    }
     // Log a message
     function log(message, options) {
         var $el = $('<li>').addClass('log').text(message);
@@ -142,30 +161,57 @@ $(function () {
             options.fade = false;
             $typingMessages.remove();
         }
-        var $usernameDiv = $('<span class="username"/>')
-            .text(data.username)
-            .css('color', '#1DB6EF');
-        //getUsernameColor(data.username)
-        var $messageBodyDiv = $('<span class="messageBody">')
-            .html(linkify(data.message || ' '));
 
-
-        if (options.file) {
-            var fileDiv = '<div class="fileBox"><p>' + data.filename + '</p>' +
-                '<div class="downloadContainer">' +
-                '<a href="' + data.file_url + '" class="downloadButton dark-single">' +
-                '<div><svg viewBox="0 0 24 24"></svg></div></a></div></div>'
+        // if sent by user, update their chat message otherwise add it
+        let msgTmpID = data.temp_msg_id
+        console.log(data)
+        let $tempMsg = $(".messages li[tempid='" + msgTmpID + "']")
+        if ($tempMsg.length){ 
+            $tempMsg
+            .attr({
+                "room_id": data.room_id,
+                "message_id": data.message_id,
+                "tempID": data.temp_msg_id
+            })
+            .removeClass('tmpmsg')
+            .removeAttr('tempid');
         }
-        var typingClass = data.typing ? 'typing' : '';
-        var $messageDiv = $('<li class="message"/>')
-            .data('username', data.username)
-            .addClass(typingClass)
-            .append($usernameDiv, $messageBodyDiv, fileDiv || null);
 
-        addMessageElement($messageDiv, options);
+        else {
+            var $usernameDiv = $('<span class="username"/>')
+                .text(data.username)
+                .css('color', '#1DB6EF');
+            //getUsernameColor(data.username)
+            var $messageBodyDiv = $('<span class="messageBody">')
+                .html(linkify(data.message || ' '));
 
-        if (options.file) {
-            listenDownload();
+
+            if (options.file) {
+                var fileDiv = '<div class="fileBox"><p>' + data.filename + '</p>' +
+                    '<div class="downloadContainer">' +
+                    '<a href="' + data.file_url + '" class="downloadButton dark-single">' +
+                    '<div><svg viewBox="0 0 24 24"></svg></div></a></div></div>'
+            }
+            var typingClass = data.typing ? 'typing' : '';
+            var $messageDiv = $('<li class="message"/>')
+                .attr({
+                    "room_id": data.room_id,
+                    "message_id": data.message_id,
+                    "tempID": data.temp_msg_id
+                })
+                .data('username', data.username)
+                .addClass(typingClass)
+                .append($usernameDiv, $messageBodyDiv, fileDiv || null);
+            console.log(data)
+            if (data.self) {
+                $messageDiv.addClass('tmpmsg')
+            }
+
+            addMessageElement($messageDiv, options);
+
+            if (options.file) {
+                listenDownload();
+            }
         }
     }
     function linkify(inputText) {
@@ -385,7 +431,7 @@ $(function () {
             if (username) {
                 if (event.target.id == 'search-input') {
                     console.log('searc babyyy');
-                } else if (event.target.id =='serverName') {
+                } else if (event.target.id == 'serverName') {
                     console.log('Your Social Security Number is being tracked!');
                 } else {
                     sendMessage();
@@ -632,6 +678,7 @@ $(function () {
         $messages.html('');
         $usersList.html('');
         messages = data.chat_log;
+        console.log(messages)
         var room_id = data.server_id;
         var room_name = data.server_name;
         $messages.attr('room_id', room_id)
@@ -657,7 +704,7 @@ $(function () {
     socket.on('server info', function (data) {
         // console.log(serverList)
         $usersList.html('');
-        
+
         data.server_users.forEach(function (user) {
             var $userImg = $('<img />', { "class": "contact__photo" }).attr("src", 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/elastic-man.png');
             var $username = $('<span/>', { "class": "contact__name" }).text(user.username);
@@ -697,7 +744,7 @@ $(function () {
 
     // Server Modal Actions
 
-  
+
 
 });
 

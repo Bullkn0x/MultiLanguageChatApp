@@ -46,7 +46,7 @@ def print_rooms():
 def DB_get_chat_logs(room_id):
     cursor = conn.cursor()
 
-    sql_room_chat = """select u.username, m.message, r.room_name, r.room_id 
+    sql_room_chat = """select u.username, m.message, m.message_id, r.room_name, r.room_id 
                        from messages m join users u on m.user_id = u.user_id 
                        join rooms r on r.room_id =m.room_id where r.room_id = %s and not deleted"""
     sql_room_where = (room_id, )
@@ -377,7 +377,8 @@ def text(msg_data):
     """Sent by a client when the user entered a new message.
     The message is sent to all people in the room."""
     message=msg_data['message']
-    print(message)
+    temp_msg_id = msg_data['temp_msg_id']
+    print(msg_data)
     sender_name = session.get('user')
     user_id = int(session.get('id'))
     room_id = session['last_room']
@@ -396,7 +397,10 @@ def text(msg_data):
                     message=translated_msg
             # sender renders message to chat using js on enter key, ignore them for now
             
-            emit('new message', {'username': sender_name, "message":message}, include_self=False, room=receiver.socket_id)
+            emit('new message', {
+                'username': sender_name, 
+                "message":message, 
+                "temp_msg_id":temp_msg_id}, include_self=True, room=receiver.socket_id)
 
 
         # else:
