@@ -48,7 +48,7 @@ def DB_get_chat_logs(room_id):
 
     sql_room_chat = """select u.username, m.message, r.room_name, r.room_id 
                        from messages m join users u on m.user_id = u.user_id 
-                       join rooms r on r.room_id =m.room_id where r.room_id = %s;"""
+                       join rooms r on r.room_id =m.room_id where r.room_id = %s and not deleted"""
     sql_room_where = (room_id, )
     cursor.execute(sql_room_chat, sql_room_where)
     room_chat_log = cursor.fetchall()
