@@ -29,10 +29,16 @@
     overflow-y: scroll;
 }
 
+a#tempHover:before {
+    transform: translateX(-10px);
+    border-color: transparent var(--heading-color) transparent transparent;
+    border-width: 10px 10px 10px 5px;
+}
+
+
 #serverIcons img {
     width: 80%;
-    align-self: center;
-    margin-top: 14px;
+    margin: 7px;
     border-radius: 50%;
     border: solid;
     border-color: #13b0da;
@@ -101,3 +107,4 @@
   text-align: right;
   padding-left: 10px;
 }
+

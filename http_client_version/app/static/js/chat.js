@@ -1,4 +1,4 @@
-var socket = io.connect(null, {
+var socket = io.connect('http://localhost:8000', {
     port: 5000,
     rememberTransport: false,
 });
@@ -32,18 +32,7 @@ $(function () {
     var $addServerModal = $('#addServer');
     var $uploadModal = $('.uploadModalContainer')
     var $modalServerList = $('.joinServerList');
-    var currentRoom;
-    var sideBarActive = false;
-    // Prompt for setting a username
-    var username;
-    var connected = false;
-    var typing = false;
-    var lastTypingTime;
-    var $currentInput = $usernameInput;
-    var recipient_id;
-    var pm_opened = false;
-    var directMessage = false
-  
+    
 
 
 
@@ -89,20 +78,6 @@ $(function () {
     }
 
  
-
-    
-
-    // Handle ServerList Clicks
-    $(".serverList").on('click', 'a', function () {
-        joinRoom = $(this).text();
-        joinRoomID = $(this).attr('room_id');
-        socket.emit('join server', {
-            "username": username,
-            "roomID": joinRoomID,
-            "room": joinRoom
-        });
-
-    });
 
 
     $usersList.on('click', 'div', function () {
@@ -657,7 +632,6 @@ $(function () {
         $messages.html('');
         $usersList.html('');
         messages = data.chat_log;
-        console.log(messages);
         var room_id = data.server_id;
         var room_name = data.server_name;
         $messages.attr('room_id', room_id)
@@ -675,7 +649,6 @@ $(function () {
             var $userStatus = $('<span/>', { "class": "contact__status" }).addClass(user.status);
             var $userDiv = $(' <div/>', { "class": "contact" }).attr('user_id', user.user_id).append($userImg).append($username).append($userStatus);
             if (user.status == 'offline') $userDiv.css('opacity', 0.2);
-            console.log($userDiv.text())
             $usersList.append($userDiv);
         });
     });
@@ -683,25 +656,8 @@ $(function () {
     // Whenever the server emits 'stop typing', kill the typing message
     socket.on('server info', function (data) {
         // console.log(serverList)
-        console.log(data);
-        $serverList.html('');
         $usersList.html('');
-        $serverIconList.html('');
-        data.server_list.forEach(function (server) {
-            var $imgDiv = $('<img />').attr("src", server.room_logo_url).css({
-                "max-height": "133%",
-                "border-radius": "16%",
-                "margin-right": "10px",
-            });
-
-            var $serverNameDiv = $('<span class="menu-collapsed"/>')
-                .text(server.room_name);
-            var $tableCellDiv = $('<a href="#" class="list-group-item your-server list-group-item-action bg-dark">').append($imgDiv).append($serverNameDiv);
-            $serverList.append($tableCellDiv.attr('room_id', server.room_id));
-
-            $serverIconList.append($('<img/>').attr('src' ,server.room_logo_url));
-        });
-
+        
         data.server_users.forEach(function (user) {
             var $userImg = $('<img />', { "class": "contact__photo" }).attr("src", 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/elastic-man.png');
             var $username = $('<span/>', { "class": "contact__name" }).text(user.username);
@@ -709,7 +665,6 @@ $(function () {
 
             var $userDiv = $(' <div/>', { "class": "contact" }).attr('user_id', user.user_id).append($userImg).append($username).append($userStatus);
             if (user.status == 'offline') $userDiv.css('opacity', 0.2);
-            console.log($userDiv.text())
             $usersList.append($userDiv);
         });
     });
