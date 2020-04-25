@@ -46,6 +46,10 @@ $(".modal").click(function (e) {
     }
 });
 
+$leaveModal.on('click','#cancelLeave', function(){
+    $leaveModal.css('display', 'none');
+});
+
 $leaveModal.on('click', '#confirmLeave', function () {
     let room_id = focusedServer.attr('room_id')
     var $emoji = $('<div/>').addClass('emoji emoji--sad').append(
