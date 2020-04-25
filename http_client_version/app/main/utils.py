@@ -1,4 +1,5 @@
 from googletrans import Translator
+from json import JSONEncoder, dumps, dump
 
 
 def try_translate(msg,sender,receiver):
@@ -11,6 +12,25 @@ def try_translate(msg,sender,receiver):
         print('translate failed')
         return None
 
+def print_user_details(user_id,username,socket_id,join_room):
+    print('\nUSER CREDENTIALS')
+    print('-'*40)
+    print('user id:', user_id)
+    print('session username:', username)
+    print('socket_id:', socket_id)
+    print('joining last chat room_id: ', join_room)
+    print('-'*40)
+    return 
+
+def print_rooms(room_cache):
+    class MyEncoder(JSONEncoder):
+        def default(self, o):
+            return o.__dict__ 
+    print('\nROOMS:')
+    print('-'*40)
+    print(dumps(room_cache, cls=MyEncoder, indent=4))
+    print('-'*40)
+    return 
 
 LANGCODES={
     "afrikaans": "af",

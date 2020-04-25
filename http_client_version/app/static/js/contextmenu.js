@@ -312,7 +312,7 @@ $(function () {
 
 
     $(document).on('click', '.leaveServer', function () {
-
+        let room_id = focusedServer.attr('room_id');
         socket.emit('user update', {
             operation: 'leave_server',
             room_id: parseInt(room_id)

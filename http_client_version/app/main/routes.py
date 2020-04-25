@@ -195,8 +195,9 @@ def confirm_email(token):
 @main.route('/chat', methods=['GET', 'POST'])
 def chat():
     if 'session' in request.cookies:
-        print('FOUND SESSION COOKIES', request.cookies.get('session'))
-        print(request.cookies)
+        pass
+        # print('FOUND SESSION COOKIES', request.cookies.get('session'))
+        # print(request.cookies)
     else:
         return redirect('/login')
 

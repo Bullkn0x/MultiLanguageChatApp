@@ -1,211 +1,23 @@
 from flask import session, request,Response, redirect, current_app
 from flask_socketio import emit, join_room, leave_room, rooms
 from .. import socketio
-from .utils import try_translate
+from .utils import try_translate, print_rooms, print_user_details
 from .awsHelper import upload_file
 from ..models.user import User
-from .. import mysql
-from json import JSONEncoder, dumps, dump
+from ..models.mysql import *
+from json import dumps, dump
 import uuid
 import os
 
+
 # populate room info
-conn = mysql.connect()
-cursor = conn.cursor()
-sql_get_rooms= "SELECT room_id from rooms;"
-cursor.execute(sql_get_rooms)
-rooms_resp = cursor.fetchall()
-cursor.close()
+rooms_resp = DB_populate_cache()
 print(rooms_resp)
 # create dictionary of rooms to track online users
 rooms = {row['room_id']: {} for row in rooms_resp}
 print(rooms)
 num_users=0
 
-def print_user_details(user_id,username,socket_id,join_room):
-    print('\nUSER CREDENTIALS')
-    print('-'*40)
-    print('user id:', user_id)
-    print('session username:', username)
-    print('socket_id:', socket_id)
-    print('joining last chat room_id: ', join_room)
-    print('-'*40)
-    return 
-
-def print_rooms():
-    class MyEncoder(JSONEncoder):
-        def default(self, o):
-            return o.__dict__ 
-    global rooms
-    print('\nROOMS:')
-    print('-'*40)
-    print(dumps(rooms, cls=MyEncoder, indent=4))
-    print('-'*40)
-    return 
-
-def DB_get_chat_logs(room_id):
-    cursor = conn.cursor()
-
-    sql_room_chat = """select u.username, m.message, m.message_id, r.room_name, r.room_id 
-                       from messages m join users u on m.user_id = u.user_id 
-                       join rooms r on r.room_id =m.room_id where r.room_id = %s and not deleted"""
-    sql_room_where = (room_id, )
-    cursor.execute(sql_room_chat, sql_room_where)
-    room_chat_log = cursor.fetchall()
-    
-    cursor.close()
-    return room_chat_log
-
-
-def DB_insert_msg(user_id, message, room_id):
-    
-    cursor = conn.cursor()
-    sql_message= 'CALL ADD_MESSAGE(%s, %s, %s);'
-    sql_params = (user_id, message, room_id)
-    cursor.execute(sql_message,sql_params)
-    conn.commit()
-    
-    message_id = cursor.fetchone()
-    print(message_id)
-    cursor.close()
-
-    return message_id['message_id']
-    
-
-def DB_get_user_servers(user_id):
-    cursor = conn.cursor()
-    sql_server_list = """select r.room_id, r.room_name, r.room_logo_url, r.color
-                         from users u 
-                         join room_users ru on ru.user_id = u.user_id 
-                         join rooms r on ru.room_id = r.room_id 
-                         where u.user_id = %s;"""
-    sql_server_list_where = (user_id, )
-    cursor.execute(sql_server_list, sql_server_list_where)
-    
-    server_list = cursor.fetchall()
-    cursor.close()
-    return server_list
-
-
-def DB_get_server_users(room_id):
-    cursor = conn.cursor()
-    sql_server_users = """select
-                            DISTINCT (u.user_id),
-                            u.username 
-                        from
-                        rooms r 
-                        join room_users ru on
-                            ru.room_id = r.room_id
-                        join users u on ru.user_id = u.user_id and 
-                            r.room_id = %s;"""
-    sql_where = (room_id, )
-    cursor.execute(sql_server_users, sql_where)
-
-    server_users = cursor.fetchall()
-    cursor.close()
-
-    return server_users
-
-def DB_get_public_servers(search_term=None):
-    cursor = conn.cursor()
-    if search_term:
-        SQL_GET_SERVERS = """SELECT          
-                                room_id, room_name, room_logo_url
-                            FROM 
-                                rooms
-                            WHERE room_name LIKE %s;
-                          """
-        sql_where= f'%{search_term}%'
-    else:
-        SQL_GET_SERVERS = """SELECT
-                         room_id, room_name, room_logo_url
-                         FROM 
-                         rooms
-                         where public_access = True and room_id > 1 ;
-                        """
-        sql_where = None
-    cursor.execute(SQL_GET_SERVERS, sql_where)
-    public_servers = cursor.fetchall()
-    cursor.close()
-
-    return public_servers
-
-def DB_get_user_info(user_id):
-    cursor = conn.cursor()
-
-    SQL_GET_USER = """SELECT * FROM users
-                         WHERE user_id = %s;
-                        """
-    cursor.execute(SQL_GET_USER, user_id)
-    user_info = cursor.fetchone()
-    
-    return user_info
-
-def DB_insert_private_msg(from_user, to_user, message):
-    cursor = conn.cursor()
-
-    SQL_PRIVATE_MESSAGE = 'INSERT INTO private_messages (to_user , from_user, message) VALUES (%s, %s, %s);'
-    sql_values = (from_user, to_user, message, )
-    cursor.execute(SQL_PRIVATE_MESSAGE, sql_values)
-    conn.commit()
-    cursor.close()
-
-
-def DB_get_pm_chat_log(me, them):
-    cursor = conn.cursor()
-    SQL_GET_PRIVATE_MESSAGE_LOG = """select to_user, from_user,
-                                     message, from_user = %s 'mymsg' from 
-                                    ( select * from private_messages pm where to_user in (%s, %s)) as sub 
-                                    where from_user in (%s, %s)"""
-    sql_where = (me, me, them, me, them, )
-    cursor.execute(SQL_GET_PRIVATE_MESSAGE_LOG, sql_where)
-    pm_chat_log = cursor.fetchall()
-    return pm_chat_log
-
-
-def DB_add_user_to_server(user_id, room_id):
-    cursor = conn.cursor()
-    SQL_ADD_USER_TO_SERVER = "INSERT INTO room_users (room_id, user_id) VALUES (%s, %s);"
-    sql_values = (room_id, user_id)
-    cursor.execute(SQL_ADD_USER_TO_SERVER, sql_values)
-    conn.commit()
-    cursor.close()
-
-def DB_create_server(room_name, public_access, user_id):
-    cursor = conn.cursor()
-    CREATE_SERVER_SQL="CALL ADD_ROOM(%s, %s, %s);"
-    sql_values = (room_name, public_access, user_id, )
-    cursor.execute(CREATE_SERVER_SQL, sql_values)
-    conn.commit()
-    room_details = cursor.fetchone()
-    cursor.close()
-
-    return room_details
-
-def DB_delete_msg(message_id):
-    cursor = conn.cursor()
-    SQL_DELETE_MESSAGE = "CALL DELETE_MESSAGE(%s);"
-    sql_values = (message_id, )
-    cursor.execute(SQL_DELETE_MESSAGE, sql_values)
-    conn.commit()
-    cursor.close()
-
-#Method to delete the row where the user is in the room.
-def DB_leave_server(user_id, room_id):
-    cursor = conn.cursor()
-    LEAVE_SERVER_SQL ='DELETE FROM room_user WHERE user_id=%s AND room_id=%s;'
-    sql_values = (user_id,room_id )
-    cursor.execute(LEAVE_SERVER_SQL, sql_values)
-    conn.commit()
-    cursor.close()
-
-def DB_server_update_color(color, room_id):
-    cursor = conn.cursor()
-    SQL_UPDATE_SERVER_COLOR ='UPDATE rooms SET color=%s WHERE room_id=%s;'
-    sql_values = (color,room_id )
-    cursor.execute(SQL_UPDATE_SERVER_COLOR, sql_values)
-    conn.commit()
-    cursor.close()
 
 @socketio.on('connect', namespace='/')
 def connect():
@@ -221,7 +33,7 @@ def connect():
 
     # get users for room
     
-    server_users = DB_get_server_users(last_room)
+    server_users = DB_get_server_userlist(last_room)
     # Get users server list
     server_list = DB_get_user_servers(user_id)
 
@@ -243,11 +55,10 @@ def connect():
             current_server_name = server['room_name']
 
 
-    print(dumps(server_users, indent=4))
 
     # DEBUG PRINTING
     print_user_details(user_id,username,socket_id,last_room)
-    print_rooms()
+    print_rooms(rooms)
     session['last_room'] =new_user.current_room
     emit('login', {'username' : username, 'numUsers':len(rooms),'language':language})
 
@@ -266,7 +77,6 @@ def connect():
         "chat_log":chat_log, 
         "server_users":server_users
         })
-    print(server_list)
     emit('server info',{'server_list':server_list, "server_users":server_users})
     emit('user joined', {'user_id': user_id, 'username':username, 'numUsers':len(rooms)}, broadcast=True, include_self=False)
    
@@ -310,7 +120,7 @@ def create_server(data):
     room_id = room_info['room_id']
     # Add room and user to room monitoring cache
     rooms[room_id] = {user_id : user_obj}
-    print_rooms()
+    print_rooms(rooms)
     print('server created', room_info)
     emit('new server', room_info)
 
@@ -326,14 +136,13 @@ def join_server(data):
     session['last_room'] = join_room
     user_obj = session['user_obj']
     user_obj.current_room = join_room
-    print(user_obj.__dict__)
     
     rooms[join_room][user_id] = user_obj
-    print_rooms()
+    print_rooms(rooms)
     # get chat logs (list of dictionaries) 
     room_chat_log = DB_get_chat_logs(join_room)
     # get users for room
-    server_users = DB_get_server_users(join_room)
+    server_users = DB_get_server_userlist(join_room)
     
 
     for user in server_users:
@@ -548,18 +357,11 @@ def disconnect():
     """Sent by rooms when they leave a room.
     A status message is broadcast to all people in the room."""
     user_id = int(session['id'])
-
-   
-    
     last_room = session['user_obj'].current_room
     language = session['user_obj'].language
-    cursor= conn.cursor()
+
     #update user info (last room) 
-    sql_update_user_room = "UPDATE  users SET last_room_id = (%s), language = %s  where user_id = %s ;"
-    sql_room_value = (last_room, language, user_id )
-    cursor.execute(sql_update_user_room, sql_room_value)
-    conn.commit()
-    cursor.close()
+    DB_user_disconnect(last_room, language, user_id)
 
     # delete user from cache
     for room, user_ids in rooms.items():
