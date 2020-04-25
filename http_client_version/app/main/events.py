@@ -96,15 +96,6 @@ def add_server(server_info):
 
     print('added user to room')
 
-#Method to leave the server
-@socketio.on('leave server', namespace='/')
-def leave_server(data):
-    user_id = int(session['id'])
-    print(data['user'])
-    DB_leave_server(user_id, data['room_id'])
-    
-    print('user left the server')
-
 
 @socketio.on('create server', namespace='/')
 def create_server(data):
@@ -275,9 +266,11 @@ def handle_server_operation(data):
         
 @socketio.on('user update')
 def handle_user_operation(data):
-    pass
-
-
+    user_id = int(session['id'])
+    if data['operation'] =='leave_server':
+        DB_leave_server(user_id, data['room_id'])
+    
+        print('user left the server')
 
 
 @socketio.on('change language',namespace='/')

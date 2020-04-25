@@ -1,8 +1,8 @@
 
 
 var $serverIconsList = $('#serverIcons')
-var focusedMessageContent;
-var focusedServer;
+// var focusedMessageContent;
+// var focusedServer;
 // contextMenu templates
 var serverListTemplate = {
     items: {
@@ -171,6 +171,11 @@ $(function () {
         // original context menu
         $context = $(".context:not(.submenu)");
 
+    function ditchWindow(menu) {
+        menu.children().removeClass('contextItem--active');
+        menu.remove();
+    };
+
     function openContextMenu(menuSelector, e) {
         $('body').append(menuSelector);
 
@@ -227,12 +232,55 @@ $(function () {
 
         menuSelector.addClass("is-visible");
 
+
+        // menu Clicks!!!!
+
+        // copy Message
+        menuSelector.on('click', '.msgCopy', function () {
+            copyToClipboard(focusedMessageContent.children('.messageBody'));
+            ditchWindow(menuSelector);
+        });
+
+
+        // Delete Message
+        menuSelector.on('click', '.msgDelete', function () {
+            let message_id = focusedMessageContent.attr('message_id')
+            socket.emit('message update', {
+                operation: 'delete',
+                message_id: parseInt(message_id)
+            });
+            ditchWindow(menuSelector);
+
+        });
+
+
+        // Server Change Color 
+        menuSelector.on('click', '.colorPickerMenu li', function () {
+            console.log($(this).children('i').css('background-color'));
+            var setServerColor = $(this).children('i').css('background-color')
+            focusedServer.children('img').css('border-color', setServerColor);
+            let room_id = parseInt(focusedServer.attr('room_id'));
+            socket.emit('server update', {
+                operation: 'update_color',
+                room_id: room_id,
+                color: setServerColor
+            });
+        });
+
+        // Leave Server (Open Double check confirm Modal)
+        menuSelector.on('click', '.leaveServer', function () {
+            let room_id = focusedServer.attr('room_id');
+            $leaveModal.css('display', 'flex');
+            ditchWindow(menuSelector)
+        });
+
+
+        // Click off of the menu, cya bro
         $doc.on("mousedown", function (e) {
 
             var $tar = $(e.target);
             if (!$tar.is(menuSelector) && !$tar.closest(".context").length) {
-                menuSelector.children().removeClass('contextItem--active')
-                menuSelector.remove()
+                ditchWindow(menuSelector);
                 // menuSelector.removeClass("is-visible").children().removeClass('contextItem--active');
                 $doc.off(e);
 
@@ -264,31 +312,16 @@ $(function () {
         document.execCommand("copy");
         $temp.remove();
     }
+
+
+
     // Listeners  
-
-
 
     // Message Right Click 
     $('.chatArea').on("contextmenu", ".message", function (e) {
         focusedMessageContent = $(this)
         openContextMenu($chatContextMenu, e);
     });
-
-    // Copy Message
-    $(document).on('click', '.msgCopy', function () {
-        copyToClipboard(focusedMessageContent.children('.messageBody'));
-    });
-
-    // Delete Message
-    $(document).on('click', '.msgDelete', function () {
-        let message_id = focusedMessageContent.attr('message_id')
-        socket.emit('message update', {
-            operation: 'delete',
-            message_id: parseInt(message_id)
-        });
-    });
-
-
 
 
     // Server Icon Right Click
@@ -297,27 +330,8 @@ $(function () {
         openContextMenu($serverContextMenu, e);
     });
 
-    // Server Change Color 
-    $(document).on('click', '.colorPickerMenu li', function () {
-        console.log($(this).children('i').css('background-color'));
-        var setServerColor = $(this).children('i').css('background-color')
-        focusedServer.children('img').css('border-color', setServerColor);
-        let room_id = parseInt(focusedServer.attr('room_id'));
-        socket.emit('server update', {
-            operation: 'update_color',
-            room_id: room_id,
-            color: setServerColor
-        });
-    });
+    
 
-
-    $(document).on('click', '.leaveServer', function () {
-        let room_id = focusedServer.attr('room_id');
-        socket.emit('user update', {
-            operation: 'leave_server',
-            room_id: parseInt(room_id)
-        });
-    });
 
 
 

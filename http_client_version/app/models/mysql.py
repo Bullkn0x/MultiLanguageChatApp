@@ -144,8 +144,9 @@ def DB_delete_msg(message_id):
 
 #Method to delete the row where the user is in the room.
 def DB_leave_server(user_id, room_id):
-    LEAVE_SERVER_SQL ='DELETE FROM room_user WHERE user_id=%s AND room_id=%s;'
+    LEAVE_SERVER_SQL ='CALL LEAVE_SERVER(%s ,%s);'
     sql_params = (user_id,room_id )
+    print('bieeeee')
     anyChatDB.delete(LEAVE_SERVER_SQL,sql_params)
 
 def DB_server_update_color(color, room_id):

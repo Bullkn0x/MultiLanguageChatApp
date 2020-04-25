@@ -7,7 +7,8 @@ var connected = false;
 var typing = false;
 var lastTypingTime;
 var currentRoom;
-
+var focusedMessageContent;
+var focusedServer;
 $(function () {
     var FADE_TIME = 150; // ms
     var TYPING_TIMER_LENGTH = 400; // ms
