@@ -2,6 +2,7 @@
 
 var $serverIconsList = $('#serverIcons')
 var focusedMessageContent;
+var focusedServer;
 // contextMenu templates
 var serverListTemplate = {
     items: {
@@ -28,34 +29,35 @@ var serverListTemplate = {
         "button3": { name: "Privacy Settings" },
         "button4": { name: "Change Nickname" },
         "folder2": {
-            foldername: { name: "Custom Server Color" },
+            foldername: { name: "Custom Server Color", class: "colorPickerMenu" },
+
             items: {
                 "button1": {
                     type: "color",
                     name: "Red",
-                    color: "#DA4453"
+                    class: "redBtn"
                 },
                 "button2": {
                     type: "color",
                     name: "Blue",
-                    color: "#3BAFDA"
+                    class: "blueBtn"
                 },
                 "button3": {
                     type: "color",
-                    name : "Green",
-                    color: "#8CC152"
+                    name: "Green",
+                    class: "greenBtn"
                 },
                 "button4": {
                     type: "color",
                     name: "Yellow",
-                    color: "#FCBB42"
+                    class: "yellowBtn"
                 },
                 "button5": {
                     type: "color",
-                    name: "pink",
-                    color: "#EC87C0"
+                    name: "Pink",
+                    class: "pinkBtn"
                 },
-                
+
             }
         },
 
@@ -88,6 +90,7 @@ var chatAreaTemplate = {
 
         "button4": {
             name: "Delete Message",
+            class: "msgDelete",
             styles: {
                 "color": "#f02929"
             }
@@ -116,8 +119,8 @@ function makeContext(parent, structure) {
             }
         }
 
-        if (details.type =='color'){
-            $itemDiv.append($('<i/>').addClass(details.type).css('background-color',details.color))
+        if (details.type == 'color') {
+            $itemDiv.append($('<i/>').addClass(details.type).css('background-color', details.color))
         }
         if (details.styles) {
             $itemDiv.css(details.styles)
@@ -127,7 +130,7 @@ function makeContext(parent, structure) {
 
     function makeFolder(details) {
         var $folderDiv = makeItem(details.foldername).addClass('folder');
-        var $subMenu = $('<ul/>').addClass('context submenu')
+        var $subMenu = $('<ul/>').addClass('context submenu').addClass(details.class)
         var $subMenuTotal = makeContext($subMenu, details)
         return $folderDiv.append($('<i/>').addClass('fas fa-angle-right'), $subMenu);
 
@@ -227,9 +230,10 @@ $(function () {
         $doc.on("mousedown", function (e) {
 
             var $tar = $(e.target);
-            $tar.addClass('asdlfjasdhfilasndkihgasdfiuaklsdhgasifiuasgfia')
             if (!$tar.is(menuSelector) && !$tar.closest(".context").length) {
-                menuSelector.removeClass("is-visible").children().removeClass('contextItem--active');
+                menuSelector.children().removeClass('contextItem--active')
+                menuSelector.remove()
+                // menuSelector.removeClass("is-visible").children().removeClass('contextItem--active');
                 $doc.off(e);
 
             }
@@ -240,10 +244,9 @@ $(function () {
     }
 
     $(document).on("mousedown touchstart", ".contextItem:not(.contextItem--nope)", function (e) {
-        console.log(focusedMessageContent.text());
+        let $tar = e.target;
         if (e.which === 1) {
             var $item = $(this);
-
             setTimeout(function () {
                 $item.addClass("contextItem--active");
             }, 10);
@@ -261,20 +264,83 @@ $(function () {
         document.execCommand("copy");
         $temp.remove();
     }
-    // Listeners
-    $serverIconsList.on("contextmenu", 'a', function (e) {
+    // Listeners  
 
-        // console.log('rightclicked on server with room_i', $(this).attr('room_id'));
-        openContextMenu($serverContextMenu, e);
-    });
 
+
+    // Message Right Click 
     $('.chatArea').on("contextmenu", ".message", function (e) {
         focusedMessageContent = $(this)
         openContextMenu($chatContextMenu, e);
     });
 
+    // Copy Message
     $(document).on('click', '.msgCopy', function () {
         copyToClipboard(focusedMessageContent.children('.messageBody'));
+    });
+
+    // Delete Message
+    $(document).on('click', '.msgDelete', function () {
+        let message_id = focusedMessageContent.attr('message_id')
+        socket.emit('message update', {
+            operation: 'delete',
+            message_id: parseInt(message_id)
+        });
+    });
+
+
+
+
+    // Server Icon Right Click
+    $serverIconsList.on("contextmenu", 'a', function (e) {
+        focusedServer = $(this);
+        openContextMenu($serverContextMenu, e);
+    });
+
+    // Server Change Color 
+    $(document).on('click', '.colorPickerMenu li', function () {
+        console.log($(this).children('i').css('background-color'));
+        var setServerColor = $(this).children('i').css('background-color')
+        focusedServer.children('img').css('border-color', setServerColor);
+        let room_id = parseInt(focusedServer.attr('room_id'));
+        socket.emit('server update', {
+            operation: 'update_color',
+            room_id: room_id,
+            color: setServerColor
+        });
+    });
+
+
+    $(document).on('click', '.leaveServer', function () {
+
+        socket.emit('user update', {
+            operation: 'leave_server',
+            room_id: parseInt(room_id)
+        });
+    });
+
+
+
+
+
+
+
+    // Socket Events
+    socket.on('message update', function (data) {
+        console.log(data)
+        console.log($(".message[message_id=" + data.message_id + "]").length);
+        if (data.operation == 'delete') {
+            console.log('deleting');
+            $(".message[message_id=" + data.message_id + "]").remove();
+        }
+    })
+    socket.on('server update', function (data) {
+        console.log(data)
+        console.log($(".message[message_id=" + data.message_id + "]").length);
+        if (data.operation == 'update_color') {
+            $("#serverIcons a[room_id=" + data.room_id + "]")
+                .children('img').css('border-color', data.color);
+        }
     })
 });
 

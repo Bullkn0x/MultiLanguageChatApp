@@ -162,16 +162,13 @@ $(function () {
             $typingMessages.remove();
         }
 
-        // if sent by user, update their chat message otherwise add it
+        // if sent by user, update their chat message
         let msgTmpID = data.temp_msg_id
-        console.log(data)
         let $tempMsg = $(".messages li[tempid='" + msgTmpID + "']")
         if ($tempMsg.length){ 
             $tempMsg
             .attr({
-                "room_id": data.room_id,
                 "message_id": data.message_id,
-                "tempID": data.temp_msg_id
             })
             .removeClass('tmpmsg')
             .removeAttr('tempid');
@@ -193,20 +190,18 @@ $(function () {
                     '<div><svg viewBox="0 0 24 24"></svg></div></a></div></div>'
             }
             var typingClass = data.typing ? 'typing' : '';
-            var $messageDiv = $('<li class="message"/>')
+            var $messageDiv = $('<li/>')
+            .addClass('message')
                 .attr({
-                    "room_id": data.room_id,
                     "message_id": data.message_id,
                     "tempID": data.temp_msg_id
                 })
                 .data('username', data.username)
                 .addClass(typingClass)
                 .append($usernameDiv, $messageBodyDiv, fileDiv || null);
-            console.log(data)
             if (data.self) {
                 $messageDiv.addClass('tmpmsg')
             }
-
             addMessageElement($messageDiv, options);
 
             if (options.file) {
@@ -352,9 +347,7 @@ $(function () {
         if (!options) {
             options = {};
         }
-        if (typeof options.fade === 'undefined') {
-            options.fade = true;
-        }
+  
         if (typeof options.prepend === 'undefined') {
             options.prepend = false;
         }
@@ -654,7 +647,6 @@ $(function () {
     });
     socket.on('new private message', function (data) {
         sender_id = data.sender_id.toString();
-        console.log(recipient_id == sender_id);
         // user has the private chat from sender open
         if (pm_opened && recipient_id == sender_id) {
             var $pmMsgBody = $('<div class="chats__message notMine" />').text(data.message);
@@ -663,7 +655,6 @@ $(function () {
             $privateMessages[0].scrollTop = $privateMessages[0].scrollHeight;
 
 
-            console.log(data);
         }
     });
 
@@ -678,7 +669,6 @@ $(function () {
         $messages.html('');
         $usersList.html('');
         messages = data.chat_log;
-        console.log(messages)
         var room_id = data.server_id;
         var room_name = data.server_name;
         $messages.attr('room_id', room_id)
@@ -720,7 +710,6 @@ $(function () {
 
     // Whenever the server emits 'user left', log it in the chat body
     socket.on('user left', function (data) {
-        console.log(data);
         log(data.username + ' left');
         updateOnline(data);
         removeChatTyping(data);

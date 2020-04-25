@@ -60,16 +60,21 @@ def DB_get_chat_logs(room_id):
 def DB_insert_msg(user_id, message, room_id):
     
     cursor = conn.cursor()
-    sql_message= 'INSERT INTO messages (user_id , message, room_id) VALUES (%s, %s, %s);'
+    sql_message= 'CALL ADD_MESSAGE(%s, %s, %s);'
     sql_params = (user_id, message, room_id)
     cursor.execute(sql_message,sql_params)
     conn.commit()
+    
+    message_id = cursor.fetchone()
+    print(message_id)
     cursor.close()
 
+    return message_id['message_id']
+    
 
 def DB_get_user_servers(user_id):
     cursor = conn.cursor()
-    sql_server_list = """select r.room_id, r.room_name, r.room_logo_url  
+    sql_server_list = """select r.room_id, r.room_name, r.room_logo_url, r.color
                          from users u 
                          join room_users ru on ru.user_id = u.user_id 
                          join rooms r on ru.room_id = r.room_id 
@@ -177,7 +182,13 @@ def DB_create_server(room_name, public_access, user_id):
 
     return room_details
 
-
+def DB_delete_msg(message_id):
+    cursor = conn.cursor()
+    SQL_DELETE_MESSAGE = "CALL DELETE_MESSAGE(%s);"
+    sql_values = (message_id, )
+    cursor.execute(SQL_DELETE_MESSAGE, sql_values)
+    conn.commit()
+    cursor.close()
 
 #Method to delete the row where the user is in the room.
 def DB_leave_server(user_id, room_id):
@@ -188,6 +199,13 @@ def DB_leave_server(user_id, room_id):
     conn.commit()
     cursor.close()
 
+def DB_server_update_color(color, room_id):
+    cursor = conn.cursor()
+    SQL_UPDATE_SERVER_COLOR ='UPDATE rooms SET color=%s WHERE room_id=%s;'
+    sql_values = (color,room_id )
+    cursor.execute(SQL_UPDATE_SERVER_COLOR, sql_values)
+    conn.commit()
+    cursor.close()
 
 @socketio.on('connect', namespace='/')
 def connect():
@@ -248,6 +266,7 @@ def connect():
         "chat_log":chat_log, 
         "server_users":server_users
         })
+    print(server_list)
     emit('server info',{'server_list':server_list, "server_users":server_users})
     emit('user joined', {'user_id': user_id, 'username':username, 'numUsers':len(rooms)}, broadcast=True, include_self=False)
    
@@ -384,7 +403,7 @@ def text(msg_data):
     room_id = session['last_room']
     sender =rooms[room_id][user_id]
 
-    DB_insert_msg(user_id, message, room_id)
+    message_id = DB_insert_msg(user_id, message, room_id)
     
     # Iterate through rooms and emit messagfasdfe to usersocket 
     for username, receiver in rooms[room_id].items():
@@ -399,7 +418,8 @@ def text(msg_data):
             
             emit('new message', {
                 'username': sender_name, 
-                "message":message, 
+                "message":message,
+                "message_id" :message_id, 
                 "temp_msg_id":temp_msg_id}, include_self=True, room=receiver.socket_id)
 
 
@@ -410,6 +430,43 @@ def text(msg_data):
     # db.session.commit()
     # db.session.close()
 
+
+@socketio.on('message update')
+def handle_message_operation(data):
+    room_id = session['last_room']
+    if data['operation'] == 'edit':
+        pass
+    if data['operation'] == 'delete':
+        print(data)
+        DB_delete_msg(data['message_id'])
+        for username, receiver in rooms[room_id].items():
+            if receiver.current_room == room_id:
+                emit('message update', { 
+                    'operation':data['operation'],
+                    'message_id': data['message_id'] 
+                    }, room=receiver.socket_id)
+
+    if data['operation'] == 'pin':
+        pass
+
+@socketio.on('server update')
+def handle_server_operation(data):
+    room_id = data['room_id']
+    color = data['color']
+    if data['operation'] == 'update_color':
+        print(data)
+        DB_server_update_color(color,room_id)
+    
+        emit('server update', { 
+            'operation':data['operation'],
+            'room_id': data['room_id'],
+            'color': color
+            }, broadcast=True)
+
+        
+@socketio.on('user update')
+def handle_user_operation(data):
+    pass
 
 
 

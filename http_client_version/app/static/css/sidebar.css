@@ -43,8 +43,9 @@ a#tempHover:before {
     margin: 7px;
     border-radius: 50%;
     border: solid;
-    border-color: #13b0da;
 }
+
+
 /* Sidebar sizes when expanded and expanded */
 .sidebar-expanded {
     width: 230px;

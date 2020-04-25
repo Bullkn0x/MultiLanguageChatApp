@@ -14,7 +14,6 @@ $(document).ready(function() {
         animTime = 600,
         sContTrans = 200,
         animating = false;
-    console.log(demoLeft);
     var easings = {
       smallElastic: function(t,b,c,d) {
         var ts = (t/=d)*t;

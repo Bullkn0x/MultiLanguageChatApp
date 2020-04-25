@@ -49,6 +49,7 @@ function SidebarCollapse() {
 }
 
 socket.on('new server', function (server) {
+    var $serverIcon = $('<img />').attr("src", server.room_logo_url);
 
     var $imgDiv = $('<img />').attr("src", server.room_logo_url).css({
         "max-height": "133%",
@@ -60,6 +61,14 @@ socket.on('new server', function (server) {
         .text(server.room_name);
     var $tableCellDiv = $('<a href="#" class="list-group-item list-group-item-action bg-dark">').attr('room_id', server.room_id).append($imgDiv).append($serverNameDiv);
     $serverList.append($tableCellDiv);
+    $serverIconList.append($('<a/>')
+        .attr({ 'room_id': server.room_id, 'room_name': server.room_name })
+
+        .append($serverIcon
+            .css({
+                "border-color": server.color
+            })
+        ));
     $tableCellDiv.click();
 
 });
@@ -68,12 +77,14 @@ socket.on('server info', function (data) {
     $serverList.html('');
     $serverIconList.html('');
     data.server_list.forEach(function (server) {
+        console.log(server.color)
         var $serverIcon = $('<img />').attr("src", server.room_logo_url);
         var $imgDiv = $('<img />').attr("src", server.room_logo_url)
             .css({
                 "max-height": "133%",
                 "border-radius": "16%",
                 "margin-right": "10px",
+                "border-color": server.color
             });
         var $serverNameDiv = $('<span class="menu-collapsed"/>')
             .text(server.room_name);
@@ -86,7 +97,11 @@ socket.on('server info', function (data) {
         $serverIconList.append($('<a/>')
             .attr({ 'room_id': server.room_id, 'room_name': server.room_name })
 
-            .append($serverIcon));
+            .append($serverIcon
+                .css({
+                    "border-color": server.color
+                })
+            ));
     });
 });
 
@@ -134,8 +149,8 @@ $('#serverIcons').on("mouseenter", "a", function () {
             "top": divPosY + "px",
             "left": "87px",
             "z-index": 2,
-            "border-radius" :"4px",
-            "box-shadow":"3px 4px 6px 0px rgba(0,0,0,0.75)"
+            "border-radius": "4px",
+            "box-shadow": "3px 4px 6px 0px rgba(0,0,0,0.75)"
         }).text($(this).attr('room_name'))
 
     $('body').append($serverHoverDiv);

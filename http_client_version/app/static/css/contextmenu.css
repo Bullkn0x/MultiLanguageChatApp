@@ -62,6 +62,21 @@
     flex-grow: 1;
 }
 
+.contextItem.redBtn i {
+    background-color: #DA4453;
+}
+.contextItem.blueBtn i {
+    background-color: #3BAFDA;
+}
+.contextItem.greenBtn i {
+    background-color: #8CC152;
+}
+.contextItem.yellowBtn i {
+    background-color: #FCBB42;
+}
+.contextItem.pinkBtn i {
+    background-color: #EC87C0;
+}
 .contextItem .color {
     width: 19px;
     height: 19px;
