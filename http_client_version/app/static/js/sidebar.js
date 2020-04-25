@@ -172,9 +172,10 @@ $discoverBtn.on('click', function () {
 
 //Leave Server Modal AREA ------------
 //Temp button to bring up the modal
-$helpBtn.on('click', function () {
-    $leaveModal.css('display', 'flex');
-});
+
+// $helpBtn.on('click', function () {
+//     $leaveModal.css('display', 'flex');
+// });
 
 //When right click on all the servers on the serverList... Do something HERE...
 //Currently Returns the text and room_id of which ever you click on
