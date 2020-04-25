@@ -10,6 +10,10 @@ var serverListTemplate = {
             styles: {
                 "color": "#6279ff",
                 "font-weight": "bold"
+            },
+            icon: {
+                position: "iconLeft",
+                iconCode: "fas fa-user-friends"
             }
         },
         "folder1": {
@@ -23,37 +27,67 @@ var serverListTemplate = {
         "button2": { name: "Server Settings" },
         "button3": { name: "Privacy Settings" },
         "button4": { name: "Change Nickname" },
-        "button4": { name: "Custom Server Color" },
-        
+        "folder2": {
+            foldername: { name: "Custom Server Color" },
+            items: {
+                "button1": {
+                    type: "color",
+                    name: "Red",
+                    color: "#DA4453"
+                },
+                "button2": {
+                    type: "color",
+                    name: "Blue",
+                    color: "#3BAFDA"
+                },
+                "button3": {
+                    type: "color",
+                    name : "Green",
+                    color: "#8CC152"
+                },
+                "button4": {
+                    type: "color",
+                    name: "Yellow",
+                    color: "#FCBB42"
+                },
+                "button5": {
+                    type: "color",
+                    name: "pink",
+                    color: "#EC87C0"
+                },
+                
+            }
+        },
+
         "divider2": {},
-        
-        "button7": { 
-            name: "Leave Server" ,
+
+        "button7": {
+            name: "Leave Server",
             styles: {
                 "color": "#f02929"
             },
-            class : "leaveServer"
+            class: "leaveServer"
         },
     }
 }
 
 var chatAreaTemplate = {
     items: {
-        "button1": { name: "Edit Message"},
-       
-        "button2": { 
+        "button1": { name: "Edit Message" },
+
+        "button2": {
             name: "Copy Message",
             class: "msgCopy"
-         },
-         "button3": { 
+        },
+        "button3": {
             name: "Link to Message",
             class: "msgCopy"
-         },
-        
+        },
+
         "divider2": {},
-        
-        "button4": { 
-            name: "Delete Message" ,
+
+        "button4": {
+            name: "Delete Message",
             styles: {
                 "color": "#f02929"
             }
@@ -65,13 +99,26 @@ var chatAreaTemplate = {
 function makeContext(parent, structure) {
 
     function makeItem(details) {
-        
-        var $itemDiv = $('<li/>').addClass('contextItem').addClass(details.class)
+        var $itemDiv = $('<li/>').addClass('contextItem')
+            .addClass(details.class)
             .append(
                 $('<a/>')
                     .append(details.name))
-        
+
         // add css if details.styles exists supplied with style object 
+        let icon = details.icon
+        if (icon) {
+            let iconLoc;
+            iconLoc = details.icon.position
+            $itemDiv.addClass(iconLoc)
+            if (iconLoc == 'iconLeft') {
+                $itemDiv.prepend($('<i/>').addClass(icon.iconCode))
+            }
+        }
+
+        if (details.type =='color'){
+            $itemDiv.append($('<i/>').addClass(details.type).css('background-color',details.color))
+        }
         if (details.styles) {
             $itemDiv.css(details.styles)
         }
@@ -79,10 +126,10 @@ function makeContext(parent, structure) {
     }
 
     function makeFolder(details) {
-        var $folderDiv = makeItem(details.foldername);
+        var $folderDiv = makeItem(details.foldername).addClass('folder');
         var $subMenu = $('<ul/>').addClass('context submenu')
         var $subMenuTotal = makeContext($subMenu, details)
-        return $folderDiv.append($subMenu);
+        return $folderDiv.append($('<i/>').addClass('fas fa-angle-right'), $subMenu);
 
 
     }
@@ -110,7 +157,7 @@ function makeContext(parent, structure) {
 // Create ContextDivs
 var $contextDiv = $('<ul/>').addClass('context');
 var $serverContextMenu = makeContext($contextDiv, serverListTemplate)
-var $chatContextDiv =$('<ul/>').addClass('context');
+var $chatContextDiv = $('<ul/>').addClass('context');
 var $chatContextMenu = makeContext($chatContextDiv, chatAreaTemplate)
 
 
@@ -126,7 +173,7 @@ $(function () {
 
         var $window = $(window),
             $sub = menuSelector.find(".submenu");
-          
+
 
         $sub.removeClass("oppositeX oppositeY");
 
@@ -158,14 +205,14 @@ $(function () {
                 left: fx - 1,
                 top: fy - 1
             });
-        
-        if (($sub).length){
-        var sw = $sub.width();
-        var sh = $sub.height();
-        var sx = $sub.offset().left;
-        var sy = $sub.offset().top;
-        var subHitsRight = (sx + sw - padx >= ww - padx);
-        var subHitsBottom = (sy + sh - pady >= wh - pady);
+
+        if (($sub).length) {
+            var sw = $sub.width();
+            var sh = $sub.height();
+            var sx = $sub.offset().left;
+            var sy = $sub.offset().top;
+            var subHitsRight = (sx + sw - padx >= ww - padx);
+            var subHitsBottom = (sy + sh - pady >= wh - pady);
         }
         if (subHitsRight) {
             $sub.addClass("oppositeX");
@@ -192,11 +239,11 @@ $(function () {
 
     }
 
-   $(document).on("mousedown touchstart", ".contextItem:not(.contextItem--nope)", function (e) {
+    $(document).on("mousedown touchstart", ".contextItem:not(.contextItem--nope)", function (e) {
         console.log(focusedMessageContent.text());
         if (e.which === 1) {
             var $item = $(this);
-            
+
             setTimeout(function () {
                 $item.addClass("contextItem--active");
             }, 10);
@@ -213,10 +260,10 @@ $(function () {
         $temp.val($(element).text()).select();
         document.execCommand("copy");
         $temp.remove();
-      }
+    }
     // Listeners
     $serverIconsList.on("contextmenu", 'a', function (e) {
-        
+
         // console.log('rightclicked on server with room_i', $(this).attr('room_id'));
         openContextMenu($serverContextMenu, e);
     });
@@ -226,7 +273,7 @@ $(function () {
         openContextMenu($chatContextMenu, e);
     });
 
-    $(document).on('click', '.msgCopy', function() {
+    $(document).on('click', '.msgCopy', function () {
         copyToClipboard(focusedMessageContent.children('.messageBody'));
     })
 });

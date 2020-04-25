@@ -48,10 +48,32 @@
     visibility: visible;
 }
 
+.contextItem.iconLeft {
+    padding-left: 0 !important;
+
+} 
+
+.contextItem.iconLeft i {
+    width: 35px;
+    text-align: center;
+} 
+
+.contextItem a {
+    flex-grow: 1;
+}
+
+.contextItem .color {
+    width: 19px;
+    height: 19px;
+    border: 1px solid black;
+    border-radius: 7px;
+    margin-left: 12px;
+    align-self: flex-end;
+}
 .submenu {
     background: #343a40;
     width: auto;
-    min-width: 10em;
+    min-width: 0em;
     left: 100%;
     top: -0.4em;
     -webkit-transform: translateX(-0.7em);
@@ -70,13 +92,11 @@
 }
 
 .submenu .contextItem {
-    padding-left: 2em;
+    padding-left: 1em;
+    padding-right: 1em;
 }
 
-.submenu i[class*="entypo-"] {
-    -webkit-transform: translateX(-2.25em);
-    transform: translateX(-2.25em);
-}
+
 
 .submenu.oppositeX {
     right: 100%;
@@ -92,6 +112,7 @@
 
 .context__header,
 .contextItem {
+    display:flex;
     padding-left: 2.5em;
     padding-right: 1.5em;
     padding-top: 0.3em;

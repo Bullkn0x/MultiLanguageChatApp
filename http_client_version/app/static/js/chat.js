@@ -6,6 +6,7 @@ var username;
 var connected = false;
 var typing = false;
 var lastTypingTime;
+var currentRoom;
 
 $(function () {
     var FADE_TIME = 150; // ms
@@ -36,7 +37,6 @@ $(function () {
     var $addServerModal = $('#addServer');
     var $uploadModal = $('.uploadModalContainer')
     var $modalServerList = $('.joinServerList');
-    var currentRoom;
     var sideBarActive = false;
     // Prompt for setting a username
     
