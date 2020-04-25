@@ -269,7 +269,10 @@ $(function () {
 
         // Leave Server (Open Double check confirm Modal)
         menuSelector.on('click', '.leaveServer', function () {
+            
             let room_id = focusedServer.attr('room_id');
+            let leave_room_name = focusedServer.attr('room_name');
+            $('#leaveServerName').text(leave_room_name);
             $leaveModal.css('display', 'flex');
             ditchWindow(menuSelector)
         });
