@@ -48,10 +48,42 @@ $(".modal").click(function (e) {
 
 $leaveModal.on('click', '#confirmLeave', function () {
     let room_id = focusedServer.attr('room_id')
+    var $emoji = $('<div/>').addClass('emoji emoji--sad').append(
+        $('<div/>').addClass('emoji__face').append(
+            $('<div/>').addClass('emoji__eyebrows'),
+            $('<div/>').addClass('emoji__eyes'),
+            $('<div/>').addClass('emoji__mouth'),
+        ),
+    );
+    var $farewell = $('<p/>').text('farewell friend... ')
+    $leaveModal.children('.modal-content').children().css('opacity', 0);
+    $leaveModal.children('.modal-content').animate({
+        height: "260px",
+        width: "230px"
+
+    }, 300, function () { $leaveModal.children('.modal-content').children().hide() });
+
+    setTimeout(function () {
+        $leaveModal.children('.modal-content')
+            .append($emoji.addClass('animated fadeIn'), $farewell.addClass('animated fadeIn'))
+    }, 300)
+    setTimeout(function () {
+
+        $leaveModal.fadeOut(400);
+
+    }, 2000)
+
+    setTimeout(function () {
+        $leaveModal.children('.modal-content').children('p').remove();
+        $emoji.remove();
+        $leaveModal.children('.modal-content').removeAttr('style').children().css('opacity', 1).show();
+    },2600)
+
+
     focusedServer.remove();
     $('.serverList').children('[room_id=' +room_id + ']').remove();
     socket.emit('user update', {
         operation: 'leave_server',
         room_id: parseInt(room_id)
-    })
+    });
 });
