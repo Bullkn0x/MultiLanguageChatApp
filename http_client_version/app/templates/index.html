@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zxx" class="js">
+<head>
+	<meta charset="utf-8">
+	<meta name="author" content="Softnio">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="XITO is a modern and elegant template, created for any startups companies who make business out software and SaaS products.">
+	<!-- Fav Icon  -->
+	<link rel="shortcut icon" href="{{url_for('static', filename='assets/images/favicon.png')}}">
+	<!-- Site Title  -->
+	<title>XITO - Multi-Purpose Creative SaaS &amp; Software Template</title>
+	<!-- Vendor Bundle CSS -->
+	<link rel="stylesheet" href="{{url_for('static', filename='assets/css/vendor.bundle.css')}}">
+	<!-- Custom styles for this template -->
+	<link rel="stylesheet" href="{{url_for('static', filename='assets/css/style.css')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='assets/css/theme.css')}}">
+</head>
+
+<body data-spy="scroll" data-target="#mainnav" data-offset="80">
+
+	<!-- Header --> 
+	<header class="site-header is-sticky">
+		<!-- Navbar -->
+		<div class="navbar navbar-expand-lg is-transparent" id="mainnav">
+			<nav class="container">
+
+				<a class="navbar-brand" href="./">
+					<img class="logo logo-dark" alt="logo" src="{{url_for('static', filename='assets/images/logo.png')}}" srcset="{{url_for('static', filename='assets/images/logo2x.png')}} 2x">
+					<img class="logo logo-light" alt="logo" src="{{url_for('static', filename='assets/images/logo-light.png')}}" srcset="{{url_for('static', filename='assets/images/logo-light2x.png')}} 2x">
+				</a>
+
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle">
+					<span class="navbar-toggler-icon">
+						<span class="ti ti-align-justify"></span>
+					</span>
+				</button>
+
+				<div class="collapse navbar-collapse justify-content-end" id="navbarToggle">
+					<ul class="navbar-nav nav justify-content-center">
+						<li class="nav-item active"><a class="nav-link menu-link" href="./">Home</a></li>
+						<li class="nav-item"><a class="nav-link menu-link" href="about.html">About</a></li>
+						<li class="nav-item"><a class="nav-link menu-link" href="feature.html">Features</a></li>
+						<li class="nav-item"><a class="nav-link menu-link" href="pricing.html">Pricing</a></li>
+                    </ul>
+					<ul class="navbar-nav navbar-btns">
+                        {% if not signed_in %}
+                        <li class="nav-item"><a class="nav-link btn btn-sm" href="/login" method="get">Sign In</a></li>
+                        {% else %}
+                        <li class="nav-item"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{username}}</a>
+                            <ul class="dropdown-menu">
+                              <li class="nav-link"><a href="/profilesettings" method="get">Account Settings</a></li>
+                              <li class="nav-link"><a href="/logout">Sign Out</a></li>
+                            </ul>
+                          </li>
+                          {% endif %}
+                    </ul>
+                     
+
+				</div>
+			</nav>
+		</div>
+		<!-- End Navbar -->
+
+		<!-- Banner/Slider -->
+		<div id="header" class="banner banner-wave">
+			<div class="container">
+				<div class="banner-content d-flex align-items-center">
+					<div class="row align-items-center mobile-center">
+						<div class="col-lg-6 col-md-12 order-lg-first">
+							<div class="header-text clip-text">
+								<h2>Collaborate. Connect.<br> Explore</h2>
+								<p class="lead">The new standard for global communication and collaboration.  With no language barriers, the possibilities are endless.</p>
+								<ul class="btns">
+									<li><a href="/signup" class="btn btn-alt">Get started now</a></li>
+								</ul>
+							</div>
+						</div><!-- .col  -->
+						<div class="col-lg-6 col-md-12 order-first no-pd">
+							<div class="header-image">
+								<img src="{{url_for('static', filename='assets/images/header-image1.png')}}" alt="header">
+							</div>
+						</div><!-- .col  -->
+					</div><!-- .row  -->
+				</div><!-- .banner-content  -->
+			</div><!-- .container  -->
+			<!-- feature -->
+			<div class="feature text-center section-pad">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-3 col-sm-6">
+							<div class="feature-card">
+								<img alt="" src="{{url_for('static', filename='assets/images/icon.png')}}">
+								<h4 class="feature-heading">Easy integrate</h4>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="feature-card">
+								<img alt="" src="{{url_for('static', filename='assets/images/icon-2.png')}}">
+								<h4 class="feature-heading">Free collaborate</h4>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="feature-card">
+								<img alt="" src="{{url_for('static', filename='assets/images/icon-3.png')}}">
+								<h4 class="feature-heading">Live chat</h4>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="feature-card">
+								<img alt="" src="{{url_for('static', filename='assets/images/icon-4.png')}}">
+								<h4 class="feature-heading">Free upgrade</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--  -->
+		</div>
+		<!-- End Banner/Slider -->
+	</header>
+	<!-- End Header -->
+
+
+	<!-- Start Section -->
+	<div class="section section-pad overview light no-pt">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-md-7">
+					<div class="img">
+						<img src="{{url_for('static', filename='assets/images/img-a.png')}}" alt="">
+					</div>
+				</div><!-- .col  -->
+				<div class="col-md-5">
+					<div class="text-block">
+						<h3>Teammates can <br> collaborate <br> with each other.</h3>
+						<p class="lead">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo ullamco laboris nisi quis nostrud</p>
+						<ul class="btns">
+							<li><a href="#" class="btn btn-alt">Learn more</a></li>
+						</ul>
+					</div>	
+				</div><!-- .col  -->
+			</div><!-- .row  -->
+		</div><!-- .container  -->
+		<div class="section-pad"></div>
+	</div>
+	<!-- Start Section -->
+
+	<!-- Start Section -->
+	<div class="section section-pad no-pt">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-md-7">
+					<div class="img">
+						<img src="{{url_for('static', filename='assets/images/img-b.png')}}" alt="">
+					</div>
+				</div><!-- .col  -->
+				<div class="col-md-5 order-md-first order-last">
+					<div class="text-block text-right">
+						<h3>Conversation together <br> in one place.</h3>
+						<p class="lead">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat ullamco laboris nisi quis nostrud</p>
+						<ul class="btns">
+							<li><a href="#" class="btn btn-alt">Learn more</a></li>
+						</ul>
+					</div>
+				</div><!-- .col  -->
+			</div><!-- .row  -->
+		</div><!-- .conatiner  -->
+	</div>
+	<!-- Start Section -->
+
+	<!-- Start Section -->
+	<div class="section section-pad no-pt">
+		<div class="container">
+			<div class="row text-center">
+				<div class="col-lg-6 col-sm-8 mx-auto">
+					<div class="section-head">
+						<h3>More Features</h3>
+						<p class="lead">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. enim quis nostrud exercitation</p>
+					</div>
+				</div>
+			</div>
+			<div class="row pd-2x">
+				<div class="col-md-3 col-sm-6">
+					<div class="icon sm">
+						<img alt="" src="{{url_for('static', filename='assets/images/icon-6.png')}}">
+					</div>
+					<h4>Data saving</h4>
+					<p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. enim quis nostrud exercitation</p>
+				</div>
+				<div class="col-md-3 offset-md-1 col-sm-6">
+					<div class="icon sm">
+						<img alt="" src="{{url_for('static', filename='assets/images/icon-5.png')}}">
+					</div>
+					<h4>Cloud base</h4>
+					<p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. enim quis nostrud exercitation</p>
+				</div>
+				<div class="col-md-3 offset-md-1 col-sm-6">
+					<div class="icon sm">
+						<img alt="" src="{{url_for('static', filename='assets/images/icon-3.png')}}">
+					</div>
+					<h4>Sms routing</h4>
+					<p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. enim quis nostrud exercitation</p>
+				</div>
+				<div class=""></div>
+				<div class="col-md-3 col-sm-6">
+					<div class="icon sm">
+						<img alt="" src="{{url_for('static', filename='assets/images/icon-7.png')}}">
+					</div>
+					<h4>Secure</h4>
+					<p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. enim quis nostrud exercitation</p>
+				</div>
+				<div class="col-md-3 offset-md-1 col-sm-6">
+					<div class="icon sm">
+						<img alt="" src="{{url_for('static', filename='assets/images/icon-8.png')}}">
+					</div>
+					<h4>Optimized</h4>
+					<p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. enim quis nostrud exercitation</p>
+				</div>
+				<div class="col-md-3 offset-md-1 col-sm-6">
+					<div class="icon sm">
+						<img alt="" src="{{url_for('static', filename='assets/images/icon-9.png')}}">
+					</div>
+					<h4>24/7 support</h4>
+					<p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. enim quis nostrud exercitation</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Start Section -->
+
+
+
+	<!-- Start Section -->
+	<div class="section quote-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="section-head">
+						<h3>200+ satisfied customers</h3>
+						<p class="lead">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. enim quis nostrud exercitation</p>
+					</div>
+				</div>
+				<div class="col-md-7 offset-md-1 no-pd">
+					<div class="testimonials">
+						<div class="owl-carousel  has-carousel" data-items="2" data-loop="true" data-auto="true">
+							<div class="quote">
+								<div class="quote-in">
+									<h5>Great app feature</h5>
+									<p>Entering that gable-ended Spouter-Inn, you found yourself in a wide, low, straggling entry with wainscots.</p>
+									<div class="quote-img">
+										<img alt="" src="{{url_for('static', filename='assets/images/quote.jpg')}}">
+									</div>
+									<div class="quote-name">
+										<h6 class="quote-title no-mg">Mark anthony</h6>
+										<p>Product Manager</p>
+									</div>
+								</div>
+							</div>
+							<div class="quote">
+								<div class="quote-in">
+									<h5>Great app feature</h5>
+									<p>Entering that gable-ended Spouter-Inn, you found yourself in a wide, low, straggling entry with wainscots.</p>
+									<div class="quote-img">
+										<img alt="" src="{{url_for('static', filename='assets/images/quote.jpg')}}">
+									</div>
+									<div class="quote-name">
+										<h6 class="quote-title no-mg">Mark anthony</h6>
+										<p>Product Manager</p>
+									</div>
+								</div>
+							</div>
+							<div class="quote">
+								<div class="quote-in">
+									<h5>Great app feature</h5>
+									<p>Entering that gable-ended Spouter-Inn, you found yourself in a wide, low, straggling entry with wainscots.</p>
+									<div class="quote-img">
+										<img alt="" src="{{url_for('static', filename='assets/images/quote.jpg')}}">
+									</div>
+									<div class="quote-name">
+										<h6 class="quote-title no-mg">Mark anthony</h6>
+										<p>Product Manager</p>
+									</div>
+								</div>
+							</div>
+							<div class="quote">
+								<div class="quote-in">
+									<h5>Great app feature</h5>
+									<p>Entering that gable-ended Spouter-Inn, you found yourself in a wide, low, straggling entry with wainscots.</p>
+									<div class="quote-img">
+										<img alt="" src="{{url_for('static', filename='assets/images/quote.jpg')}}">
+									</div>
+									<div class="quote-name">
+										<h6 class="quote-title no-mg">Mark anthony</h6>
+										<p>Product Manager</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>	
+				</div>
+			</div>
+			<div class="subscribe section-pad">
+				<div class="row text-center light">
+				</div>
+				<div class="row text-center">
+					<div class="col-lg-8 col-sm-10 mx-auto">
+						<form id="subscribe-form" action="form/subscribe.php" method="post" class="subscription-form inline-form">
+							<label><i class="fa fa-envelope" aria-hidden="true"></i></label>
+							<input type="text" name="youremail" class="input required email" placeholder="Enter your email address">
+							<input type="text" class="d-none" name="form-anti-honeypot" value="">
+							<button type="submit" class="btn btn-alt">Subscribe</button>
+							<div class="subscribe-results"></div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Section -->
+
+
+	<!-- Start Section -->
+	<div class="section footer-section primary section-pad-sm no-pt light">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					<a class="logo" href="./"><img alt="" src="{{url_for('static', filename='assets/images/logo-light2x.png')}}"></a>
+					<span class="copyright-text">
+						&copy; XITO, All rights reserved <br> Designed by <a href="https://themeforest.net/user/themesurf_tf" target="_blank">ThemeSurf</a>.
+					</span>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<h6>Resources</h6>
+					<ul>
+						<li><a href="#">Home</a></li>
+						<li><a href="#">About us</a></li>
+						<li><a href="#">Feature</a></li>
+						<li><a href="#">Pricing</a></li>
+						<li><a href="#">Contact</a></li>
+					</ul>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<h6>Help?</h6>
+					<ul>
+						<li><a href="#">Terms  &amp; condition    </a></li>
+						<li><a href="#">Privacy</a></li>
+						<li><a href="#">Policy</a></li>
+						<li><a href="#">Support</a></li>
+						<li><a href="#">FAQ</a></li>
+					</ul>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<h6>Get in touch</h6>
+					<ul>
+						<li>+(012) 123 456</li>
+						<li><a href="#">info@yourmail.com</a></li>
+						<li>West anderson court  32 <br> London , UK</li>
+					</ul>
+					<ul class="social alt">
+						<li><a href="#"><em class="fa fa-facebook"></em></a></li>
+						<li><a href="#"><em class="fa fa-twitter"></em></a></li>
+						<li><a href="#"><em class="fa fa-linkedin"></em></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Section -->
+
+	<!-- Preloader !remove please if you do not want -->
+	<div id="preloader">
+		<div id="loader"></div>
+		<div class="loader-section loader-top"></div>
+   		<div class="loader-section loader-bottom"></div>
+	</div>
+	<!-- Preloader End -->
+
+	<!-- JavaScript (include all script here) -->
+	<script src="{{url_for('static', filename='assets/js/jquery.bundle.js')}}"></script>
+	<script src="{{url_for('static', filename='assets/js/script.js')}}"></script>
+
+</body>
+</html>
