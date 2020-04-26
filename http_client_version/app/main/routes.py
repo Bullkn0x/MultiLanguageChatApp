@@ -203,21 +203,20 @@ def confirm_email(token):
 @main.route('/chat', methods=['GET', 'POST'])
 def chat():
     print('url' , request.url)
-    if 'session' not in request.cookies:
+    if 'session' not in request.cookies or 'user' not in session:
+     
         return redirect(url_for('main.login', next=request.url))
     else:
         # print('FOUND SESSION COOKIES', request.cookies.get('session'))
         # print(request.cookies)
         pass 
 
-    if request.method== 'POST':
-        username = request.form['username']
-        print(username)
+
     """Login form to enter a room."""
     response = make_response(render_template('chat.html'))
     cookie=token_urlsafe(16)
     response.set_cookie('cookie',value=cookie, expires=0)
-
+    
     print('the users username is', session['user'])
     return response
 
