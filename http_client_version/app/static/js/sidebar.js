@@ -1,12 +1,13 @@
-
 // Selectors
 var $serverList = $('.serverList');
 var $serverIconList = $('#serverIcons');
+
 //  Modals
 var $discoverModal = $("#discoverModal");
 var $createModal = $("#newServerModal");
 var $leaveModal = $("#leaveConfirmModal");
 var $serverOptionModal = $("serverOptionModal");
+var $deleteConfirmModal = $("#deleteConfirmModal");
 
 // Side Menu Selector for modals
 var $discoverBtn = $("#discoverServer");
@@ -173,9 +174,9 @@ $discoverBtn.on('click', function () {
 //Leave Server Modal AREA ------------
 //Temp button to bring up the modal
 
-// $helpBtn.on('click', function () {
-//     $leaveModal.css('display', 'flex');
-// });
+$helpBtn.on('click', function () {
+    $deleteConfirmModal.css('display', 'flex');
+});
 
 //When right click on all the servers on the serverList... Do something HERE...
 //Currently Returns the text and room_id of which ever you click on
