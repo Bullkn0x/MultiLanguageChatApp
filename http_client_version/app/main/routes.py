@@ -217,6 +217,8 @@ def chat():
     response = make_response(render_template('chat.html'))
     cookie=token_urlsafe(16)
     response.set_cookie('cookie',value=cookie, expires=0)
+
+    print('the users username is', session['user'])
     return response
 
 
