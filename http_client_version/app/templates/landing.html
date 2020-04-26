@@ -51,11 +51,9 @@
                     <button class="navbar-toggler d-xl-none" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse d-xl-block" id="navbarNav">
                       <ul class="navbar-nav mr-auto">
-                        {% if not signed_in %}
-                        <li class="nav-item active"><a class="nav-link" href="/login">Messenger <span class="sr-only">(current)</span></a></li>
-                        {% else %}
+                     
                         <li class="nav-item active"><a class="nav-link" href="/chat">Messenger <span class="sr-only">(current)</span></a></li>
-                        {% endif %}
+                
                         <li class="nav-item"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Getting Started</a>
                           <ul class="dropdown-menu">
                             <li class="nav-link"><a href="#">FAQ</a></li>
