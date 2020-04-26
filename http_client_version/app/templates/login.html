@@ -8,7 +8,7 @@
 	<!-- Fav Icon  -->
 	<link rel="shortcut icon" href="{{url_for('static', filename='assets/images/favicon.png')}}">
 	<!-- Site Title  -->
-	<title>XITO - Multi-Purpose Creative SaaS &amp; Software Template</title>
+	<title>Log in | AnyChat</title>
 	<!-- Vendor Bundle CSS -->
 	<link rel="stylesheet" href="{{url_for('static', filename='assets/css/vendor.bundle.css')}}">
 	<!-- Custom styles for this template -->
@@ -43,7 +43,8 @@
                                 <input type="hidden" name="next" value= "{{request.args.get('next', '')}}" />
 							</form>
 							<div class="gaps size-md"></div>
-							<div class="note">Don’t have an account? <a href="#"> Register</a></div>
+							<a href="/forgetpassword"><div class="note forgotpw">Forgot Username/Password?</div></a>
+							<div class="note">Don’t have an account? <a href="/signup"> Register</a></div>
 						</div>
 					</div><!-- .col  -->
 				</div><!-- .row  -->
