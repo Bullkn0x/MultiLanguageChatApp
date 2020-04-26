@@ -4,10 +4,10 @@ Preset   :	Default
 Version	 :	1.1.0
 */
 .bg-primary {
-  background: #3a2dec; }
+  background: #191919; }
 
 .bg-secondary {
-  background: #4c8cf7; }
+  background: #2b2c2c; }
 
 .bg-light {
   background: #f6f9fc; }
@@ -27,15 +27,15 @@ Version	 :	1.1.0
     background: url(../images/header-rand.svg) left top no-repeat, linear-gradient(to bottom, #191919 0%, #2b2c2c 100%);
     background-size: 100%; }
   .banner.banner-rad {
-    background: #3a2dec; }
+    background: #191919; }
   .banner .rad:before, .banner .rad:after {
     background: linear-gradient(to top, #191919 0%, #2b2c2c 100%); }
 
 .overview {
-  background: #4c8cf7; }
+  background: #2b2c2c; }
 
 .btn {
-  background-color: #3a2dec; }
+  background-color: #191919; }
   .btn.btn-alt {
     background-color: #28cc8b; }
     .btn.btn-alt:hover, .btn.btn-alt:focus {
@@ -46,10 +46,10 @@ Version	 :	1.1.0
 .navbar .navbar-nav > li > a.nav-link.btn {
   color: #278ffd; }
   .navbar .navbar-nav > li > a.nav-link.btn.outline {
-    border-color: #3a2dec;
-    color: #3a2dec; }
+    border-color: #191919;
+    color: #191919; }
     .navbar .navbar-nav > li > a.nav-link.btn.outline:hover {
-      background: #3a2dec; }
+      background: #191919; }
   .navbar .navbar-nav > li > a.nav-link.btn:hover {
     background: #278ffd; }
 
@@ -62,25 +62,25 @@ Version	 :	1.1.0
   .site-header .navbar .navbar-nav li.active a {
     color: #928bf4; } }
 .quote-section, .subscribe.wave {
-  background: linear-gradient(to top, #3a2dec 0%, #4c8cf7 50%); }
+  background: linear-gradient(to top, #191919 0%, #2b2c2c 50%); }
 
 .bg-rand {
   position: reletive; }
   .bg-rand-prime:before {
-    background: url(../images/bg-rand-prime.svg) right top no-repeat, linear-gradient(48deg, #3a2dec 0%, #6166fd 21%, #4c8cf7 100%); }
+    background: url(../images/bg-rand-prime.svg) right top no-repeat, linear-gradient(48deg, #191919 0%, #6166fd 21%, #2b2c2c 100%); }
 
 .footer-section {
   position: reletive; }
   .footer-section.bg-wave {
-    background: url(../images/wave-rad.svg) top center no-repeat, linear-gradient(48deg, #3a2dec 0%, #6166fd 21%, #4c8cf7 100%);
+    background: url(../images/wave-rad.svg) top center no-repeat, linear-gradient(48deg, #191919 0%, #6166fd 21%, #2b2c2c 100%);
     background-size: 105% auto; }
     .footer-section.bg-wave .social li a {
-      color: #3a2dec; }
+      color: #191919; }
 
 .footer-section.primary {
-  background: #3a2dec; }
+  background: #191919; }
   .footer-section.primary .social li a {
-    color: #3a2dec; }
+    color: #191919; }
   .footer-section.primary .social.alt li a {
     color: #28cc8b; }
 .footer-section a:not(.btn):hover {
@@ -90,16 +90,16 @@ Version	 :	1.1.0
   background: linear-gradient(to bottom, #191919 0%, #2b2c2c 100%); }
 
 .loader-section {
-  background: #3a2dec; }
+  background: #191919; }
 
 .tab .tab-menu .tab-list li a.active {
-  color: #3a2dec;
-  border-bottom-color: #3a2dec;
+  color: #191919;
+  border-bottom-color: #191919;
   opacity: 0.6; }
 
 @media only screen and (max-width: 767px) {
   .tab .tab-menu .tab-list li a.active {
-    color: #3a2dec;
+    color: #191919;
     border-bottom-color: transparent; } }
 .pricing-price {
   color: #278ffd; }
@@ -120,27 +120,27 @@ Version	 :	1.1.0
     color: #fff; }
 
 .wgs-box ul li a h1:hover, .wgs-box ul li a h2:hover, .wgs-box ul li a h3:hover, .wgs-box ul li a h4:hover, .wgs-box ul li a h5:hover, .wgs-box ul li a h6:hover {
-  color: #3a2dec; }
+  color: #191919; }
 .wgs-box ul li a:hover {
-  color: #3a2dec; }
+  color: #191919; }
 
 .post .post-meta li .fa {
-  color: #3a2dec; }
+  color: #191919; }
 .post .post-entry a:hover {
-  color: #3a2dec; }
+  color: #191919; }
 .post .post-entry a.btn {
-  color: #4c8cf7; }
+  color: #2b2c2c; }
   .post .post-entry a.btn:hover {
-    color: #3a2dec; }
+    color: #191919; }
 
 .pagination .page-item .page-link:hover {
-  color: #3a2dec; }
+  color: #191919; }
 .pagination .page-item.active .page-link {
   color: #fff;
-  background: #3a2dec;
-  border: 1px solid #3a2dec; }
+  background: #191919;
+  border: 1px solid #191919; }
 .pagination > li > a:focus, .pagination > li > a:hover, .pagination > li > span:focus, .pagination > li > span:hover, .pagination > .active > a, .pagination > .active > a:hover, .pagination > .active > a:focus {
-  color: #3a2dec; }
+  color: #191919; }
 
 .comment li p + a {
   color: #665cf0; }
@@ -149,4 +149,4 @@ Version	 :	1.1.0
   background-color: #e9e8fd; }
 
 .contact-list li .icon {
-  color: #3a2dec; }
+  color: #191919; }
