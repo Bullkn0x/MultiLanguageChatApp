@@ -20,8 +20,8 @@ s = URLSafeTimedSerializer('thisisasecret')
 def home():
     if 'user' in session:
         username = session['user']
-        return render_template('landing.html', signed_in = True, username=username)
-    return render_template('landing.html')
+        return render_template('index.html', signed_in = True, username=username)
+    return render_template('index.html')
 
 @main.route('/login', methods=['GET', 'POST'])
 def login():
