@@ -39,6 +39,10 @@ def login():
         email_or_username = request.form['email']
         password = request.form['password']
         remember = request.form.getlist('remember')
+
+        # if redirected from somewhere this variable will have a value
+        next_url = request.form.get('next')
+        print('redirect to: ', next_url)
         conn = mysql.connect()
         cursor = conn.cursor()
         sql = 'SELECT * FROM users WHERE email=%s or username=%s'
@@ -52,7 +56,11 @@ def login():
             session['user'] = db_user['username']   #put username in session
             session['id'] = db_user['user_id']
             session['last_room'] =db_user['last_room_id']
-            resp = make_response(redirect('/'))
+            
+            if next_url:
+                resp = make_response(redirect(next_url))
+            else:
+                resp = make_response(redirect('/'))
             # cookieid= token_urlsafe(16)
             if remember:
                 resp.set_cookie('u_id',db_user['username'], max_age=COOKIE_TIME_OUT,expires=COOKIE_TIME_OUT)
@@ -194,12 +202,13 @@ def confirm_email(token):
 
 @main.route('/chat', methods=['GET', 'POST'])
 def chat():
-    if 'session' in request.cookies:
-        pass
+    print('url' , request.url)
+    if 'session' not in request.cookies:
+        return redirect(url_for('main.login', next=request.url))
+    else:
         # print('FOUND SESSION COOKIES', request.cookies.get('session'))
         # print(request.cookies)
-    else:
-        return redirect('/login')
+        pass 
 
     if request.method== 'POST':
         username = request.form['username']

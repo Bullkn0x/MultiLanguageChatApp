@@ -70,6 +70,7 @@
                       <div class="buttons"><button class="btn btn-primary button-effect" href="#">Login</button>
                         <a class="btn button-effect btn-signup" href="/signup">SignUp</a></div>
                     </div>
+                    <input type="hidden" name="next" value= "{{request.args.get('next', '')}}" />
                   </form>
                   <div class="line">
                     <h6>OR Connect with</h6>
