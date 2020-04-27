@@ -33,6 +33,9 @@
     width: 450px;
   }
 
+  #deleteConfirmModal .modal-content{
+    width: 500px;
+  }
 
   #newServerModal .modal-content {
       width: 575px;

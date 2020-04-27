@@ -148,6 +148,10 @@ ul, ol {
 .lh-x3 {
   line-height: 2; }
 
+.forgotpw{
+  text-decoration: underline;
+}
+
 blockquote {
   font-size: 1em;
   line-height: 1.625;
