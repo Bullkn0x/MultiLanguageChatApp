@@ -45,8 +45,8 @@
 						{% if not signed_in %}
 						<li class="nav-item"><a class="nav-link menu-link" href="/login" method="get">Sign In</a></li>
                         {% else %}
-                        <li class="nav-item"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{username}}</a>
-                            <ul class="dropdown-menu">
+                        <li class="dropdown"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{username}}</a>
+                            <ul class="dropdown-menu" style="background-color:  #f0f0f0;">
                               <li class="nav-link"><a href="/accountsettings" method="get">Account Settings</a></li>
                               <li class="nav-link"><a href="/logout">Sign Out</a></li>
                             </ul>
