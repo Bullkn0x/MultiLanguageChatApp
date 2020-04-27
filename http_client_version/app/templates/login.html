@@ -33,14 +33,15 @@
 							<form class="user-form" method="post">
 								<div class="input-field">
 									<!-- <label class="col-form-label" for="inputEmail3">Email Address</label> -->
-									<input name="email" class="form-control input-line email" id="inputEmail3" type="email" placeholder="Email or Username" required>
+									<input name="email" class="form-control input-line" id="inputEmail3" placeholder="Email or Username" required>
 								</div>
 
 								<div class="input-field">
 									<!-- <label class="col-form-label" for="inputPassword3">Password</label> -->
 									<input name="password" class="form-control input-line" id="inputPassword3" type="password" placeholder="Password" 
-									pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one 
-									uppercase and lowercase letter, and at least 8 or more characters" required>
+									 required>
+									 <!-- pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one 
+									uppercase and lowercase letter, and at least 8 or more characters" -->
 								</div>
 
 								<div class="gaps"></div>
@@ -73,6 +74,6 @@
 	<script src="{{url_for('static', filename='assets/js/jquery.bundle.js')}}"></script>
 	<script src="{{url_for('static', filename='assets/js/script.js')}}"></script>
 	<script src="{{url_for('static', filename='assets/js/fieldValidation.js')}}"></script>
-	
+
 </body>
 </html>

@@ -41,12 +41,13 @@
 						<li class="nav-item"><a class="nav-link menu-link" href="about.html">About</a></li>
 						<li class="nav-item"><a class="nav-link menu-link" href="feature.html">Features</a></li>
 						<li class="nav-item"><a class="nav-link menu-link" href="pricing.html">Pricing</a></li>
+						<li class="nav-item"><a class="nav-link menu-link" href="/chat">Messenger</a></li>
 						{% if not signed_in %}
-                        <li class="nav-item"><a class="nav-link menu-link" href="/login" method="get">Sign In</a></li>
+						<li class="nav-item"><a class="nav-link menu-link" href="/login" method="get">Sign In</a></li>
                         {% else %}
                         <li class="nav-item"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{username}}</a>
                             <ul class="dropdown-menu">
-                              <li class="nav-link"><a href="/profilesettings" method="get">Account Settings</a></li>
+                              <li class="nav-link"><a href="/accountsettings" method="get">Account Settings</a></li>
                               <li class="nav-link"><a href="/logout">Sign Out</a></li>
                             </ul>
                           </li>

@@ -176,10 +176,10 @@ def signup():
 
     return render_template('signup.html', error=error)
 
-@main.route('/profilesettings', methods=['GET', 'POST'] )
+@main.route('/accountsettings', methods=['GET', 'POST'] )
 def profilesettings():
+    return render_template('accountsettings.html')
 
-    return render_template('profilesettings.html')
 
 @main.route('/confirm_email/<token>')
 def confirm_email(token):

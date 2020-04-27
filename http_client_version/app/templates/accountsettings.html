@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Socket.IO Chat Example</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/chat.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Zilla+Slab&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@2.12.1/dist/index.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" data-auto-replace-svg="nest"></script>
+
+    <!-- nav Animation -->
+    <link rel="icon" href="{{url_for('static', filename='assets/images/favicon/favicon.png')}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{url_for('static', filename='assets/images/favicon/favicon.png')}}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,600&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,300i,400,400i,500,500i,700,700i,900,900i&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/css/date-picker.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/css/magnific-popup.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/css/style.css')}}" media="screen" id="color">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/css/tour.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/js/ckeditor/skins/moono-lisa/editor.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/js/ckeditor/plugins/scayt/skins/moono-lisa/scayt.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/js/ckeditor/plugins/scayt/dialogs/dialog.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/js/ckeditor/plugins/tableselection/styles/tableselection.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/js/ckeditor/plugins/wsc/skins/moono-lisa/wsc.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/js/ckeditor/plugins/copyformatting/styles/copyformatting.css')}}">
+
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/css/accountsettings.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/css/profilestyles.css')}}">
+
+
+</head>
+
+<body style="font-family: 'Zilla Slab', serif;">
+
+
+    <ul class="pages">
+
+        <li class="settings page flex-col">
+            <!-- Chat And Side Bar Container  -->
+            <div id="left-menu" class="components flex-row" style="height: 100%; width: 30%;" id="">
+                <!-- Sidebar -->
+                <!-- <div id="serverIcons" class="flex-col">
+                </div> -->
+                <div id="menu-settings"
+                    class="flex sidebar-expanded d-none d-md-block animated slideInLeft delay-0.5s">
+                    <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
+                    <!-- Bootstrap List Group -->
+                    <ul id="" class="list-group">
+                        <!-- Separator with title -->
+                        <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
+                            <small>Personal Settings</small>
+                        </li>
+                        <!-- /END Separator -->
+                        <!-- Menu with submenu -->
+                        <a id="account" href="#" class="menuItem bg-dark list-group-item list-group-item-action">
+                            <div class="d-flex w-100 align-items-between">
+                                <span class="fa fa-cogs" value="&#xf085"></span>
+                                <span class="menu-collapsed container">Profile</span>
+                            </div>
+                        </a>
+                        <a id="privacy" href="#" class="menuItem bg-dark list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-between">
+                                <span class="fa fa-user-circle" value="&#xf2bd"></span>
+                                <span class="menu-collapsed container">Privacy & Safety</span>
+                            </div>
+                        </a>
+                        
+                        <a id="socialMedia" href="#" class="menuItem bg-dark list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <i class="fas fa-users"></i>
+                                <span class="menu-collapsed container">Social Media</span>
+                            </div>
+                        </a>
+                        <!-- value="&#xf53a" -->
+                        <a id="privacy" href="#" class="menuItem bg-dark list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-between">
+                                <i class="fas fa-money-bill-wave"></i>
+                                <span class="menu-collapsed container">Payment</span>
+                            </div>
+                        </a>
+
+                       
+                        <!-- Submenu content -->
+                        <div id='submenu1' class="serverList collapse sidebar-submenu">
+
+                        </div>
+                        <a href="#submenu2" data-toggle="collapse" aria-expanded="false"
+                            class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fa fa-user fa-fw mr-3"></span>
+                                <span class="menu-collapsed">Theme</span>
+                                <span class="submenu-icon ml-auto"></span>
+                            </div>
+                        </a>
+                        <!-- Submenu content -->
+                        <div id='submenu2' class="collapse sidebar-submenu">
+                            <!-- <a href="#" class="list-group-item list-group-item-action bg-dark ">
+                                <span class="menu-collapsed">Custom</span>
+                            </a> -->
+                            <a href="#" class="d-flex justify-content-around list-group-item list-group-item-action bg-dark ">
+                                
+                                <div class="menu-collapsed toggle toggle--daynight">
+                                    <!-- <span class="menu-collapsed"></span> -->
+                                    <input type="checkbox" id="toggle--daynight" class="menu-collapsed toggle--checkbox">
+                                    <label class="menu-collapsed toggle--btn" for="toggle--daynight"><span class=" menu-collapsed toggle--feature"></span></label>
+                                </div> 
+                                
+                                
+                            </a>
+                        </div>
+                        
+
+                        <!-- Separator with title -->
+                        <li
+                            class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
+                            <small>App Settings</small>
+                        </li>
+                        <!-- /END Separator -->
+                        <a href="#" class="bg-dark list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <i class="fas fa-video"></i>
+                                <span class="menu-collapsed container">Video</span>
+                            </div>
+                        </a>
+
+                        
+
+                        <a href="#" class="bg-dark list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fa fa-bell fa-fw mr-3" value="&#xf1f6"></span>
+                                <span class="menu-collapsed">Notifications</span>
+                            </div>
+                        </a>
+                        <a href="#" class="bg-dark list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <i class="fas fa-language"></i>
+                                <span class="menu-collapsed container">Language</span>
+                            </div>
+                        </a>
+                        <a id="#" href="#" class="bg-dark list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <i class="fas fa-microphone"></i>
+                                <span class="container menu-collapsed">Voice</span>
+                            </div>
+                        </a>
+
+                        <a href="#" class="bg-dark list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <i class="fas fa-images"></i>
+                                <span class="menu-collapsed container">Images</span>
+                            </div>
+                        </a>
+                        <!-- Separator without title -->
+                        <li class="list-group-item sidebar-separator menu-collapsed"></li>
+                        <!-- /END Separator -->
+                        
+                        <a href="#" 
+                            class="bg-dark list-group-item list-group-item-action d-flex align-items-center">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <i id="logout" class="fas fa-sign-out-alt"></i>
+                                <span id="logout" class="menu-collapsed container">Log out</span>
+                            </div>
+                        </a>
+
+                        </div>
+                    
+                    </ul>
+        </li>
+    </ul>
+
+    <!-- filebox -->
+
+    <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/gsap-latest-beta.min.js'></script>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+    <script>
+        var input = document.querySelector('.emojiZone');
+        var messageBox = document.querySelector('.inputMessage');
+        var picker = new EmojiButton({
+            position: 'left-start',
+            style: 'twemoji'
+        })
+
+        picker.on('emoji', function (emoji) {
+            var newEl = document.createElement('span');
+            newEl.innerHTML = emoji;
+            messageBox.appendChild(newEl);
+            console.log(newEl)
+        })
+
+        input.addEventListener('click', function () {
+            picker.pickerVisible ? picker.hidePicker() : picker.showPicker(input);
+
+        })
+    </script>
+
+
+    <!-- Side Bar -->
+    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js'></script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js'></script>
+
+    <script src="./js/chat.js"></script>
+    <script src="./js/sidebar.js"></script>
+    <script src="./js/userlist.js"></script>
+    <script src="./js/modal.js"></script>
+    <script src="./js/themeToggler.js"></script>
+<!-- 
+    <script src="{{url_for('static', filename='searchModal.js')}}"></script> -->
+
+
+
+
+
+    <!-- End -->
+</body>
+
+</html>
