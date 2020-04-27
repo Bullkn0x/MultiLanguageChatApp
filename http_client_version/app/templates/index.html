@@ -36,7 +36,7 @@
 			<nav class="container">
 
 				<a class="navbar-brand" href="./">
-					<img class="logo logo-dark" alt="logo" src="{{url_for('static', filename='assets/images/logo.png')}}" srcset="{{url_for('static', filename='assets/images/logo2x.png')}} 2x">
+					<img class="logo logo-dark" alt="logo" src="https://cdn.discordapp.com/attachments/694006101951381605/704177230330200074/unknown.png" srcset="{{url_for('static', filename='assets/images/logo2x.png')}} 2x">
 					<img class="logo logo-light" alt="logo" src="{{url_for('static', filename='assets/images/logo-light.png')}}" srcset="{{url_for('static', filename='assets/images/logo-light2x.png')}} 2x">
 				</a>
 
@@ -56,8 +56,8 @@
 						{% if not signed_in %}
 						<li class="nav-item"><a class="nav-link menu-link" href="/login" method="get">Sign In</a></li>
                         {% else %}
-                        <li class="nav-item"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{username}}</a>
-                            <ul class="dropdown-menu">
+                        <li class="dropdown"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{username}}</a>
+                            <ul class="dropdown-menu" style="background-color:  #f0f0f0;">
                               <li class="nav-link"><a href="/accountsettings" method="get">Account Settings</a></li>
                               <li class="nav-link"><a href="/logout">Sign Out</a></li>
                             </ul>
