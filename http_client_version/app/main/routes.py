@@ -197,7 +197,7 @@ def confirm_email(token):
     except SignatureExpired:
         return 'Token Expired'
 
-    return render_template('landing.html', success=success)
+    return render_template('index.html', success=success)
 
 
 @main.route('/chat', methods=['GET', 'POST'])
