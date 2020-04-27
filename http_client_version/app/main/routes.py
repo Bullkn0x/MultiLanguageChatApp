@@ -177,7 +177,7 @@ def signup():
     return render_template('signup.html', error=error)
 
 @main.route('/accountsettings', methods=['GET', 'POST'] )
-def profilesettings():
+def accountsettings():
     return render_template('accountsettings.html')
 
 
