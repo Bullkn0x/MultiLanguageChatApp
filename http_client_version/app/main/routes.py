@@ -176,10 +176,10 @@ def signup():
 
     return render_template('signup.html', error=error)
 
-@main.route('/profilesettings', methods=['GET', 'POST'] )
-def profilesettings():
+@main.route('/accountsettings', methods=['GET', 'POST'] )
+def accountsettings():
+    return render_template('accountsettings.html')
 
-    return render_template('profilesettings.html')
 
 @main.route('/confirm_email/<token>')
 def confirm_email(token):
@@ -197,7 +197,7 @@ def confirm_email(token):
     except SignatureExpired:
         return 'Token Expired'
 
-    return render_template('landing.html', success=success)
+    return render_template('index.html', success=success)
 
 
 @main.route('/chat', methods=['GET', 'POST'])

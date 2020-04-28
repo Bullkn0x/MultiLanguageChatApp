@@ -21,7 +21,7 @@ Version	 :	1.1.0
 .banner {
   background: #f6f9fc; }
   .banner.banner-wave {
-    background: url(../images/header-left.svg) left top no-repeat, linear-gradient(to bottom,  #191919 0%, #2b2c2c 100%);
+    background: url(../images/header-left.svg) left top no-repeat, linear-gradient(to bottom, #191919 0%, #2b2c2c 100%);
     background-size: 75%; }
   .banner.banner-rand {
     background: url(../images/header-rand.svg) left top no-repeat, linear-gradient(to bottom, #191919 0%, #2b2c2c 100%);
