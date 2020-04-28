@@ -8,7 +8,6 @@ import os
 socketio = SocketIO()
 
 mysql = MySQL(cursorclass=DictCursor)
-# mysql = MySQL()
 mail = Mail()
 
 def create_app(debug=False):
@@ -22,6 +21,10 @@ def create_app(debug=False):
     app.config['MYSQL_DATABASE_DB'] = 'Chatapp'
     app.config['MYSQL_DATABASE_HOST'] = 'anychat.cvjaewaab6rt.us-east-1.rds.amazonaws.com'
     app.config['MYSQL_DATABASE_CHARSET'] = 'utf8mb4'
+    # PRODUCTION 
+    app.config['BASE_URL'] ='http://anychatchat.herokuapp.com:8000'
+
+    app.config['BASE_URL'] ='http://localhost:8000'
     app.config.from_pyfile('config.cfg')
     mysql.init_app(app)
     

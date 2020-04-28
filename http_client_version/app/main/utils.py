@@ -5,7 +5,7 @@ from json import JSONEncoder, dumps, dump
 def try_translate(msg,sender,receiver):
     translator = Translator()
     try:
-        result = translator.translate(msg, src=LANGCODES[sender], dest=LANGCODES[receiver])
+        result = translator.translate(msg, src=sender, dest=receiver)
         print(result.text)
         return result.text
     except ValueError:
