@@ -208,6 +208,7 @@ def text(msg_data):
     # Iterate through rooms and emit messagfasdfe to usersocket 
     for username, receiver in rooms[room_id].items():
         if receiver.current_room == room_id:
+            # and receiver.language!='original'
             if receiver.language != sender.language:
                 print('not same language')
                 translated_msg = try_translate(message,sender.language, receiver.language)
@@ -215,7 +216,8 @@ def text(msg_data):
                 if translated_msg:
                     message=translated_msg
             # sender renders message to chat using js on enter key, ignore them for now
-            
+            print("receiver language: "+receiver.language)
+            print("sender language: "+sender.language)
             emit('new message', {
                 'username': sender_name, 
                 "message":message,
