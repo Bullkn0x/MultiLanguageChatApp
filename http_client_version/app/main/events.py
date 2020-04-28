@@ -10,6 +10,7 @@ import uuid
 import os
 
 
+
 # populate room info
 rooms_resp = DB_populate_cache()
 print(rooms_resp)
@@ -18,6 +19,7 @@ rooms = {row['room_id']: {} for row in rooms_resp}
 print(rooms)
 num_users=0
 
+message_cache = {}
 
 @socketio.on('connect', namespace='/')
 def connect():
@@ -82,8 +84,10 @@ def connect():
    
 @socketio.on('query servers', namespace='/')
 def query_server(search_term = None):
+    user_id = int(session['id'])
+    print(search_term, user_id)
     socket_id = request.sid
-    server_suggestions = DB_get_public_servers(search_term)
+    server_suggestions = DB_get_public_servers(user_id, search_term)
 
     emit('query servers', {"servers": server_suggestions} ,room=socket_id)
 
@@ -208,7 +212,7 @@ def text(msg_data):
 
     message_id = DB_insert_msg(user_id, message, room_id)
     
-    # Iterate through rooms and emit messagfasdfe to usersocket 
+    # Iterate through rooms users and emit message to usersocket 
     for username, receiver in rooms[room_id].items():
         if receiver.current_room == room_id:
             if receiver.language != sender.language:
@@ -226,7 +230,7 @@ def text(msg_data):
                 "room_id": room_id,
                 "temp_msg_id":temp_msg_id}, include_self=True, room=receiver.socket_id)
 
-
+    print('CACHE DETAILS', try_translate.cache_info())
         # else:
             # emit('notify user', {'username': sender_name, "message":message}, include_self=False, room=receiver.socket_id)
 
@@ -285,7 +289,6 @@ def update_language(language):
 @socketio.on('typing',namespace='/')
 def user_typing():
     room_id = session['last_room']
-    print(room_id)
     for username, receiver in rooms[room_id].items():
         if receiver.current_room == room_id:
             emit('typing', { 'username':session['user'] }, include_self=False, room=receiver.socket_id)
@@ -293,7 +296,6 @@ def user_typing():
 @socketio.on('stop typing',namespace='/')
 def user_stopped_typing():
     room_id = session['last_room']
-    print(room_id)
     for username, receiver in rooms[room_id].items():
         if receiver.current_room == room_id:
             emit('stop typing', { 'username':session['user'] }, broadcast=True, include_self=False)

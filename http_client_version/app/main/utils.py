@@ -1,12 +1,14 @@
 from googletrans import Translator
 from json import JSONEncoder, dumps, dump
+from functools import lru_cache
 
 
+@lru_cache(maxsize = 1000)
 def try_translate(msg,sender,receiver):
     translator = Translator()
     try:
         result = translator.translate(msg, src=sender, dest=receiver)
-        print(result.text)
+        print(f'NOT IN CACHE\nNeed to get translation for: {msg}:', result.text)
         return result.text
     except ValueError:
         print('translate failed')

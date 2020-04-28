@@ -130,7 +130,7 @@ socket.on('query servers', function (search_data) {
         });
         // manually set height of card images, since the width is already known
     } else {
-        $("#cards").append(encapsulate("No results found", "p", ""));
+        $("#cards").append(("No results found", "p", ""));
     }
 
 

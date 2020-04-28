@@ -94,10 +94,10 @@ def DB_get_server_userlist(room_id):
 
     return server_users
 
-def DB_get_public_servers(search_term=None):
+def DB_get_public_servers(user_id, search_term=None):
 
-    SQL_GET_PUBLIC_SERVERS = "CALL PUBLIC_SERVERLIST(%s);"
-    sql_params = (search_term, )
+    SQL_GET_PUBLIC_SERVERS = "CALL PUBLIC_SERVERLIST(%s, %s);"
+    sql_params = (search_term, int(user_id), )
     public_servers = anyChatDB.queryAll(SQL_GET_PUBLIC_SERVERS, sql_params)
 
     return public_servers
