@@ -3,61 +3,122 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Socket.IO Chat Example</title>
+    <title>Messenger | AnyChat</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./css/chat.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/chat.css')}}">
     <link href="https://fonts.googleapis.com/css?family=Roboto|Zilla+Slab&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@2.12.1/dist/index.min.js"></script>
-    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" data-auto-replace-svg="nest"></script>
-
     <!-- nav Animation -->
+    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" data-auto-replace-svg="nest"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 
     <!-- Side Bar -->
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
-    
-    <!-- nav Animation -->
-    <link rel="icon" href="{{url_for('static', filename='assets/images/favicon/favicon.png')}}" type="image/x-icon">
-    <link rel="shortcut icon" href="{{url_for('static', filename='assets/images/favicon/favicon.png')}}" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800&amp;display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,600&amp;display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Rubik:300,300i,400,400i,500,500i,700,700i,900,900i&amp;display=swap" rel="stylesheet">
-    <!-- <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/css/date-picker.css')}}"> -->
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/css/magnific-popup.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/css/style.css')}}" media="screen" id="color">
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/css/tour.css')}}">
-    <!-- <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/js/ckeditor/skins/moono-lisa/editor.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/js/ckeditor/plugins/scayt/skins/moono-lisa/scayt.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/js/ckeditor/plugins/scayt/dialogs/dialog.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/js/ckeditor/plugins/tableselection/styles/tableselection.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/js/ckeditor/plugins/wsc/skins/moono-lisa/wsc.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/js/ckeditor/plugins/copyformatting/styles/copyformatting.css')}}"> -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/sidebar.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/userlist.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/filebox.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/modal.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/uploadModal.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/themeToggler.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/tools.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/topnav.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/searchModal.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/hover-min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/buttons.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/contextmenu.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/emojis.css')}}">
 
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/sidebar.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/userlist.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/filebox.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/modal.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/themeToggler.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/tools.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/topnav.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/hover-min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/buttons.css')}}">
 
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/css/accountsettings.css')}}">
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/css/profilestyles.css')}}">
+
+    
+    <!-- End -->
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
 
+
 </head>
+
 
 <body style="font-family: 'Zilla Slab', serif;">
 
 
+    <div style="visibility:hidden; opacity:0" id="dropzone">
+        <img id="textnode"></img>
+    </div>
+
     <ul class="pages">
 
         <li class="settings page flex-col">
+            
+            <div id="deleteConfirmModal" class="modal">
+                <div class="modal-content">
+                    <h4 class="text-center">Are you sure you want to delete the server '<span id='deleteServerName'></span>'?</h4>
+                    <h6 class="text-center">This cannot be undone, please type <i>delete me</i> in the field.</h6>
+                    <form class="d-flex flex-row justify-content-center serverOptions ">
+                        <div class="form-group flex-col">
+                            <input type="text" class="form-control" id="deleteMe">
+                        </div>
+                    </form>
+                    <div class="flex justify-content-around">
+                        <button id="cancelDelete" type="button" class="btn btn-secondary">Cancel</button>
+                        <button id="confirmDelete" type="button" class="btn btn-danger">Delete Me</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Leave Confirmation Modal -->
+            <div id="leaveConfirmModal" class="modal">
+                <div class="leaveConfirmModal-content modal-content">
+                    <h4 class="text-center">Are you sure you want to leave the server '<span id='leaveServerName'></span>'?</h4>
+                    <div class="flex justify-content-around">
+                        <button id="cancelLeave" type="button" class="btn btn-secondary">Cancel</button>
+                        <button id="confirmLeave" type="button" class="btn btn-danger">Confirm Leave</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="uploadModalContainer">
+                <div class="uploadModal">
+
+                    <div class="info flex-grow">
+                        <p>Add Message? (OPTIONAL)</p>
+                        <input class="uploadMessage" placeholder="Well, well, what is this file here... ">
+                    </div>
+                    <div class="actions ">
+
+                        <button class="btn btn-secondary" type="submit flex">Cancel</button>
+                        <button id="upload" class="btn btn-success" type="submit flex">Upload</button>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="changePasswordModal" class="modal">
+                <div class="modal-content">
+                    <h4 class="text-center">To change your password, enter your old password then new password</h4>
+                    <form class="d-flex flex-row justify-content-center serverOptions ">
+                        <div class="form-group flex-col">
+                            <input type="text" class="form-control" placeholder="Input Current Password" id="oldPassword">
+                        </div>
+                        <div class="form-group flex-col">
+                            <input type="text" class="form-control" placeholder="Input New Password" id="newPassword">
+                        </div>
+                    </form>
+                    <div class="flex justify-content-around">
+                        <button id="confirmChangePassword" type="button" class="btn btn-secondary">Submit</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+
             <!-- Chat And Side Bar Container  -->
             <div id="left-menu" class="components flex-row" style="height: 100%; width: 30%;" id="">
                 <!-- Sidebar -->
@@ -74,12 +135,23 @@
                         </li>
                         <!-- /END Separator -->
                         <!-- Menu with submenu -->
-                        <a id="account" href="#" class="menuItem bg-dark list-group-item list-group-item-action">
-                            <div class="d-flex w-100 align-items-between">
-                                <span class="fa fa-cogs" value="&#xf085"></span>
-                                <span class="menu-collapsed container">Profile</span>
+                        <a href="#submenu2" data-toggle="collapse" aria-expanded="false"
+                            class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fa fa-user fa-fw mr-3"></span>
+                                <span class="menu-collapsed">Profile</span>
+                                <span class="submenu-icon ml-auto"></span>
                             </div>
                         </a>
+                        <!-- Submenu content -->
+                        <!-- <div id='submenu2' class="collapse sidebar-submenu">
+                            <a href="#" class="list-group-item list-group-item-action bg-dark ">
+                                <span class="menu-collapsed">Settings</span>
+                            </a>
+                            <a href="#" id="password" class="list-group-item list-group-item-action bg-dark ">
+                                <span class="menu-collapsed">Password</span>
+                            </a>
+                        </div> -->
                         <a id="privacy" href="#" class="menuItem bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-between">
                                 <span class="fa fa-user-circle" value="&#xf2bd"></span>
@@ -109,7 +181,7 @@
                         <a href="#submenu2" data-toggle="collapse" aria-expanded="false"
                             class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
                             <div class="d-flex w-100 justify-content-start align-items-center">
-                                <span class="fa fa-user fa-fw mr-3"></span>
+                                <span class="fas fa-palette fa-fw mr-3"></span>
                                 <span class="menu-collapsed">Theme</span>
                                 <span class="submenu-icon ml-auto"></span>
                             </div>
@@ -184,14 +256,16 @@
                             </div>
                         </a>
 
-                        </div>
+                        
                     
                     </ul>
+                </div>
+            </div>
+
+
         </li>
+
     </ul>
-
-    <!-- filebox -->
-
     <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/gsap-latest-beta.min.js'></script>
 
 
@@ -199,20 +273,25 @@
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
-
     
+
     <!-- Side Bar -->
     <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js'></script>
 
     <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js'></script>
+    
+    <script src="{{url_for('static', filename='js/emoji.js')}}"></script>
 
     <script src="{{url_for('static', filename='js/chat.js')}}"></script>
     <script src="{{url_for('static', filename='js/sidebar.js')}}"></script>
     <script src="{{url_for('static', filename='js/userlist.js')}}"></script>
+    
+    <script src="{{url_for('static', filename='js/accountsettings.js')}}"></script>
+
     <script src="{{url_for('static', filename='js/modal.js')}}"></script>
     <script src="{{url_for('static', filename='js/themeToggler.js')}}"></script>
-<!-- 
-    <script src="{{url_for('static', filename='searchModal.js')}}"></script> -->
+    <script src="{{url_for('static', filename='js/searchModal.js')}}"></script>
+    <script src="{{url_for('static', filename='js/contextmenu.js')}}"></script>
 
 
 
