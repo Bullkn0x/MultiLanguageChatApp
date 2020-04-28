@@ -77,14 +77,10 @@ $(function () {
     // DROPDOWN TOGGLE
     $('.dropdown-menu a').on('click', function () {
         $('.dropdown-toggle').html($(this).html());
-        changeLanguage();
-    })
-    function changeLanguage() {
-        var language = $languagePref.text().toLowerCase().trim();
+        let language = $(this).attr('lang-code');
         socket.emit('change language', language);
-    }
 
-
+    })
 
 
     $usersList.on('click', 'div', function () {
@@ -620,6 +616,10 @@ $(function () {
             prepend: true
         });
         updateOnline(data);
+        let userLang = data.language;
+
+        let $langDiv = $('#language-pick a[lang-code=' +userLang +']').html()
+        $('.dropdown-toggle').html($langDiv);
     });
 
     // Whenever the server emits 'new message', update the chat body

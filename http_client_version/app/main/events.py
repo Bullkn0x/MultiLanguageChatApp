@@ -195,6 +195,9 @@ def private_text(msg_data):
 def text(msg_data):
     """Sent by a client when the user entered a new message.
     The message is sent to all people in the room."""
+    user_obj = session['user_obj']
+    language = user_obj.language
+    print (language)
     message=msg_data['message']
     temp_msg_id = msg_data['temp_msg_id']
     print(msg_data)
@@ -219,7 +222,8 @@ def text(msg_data):
             emit('new message', {
                 'username': sender_name, 
                 "message":message,
-                "message_id" :message_id, 
+                "message_id" :message_id,
+                "room_id": room_id,
                 "temp_msg_id":temp_msg_id}, include_self=True, room=receiver.socket_id)
 
 
