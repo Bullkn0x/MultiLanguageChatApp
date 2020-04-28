@@ -21,8 +21,6 @@ $passwordChange.on('click', function(){
 $passwordChangeSubmit.on('click', function(){
     
     if ($oldPassword.val() && $newPassword.val()){
-        alert($oldPassword.val());
-        alert($newPassword.val());
         
         var oldPassword = $oldPassword.val();
         var newPassword = $newPassword.val();
@@ -35,5 +33,6 @@ $passwordChangeSubmit.on('click', function(){
 });
 
 socket.on('password confirmation', function(data){
+    //Tell user if the password change is successful or not
     alert(data);
 });

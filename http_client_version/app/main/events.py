@@ -174,12 +174,13 @@ def change_password(data):
     db_user = DB_get_user_info(user_id)
     print('THE DB USER IS:')
     print(db_user)
-    print('NEW PASSWORD' + newPassword)
-    print('OLD PASSWORD' + oldPassword)
+    print('NEW PASSWORD1' , newPassword)
+    print('OLD PASSWORD1' , oldPassword)
     if db_user and check_pass(db_user['password'], oldPassword):
-        print('NEW PASSWORD' + newPassword)
-        print('OLD PASSWORD' + oldPassword)
+        print('NEW PASSWORD2' , newPassword)
+        print('OLD PASSWORD2' , oldPassword)
         DB_change_pw(hash_pass(newPassword,method='sha256'),user_id)
+        print("HASHED VERSION: ",hash_pass(newPassword,method='sha256'))
         emit('password confirmation', 'Password Successfully Changed!')
         print( 'Password Successfully Changed!')
     else:
