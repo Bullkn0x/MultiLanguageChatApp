@@ -166,26 +166,19 @@ def update_pm(data):
 
 @socketio.on('change password', namespace='/')
 def change_password(data):
-    print('IS THIS BEING RUN?!?!?!!')
     user_id = session['id']
-    print("USER ID IS "+ str(user_id))
     oldPassword = str(data['oldPassword'])
     newPassword = str(data['newPassword'])
     db_user = DB_get_user_info(user_id)
     print('THE DB USER IS:')
     print(db_user)
-    print('NEW PASSWORD1' , newPassword)
-    print('OLD PASSWORD1' , oldPassword)
     if db_user and check_pass(db_user['password'], oldPassword):
         print('NEW PASSWORD2' , newPassword)
         print('OLD PASSWORD2' , oldPassword)
         DB_change_pw(hash_pass(newPassword,method='sha256'),user_id)
-        print("HASHED VERSION: ",hash_pass(newPassword,method='sha256'))
         emit('password confirmation', 'Password Successfully Changed!')
-        print( 'Password Successfully Changed!')
     else:
-        emit('password confirmation', 'Your Password is inValid!')
-        print( 'Invalid Password!')
+        emit('password confirmation', 'Your Password is Invalid!')
     
 
 @socketio.on('private message',namespace='/')
