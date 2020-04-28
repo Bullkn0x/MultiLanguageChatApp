@@ -1,0 +1,27 @@
+#menu-settings{
+    height: 100%;
+    width: 1100px;
+    vertical-align: middle;
+    margin-top: auto;
+    margin-left: 50%;
+}
+
+
+
+#logout{
+    color: red;
+}
+
+div ul li{
+    color: var(--font-color);
+    /* margin: 0px 16px;
+         */
+}
+
+.list-group-item{
+    color:var(--font-color);
+}
+
+/* .menuItem{
+    justify-content: around;
+} */

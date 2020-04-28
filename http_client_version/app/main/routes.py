@@ -1,4 +1,4 @@
-from flask import session, redirect, url_for, render_template, request,make_response,send_file
+from flask import session, redirect, url_for, render_template, request,make_response,send_file, current_app
 from flask_mail import Message
 from . import main
 from secrets import token_urlsafe
@@ -20,8 +20,8 @@ s = URLSafeTimedSerializer('thisisasecret')
 def home():
     if 'user' in session:
         username = session['user']
-        return render_template('landing.html', signed_in = True, username=username)
-    return render_template('landing.html')
+        return render_template('index.html', signed_in = True, username=username)
+    return render_template('index.html')
 
 @main.route('/login', methods=['GET', 'POST'])
 def login():
@@ -166,7 +166,7 @@ def signup():
     
         msg = Message(subject='Confirm Your Email', sender='anychatio@gmail.com', recipients=[email])
 
-        link = 'http://localhost:8000'+url_for('main.confirm_email', token=token, external=True)
+        link = current_app.config['BASE_URL'] + url_for('main.confirm_email', token=token, external=True)
         print(link)
         msg.body = f'Your link is <h6>HERE</h6> {link}'
         msg.html = render_template('confirmationEmail.html', username=username, link=link)
@@ -176,10 +176,10 @@ def signup():
 
     return render_template('signup.html', error=error)
 
-@main.route('/profilesettings', methods=['GET', 'POST'] )
+@main.route('/accountsettings', methods=['GET', 'POST'] )
 def profilesettings():
+    return render_template('accountsettings.html')
 
-    return render_template('profilesettings.html')
 
 @main.route('/confirm_email/<token>')
 def confirm_email(token):
@@ -203,20 +203,21 @@ def confirm_email(token):
 @main.route('/chat', methods=['GET', 'POST'])
 def chat():
     print('url' , request.url)
-    if 'session' not in request.cookies:
+    if 'session' not in request.cookies or 'user' not in session:
+     
         return redirect(url_for('main.login', next=request.url))
     else:
         # print('FOUND SESSION COOKIES', request.cookies.get('session'))
         # print(request.cookies)
         pass 
 
-    if request.method== 'POST':
-        username = request.form['username']
-        print(username)
+
     """Login form to enter a room."""
     response = make_response(render_template('chat.html'))
     cookie=token_urlsafe(16)
     response.set_cookie('cookie',value=cookie, expires=0)
+    
+    print('the users username is', session['user'])
     return response
 
 

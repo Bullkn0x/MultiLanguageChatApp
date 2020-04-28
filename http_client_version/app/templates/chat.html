@@ -90,6 +90,22 @@
                     <button type="button" class="btn btn-outline-danger">Danger</button>
                 </div>
             </div>
+
+            <div id="deleteConfirmModal" class="modal">
+                <div class="modal-content">
+                    <h4 class="text-center">Are you sure you want to delete the server '<span id='deleteServerName'></span>'?</h4>
+                    <h6 class="text-center">This cannot be undone, please type <i>delete me</i> in the field.</h6>
+                    <form class="d-flex flex-row justify-content-center serverOptions ">
+                        <div class="form-group flex-col">
+                            <input type="text" class="form-control" id="deleteMe">
+                        </div>
+                    </form>
+                    <div class="flex justify-content-around">
+                        <button id="cancelDelete" type="button" class="btn btn-secondary">Cancel</button>
+                        <button id="confirmDelete" type="button" class="btn btn-danger">Delete Me</button>
+                    </div>
+                </div>
+            </div>
             
             <!-- Leave Confirmation Modal -->
             <div id="leaveConfirmModal" class="modal">
@@ -247,10 +263,11 @@
                         <!-- /END Separator -->
                         <a id="help" href="#" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
-                                <span class="fa fa-sign-out-alt fa-flip-horizontal fa-fw mr-3"></span>
-                                <span class="help menu-collapsed">Temp Leave Btn</span>
+                                <span class="fas fa-question fa-flip-horizontal fa-fw mr-3"></span>
+                                <span class="help menu-collapsed">Temp Del btn</span>
                             </div>
                         </a>
+
                         <a href="#" data-toggle="sidebar-colapse"
                             class="bg-dark list-group-item list-group-item-action d-flex align-items-center">
                             <div class="d-flex w-100 justify-content-start align-items-center">
