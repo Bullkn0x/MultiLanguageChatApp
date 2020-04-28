@@ -191,7 +191,7 @@ h1, h2, h3, h4, h5, h6, blockquote {
   .clip-text h1, .clip-text h2, .clip-text h3, .clip-text h4, .clip-text h5, .clip-text h6, .clip-text blockquote {
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent;
-    background: linear-gradient(to right, #3a2dec 0%, #4c8cf7 100%); }
+    background: linear-gradient(to right, #191919 0%,#b9b3c9 100%); }
 
 @media only screen and (max-width: 991px) {
   .clip-text h1, .clip-text h2, .clip-text h3, .clip-text h4, .clip-text h5, .clip-text h6, .clip-text blockquote {
