@@ -1,4 +1,4 @@
-from flask import session, redirect, url_for, render_template, request,make_response,send_file
+from flask import session, redirect, url_for, render_template, request,make_response,send_file, current_app
 from flask_mail import Message
 from . import main
 from secrets import token_urlsafe
@@ -166,7 +166,7 @@ def signup():
     
         msg = Message(subject='Confirm Your Email', sender='anychatio@gmail.com', recipients=[email])
 
-        link = 'http://localhost:8000'+url_for('main.confirm_email', token=token, external=True)
+        link = current_app.config['BASE_URL'] + url_for('main.confirm_email', token=token, external=True)
         print(link)
         msg.body = f'Your link is <h6>HERE</h6> {link}'
         msg.html = render_template('confirmationEmail.html', username=username, link=link)
