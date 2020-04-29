@@ -1,6 +1,7 @@
 from flask import session, request,Response, redirect, current_app
 from flask_socketio import emit, join_room, leave_room, rooms
 from .. import socketio
+from werkzeug.security import generate_password_hash as hash_pass, check_password_hash as check_pass
 from .utils import try_translate, print_rooms, print_user_details, LANG_SUPPORT
 from .awsHelper import upload_file
 from ..models.user import User
@@ -176,6 +177,22 @@ def update_pm(data):
     else:
         user_obj.active_pm = None
 
+
+@socketio.on('change password', namespace='/')
+def change_password(data):
+    user_id = session['id']
+    oldPassword = str(data['oldPassword'])
+    newPassword = str(data['newPassword'])
+    db_user = DB_get_user_info(user_id)
+    print('THE DB USER IS:')
+    print(db_user)
+    if db_user and check_pass(db_user['password'], oldPassword):
+        print('NEW PASSWORD2' , newPassword)
+        print('OLD PASSWORD2' , oldPassword)
+        DB_change_pw(hash_pass(newPassword,method='sha256'),user_id)
+        emit('password confirmation', 'Password Successfully Changed!')
+    else:
+        emit('password confirmation', 'Your Password is Invalid!')
     
 
 @socketio.on('private message',namespace='/')
@@ -226,6 +243,7 @@ def text(msg_data):
     # Iterate through rooms users and emit message to usersocket 
     for username, receiver in rooms[room_id].items():
         if receiver.current_room == room_id:
+            # and receiver.language!='original'
             if receiver.language != sender.language:
                 print('not same language', receiver.language, receiver.username)
                 translated_msg = try_translate(message,sender.language, receiver.language)
@@ -238,7 +256,8 @@ def text(msg_data):
             else:
                 message_out = message
             # sender renders message to chat using js on enter key, ignore them for now
-            
+            print("receiver language: "+receiver.language)
+            print("sender language: "+sender.language)
             emit('new message', {
                 'username': sender_name, 
                 "message":message_out,

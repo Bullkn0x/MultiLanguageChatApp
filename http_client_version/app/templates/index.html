@@ -8,7 +8,11 @@
 	<!-- Fav Icon  -->
 	<link rel="shortcut icon" href="{{url_for('static', filename='assets/images/favicon.png')}}">
 	<!-- Site Title  -->
+<<<<<<< HEAD
+	<title>AnyChat</title>
+=======
 	<title>AnyChat.io </title>
+>>>>>>> master
 	<!-- Vendor Bundle CSS -->
 	<link rel="stylesheet" href="{{url_for('static', filename='assets/css/vendor.bundle.css')}}">
 	<!-- Custom styles for this template -->
@@ -146,7 +150,7 @@
 				<div class="col-md-5">
 					<div class="text-block">
 						<h3>Teammates can <br> collaborate <br> with each other.</h3>
-						<p class="lead">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo ullamco laboris nisi quis nostrud</p>
+						<p class="lead">The new standard for global communication and collaboration.  With no language barriers, the possibilities are endless.</p>
 						<ul class="btns">
 							<li><a href="#" class="btn btn-alt">Learn more</a></li>
 						</ul>
@@ -170,7 +174,7 @@
 				<div class="col-md-5 order-md-first order-last">
 					<div class="text-block text-right">
 						<h3>Conversation together <br> in one place.</h3>
-						<p class="lead">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat ullamco laboris nisi quis nostrud</p>
+						<p class="lead">The new standard for global communication and collaboration.  With no language barriers, the possibilities are endless.</p>
 						<ul class="btns">
 							<li><a href="#" class="btn btn-alt">Learn more</a></li>
 						</ul>
@@ -188,11 +192,11 @@
 				<div class="col-lg-6 col-sm-8 mx-auto">
 					<div class="section-head">
 						<h3>More Features</h3>
-						<p class="lead">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. enim quis nostrud exercitation</p>
+						<p class="lead">Create new rooms, create new chat channel, choose your language.</p>
 					</div>
 				</div>
 			</div>
-			<div class="row pd-2x">
+			<!-- <div class="row pd-2x">
 				<div class="col-md-3 col-sm-6">
 					<div class="icon sm">
 						<img alt="" src="{{url_for('static', filename='assets/images/icon-6.png')}}">
@@ -236,7 +240,7 @@
 					<h4>24/7 support</h4>
 					<p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. enim quis nostrud exercitation</p>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</div>
 	<!-- Start Section -->
@@ -250,13 +254,14 @@
 				<div class="col-md-4">
 					<div class="section-head">
 						<h3>200+ satisfied customers</h3>
-						<p class="lead">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. enim quis nostrud exercitation</p>
+						<p class="lead">This is the only app you need for work, collaboration and play</p>
 					</div>
 				</div>
 				<div class="col-md-7 offset-md-1 no-pd">
 					<div class="testimonials">
 						<div class="owl-carousel  has-carousel" data-items="2" data-loop="true" data-auto="true">
-							<div class="quote">
+							
+							<!-- <div class="quote">
 								<div class="quote-in">
 									<h5>Great app feature</h5>
 									<p>Entering that gable-ended Spouter-Inn, you found yourself in a wide, low, straggling entry with wainscots.</p>
@@ -268,37 +273,12 @@
 										<p>Product Manager</p>
 									</div>
 								</div>
-							</div>
+							</div> -->
+							
 							<div class="quote">
 								<div class="quote-in">
 									<h5>Great app feature</h5>
-									<p>Entering that gable-ended Spouter-Inn, you found yourself in a wide, low, straggling entry with wainscots.</p>
-									<div class="quote-img">
-										<img alt="" src="{{url_for('static', filename='assets/images/quote.jpg')}}">
-									</div>
-									<div class="quote-name">
-										<h6 class="quote-title no-mg">Mark anthony</h6>
-										<p>Product Manager</p>
-									</div>
-								</div>
-							</div>
-							<div class="quote">
-								<div class="quote-in">
-									<h5>Great app feature</h5>
-									<p>Entering that gable-ended Spouter-Inn, you found yourself in a wide, low, straggling entry with wainscots.</p>
-									<div class="quote-img">
-										<img alt="" src="{{url_for('static', filename='assets/images/quote.jpg')}}">
-									</div>
-									<div class="quote-name">
-										<h6 class="quote-title no-mg">Mark anthony</h6>
-										<p>Product Manager</p>
-									</div>
-								</div>
-							</div>
-							<div class="quote">
-								<div class="quote-in">
-									<h5>Great app feature</h5>
-									<p>Entering that gable-ended Spouter-Inn, you found yourself in a wide, low, straggling entry with wainscots.</p>
+									<p>Really Great App!! Auto translation!</p>
 									<div class="quote-img">
 										<img alt="" src="{{url_for('static', filename='assets/images/quote.jpg')}}">
 									</div>
@@ -319,7 +299,7 @@
 					<div class="col-lg-8 col-sm-10 mx-auto">
 						<form id="subscribe-form" action="form/subscribe.php" method="post" class="subscription-form inline-form">
 							<label><i class="fa fa-envelope" aria-hidden="true"></i></label>
-							<input type="text" name="youremail" class="input required email" placeholder="Enter your email address">
+							<input type="text" name="youremail" id="youremail" class="input required email" placeholder="Enter your email address">
 							<input type="text" class="d-none" name="form-anti-honeypot" value="">
 							<button type="submit" class="btn btn-alt">Subscribe</button>
 							<div class="subscribe-results"></div>
@@ -337,9 +317,13 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-3 col-sm-6">
-					<a class="logo" href="./"><img alt="" src="{{url_for('static', filename='assets/images/logo-light2x.png')}}"></a>
+					
 					<span class="copyright-text">
+<<<<<<< HEAD
+						&copy; AnyChat, All rights reserved <br> Designed by <a href="https://github.com/Bullkn0x">Rich</a> and this <a href="https://github.com/swordwielder">user</a>.
+=======
 						&copy; AnyChat, All rights reserved
+>>>>>>> master
 					</span>
 				</div>
 				<div class="col-md-3 col-sm-6">
@@ -365,9 +349,9 @@
 				<div class="col-md-3 col-sm-6">
 					<h6>Get in touch</h6>
 					<ul>
-						<li>+(012) 123 456</li>
-						<li><a href="#">info@yourmail.com</a></li>
-						<li>West anderson court  32 <br> London , UK</li>
+						<li>+(xxx)xxx-xxxx</li>
+						<li><a href="#">anychatio@gmail.comm</a></li>
+						<li>Manhattan <br>NY, US</li>
 					</ul>
 					<ul class="social alt">
 						<li><a href="#"><em class="fa fa-facebook"></em></a></li>

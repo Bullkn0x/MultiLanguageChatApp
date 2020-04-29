@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Socket.IO Chat Example</title>
+    <title>Messenger | AnyChat</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{url_for('static', filename='css/chat.css')}}">
@@ -107,6 +107,24 @@
                 </div>
             </div>
             
+            <!-- changepassword modal -->
+            <div id="changePasswordModal" class="modal">
+                <div class="modal-content">
+                    <h4 class="text-center">To change your password, enter your old password then new password</h4>
+                    <form class="user-form serverOptions ">
+                        <div class="input-field form-group flex-col">
+                            <input type="text" class="form-control" placeholder="Current Password" id="oldPassword">
+                        </div>
+                        <div class="input-field form-group flex-col">
+                            <input type="text" class="form-control" placeholder="New Password" id="newPassword">
+                        </div>
+                    </form>
+                    <div class="flex justify-content-around">
+                        <button id="confirmChangePassword" type="button" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </div>
+
             <!-- Leave Confirmation Modal -->
             <div id="leaveConfirmModal" class="modal">
                 <div class="leaveConfirmModal-content modal-content">
@@ -157,7 +175,7 @@
                 </div>
             </div>
 
-
+            <!-- uploadModal -->
             <div class="uploadModalContainer">
                 <div class="uploadModal">
 
@@ -229,7 +247,7 @@
                             <a href="#" class="list-group-item list-group-item-action bg-dark ">
                                 <span class="menu-collapsed">Settings</span>
                             </a>
-                            <a href="#" class="list-group-item list-group-item-action bg-dark ">
+                            <a href="#" id="password" class="list-group-item list-group-item-action bg-dark ">
                                 <span class="menu-collapsed">Password</span>
                             </a>
                         </div>
@@ -400,7 +418,7 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js'></script>
     
     <script src="{{url_for('static', filename='js/emoji.js')}}"></script>
-
+    
     <script src="{{url_for('static', filename='js/chat.js')}}"></script>
     <script src="{{url_for('static', filename='js/sidebar.js')}}"></script>
     <script src="{{url_for('static', filename='js/userlist.js')}}"></script>
@@ -408,7 +426,8 @@
     <script src="{{url_for('static', filename='js/themeToggler.js')}}"></script>
     <script src="{{url_for('static', filename='js/searchModal.js')}}"></script>
     <script src="{{url_for('static', filename='js/contextmenu.js')}}"></script>
-
+    
+    <script src="{{url_for('static', filename='js/accountsettings.js')}}"></script>
 
 
 
