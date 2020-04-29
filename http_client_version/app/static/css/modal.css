@@ -37,6 +37,10 @@
     width: 500px;
   }
 
+  #changePasswordModal .modal-content{
+    width: 500px;
+  }
+
   #newServerModal .modal-content {
       width: 575px;
   }

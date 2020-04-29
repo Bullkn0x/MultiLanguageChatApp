@@ -126,16 +126,25 @@ def DB_insert_private_msg(from_user, to_user, message):
     SQL_INSERT_PM = 'CALL ADD_PRIVATE_MESSAGE(%s,%s,%s);'
     sql_params = (from_user, to_user, message, )
     message_id = anyChatDB.insertReturn(SQL_INSERT_PM,sql_params)
-
+    
 
     return message_id
 
 def DB_get_pm_chat_log(me, them):
 
     SQL_GET_PM_LOG = "CALL PM_CHAT_LOG(%s, %s);"
-    sql_params = (me, them)
+    sql_params = (me, them,)
     pm_chat_log = anyChatDB.queryAll(SQL_GET_PM_LOG, sql_params)
     return pm_chat_log
+
+
+def DB_change_pw(pw, user_id):
+    SQL_UPDATE_USER_PASSWORD ='UPDATE users SET password=%s WHERE user_id=%s;'
+    print("The PW is")
+    print(pw)
+    sql_values = (pw, user_id)
+    anyChatDB.update(SQL_UPDATE_USER_PASSWORD, sql_values)
+    
 
 
 def DB_add_user_to_server(user_id, room_id):
@@ -168,7 +177,7 @@ def DB_leave_server(user_id, room_id):
 
 def DB_server_update_color(color, room_id):
     SQL_UPDATE_SERVER_COLOR ='UPDATE rooms SET color=%s WHERE room_id=%s;'
-    sql_values = (color,room_id )
+    sql_values = (color,room_id, )
     anyChatDB.update(SQL_UPDATE_SERVER_COLOR, sql_values)
 
 
