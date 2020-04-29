@@ -70,8 +70,6 @@ def connect():
     # By language
     print(language)
     chat_log = DB_chat_log_by_lang(language, last_room)
-    print(chat_log)
-    print(server_users)
     for user in server_users:
         if int(user['user_id']) in rooms[last_room]:
             user['status'] = 'online'
@@ -279,13 +277,11 @@ def text(msg_data):
     # db.session.close()
 
 def addTranslations(message_id, message, message_language, languages,translations):
-    lock = RLock()
     conn = mysql.connect()
     cursor = conn.cursor()
     print('current translation thread: ' , current_thread().name)
     for language in languages:
-        with lock:
-            translations[language] = try_translate(message, message_language, language)
+        translations[language] = try_translate(message, message_language, language)
 
     SQL_BULK_ADD = f"""INSERT INTO translations (message_id, `language`, message) 
                         VALUES({message_id}, %s, %s);"""
