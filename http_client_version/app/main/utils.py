@@ -35,6 +35,25 @@ def print_rooms(room_cache):
     print('-'*40)
     return 
 
+
+LANG_SUPPORT = {
+    "en" : "English",
+    "pl" : "Polski",
+    "zh-cn": "中文",
+    "es" : "Español",
+    "iw" : "עברית",
+    "fr" : "Français",
+    "ge" : "Deutsche",
+    "ru" : "русский",
+    "it" : "Italiano",
+    "ja" :  "日本語",
+    "pt" : "Português",
+
+
+
+
+
+}
 LANGCODES={
     "afrikaans": "af",
     "albanian": "sq",

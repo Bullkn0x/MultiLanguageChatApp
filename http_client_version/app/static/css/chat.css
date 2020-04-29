@@ -112,6 +112,9 @@
     width: 100%;
   }
   
+  .flag-icon {
+    margin-right: 6px;
+  }
   /* Login Page */
   
   .login.page {
