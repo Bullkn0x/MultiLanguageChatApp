@@ -8,7 +8,7 @@ from ..models.mysql import *
 from json import dumps, dump
 import uuid
 import os
-from threading import Thread, current_thread
+from threading import Thread, current_thread, RLock
 
 
 
@@ -248,10 +248,8 @@ def text(msg_data):
 
 
     print(translations)
-
     Thread(target=addTranslations, args=(message_id, message,sender.language,LANG_SUPPORT,translations,)).start()
-    
-    
+
 
     print('CACHE DETAILS', try_translate.cache_info())
         # else:
@@ -262,19 +260,21 @@ def text(msg_data):
     # db.session.close()
 
 def addTranslations(message_id, message, message_language, languages,translations):
+    lock = RLock()
     conn = mysql.connect()
     cursor = conn.cursor()
     print('current translation thread: ' , current_thread().name)
     for language in languages:
-        translations[language] = try_translate(message, message_language, language)
+        with lock:
+            translations[language] = try_translate(message, message_language, language)
 
     SQL_BULK_ADD = f"""INSERT INTO translations (message_id, `language`, message) 
                         VALUES({message_id}, %s, %s);"""
     cursor.executemany(SQL_BULK_ADD, translations.items())
+    print(translations)
     conn.commit()
     conn.close()
     # DB_add_translations(message_id, translations.items())
-    print(translations)
     
 
 
@@ -321,9 +321,14 @@ def handle_user_operation(data):
 
 
 @socketio.on('change language',namespace='/')
-def update_language(language):
+def update_language(data):
     user = session['user_obj']
-    user.update_language_pref(language)
+    user.update_language_pref(data['language'])
+    room_id = user.current_room
+    chat_log = DB_chat_log_by_lang(data['language'], room_id)
+
+    emit('chat refresh', {"server_name":data['room_name'],"server_id": room_id,"chat_log":chat_log })
+
 
 @socketio.on('typing',namespace='/')
 def user_typing():

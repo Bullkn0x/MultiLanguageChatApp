@@ -78,7 +78,11 @@ $(function () {
     $('.dropdown-menu a').on('click', function () {
         $('.dropdown-toggle').html($(this).html());
         let language = $(this).attr('lang-code');
-        socket.emit('change language', language);
+        socket.emit('change language', {
+            language:language,
+            room_name: currentRoom,
+        
+        });
 
     })
 
@@ -672,6 +676,7 @@ $(function () {
         messages = data.chat_log;
         var room_id = data.server_id;
         var room_name = data.server_name;
+        currentRoom =room_name;
         $messages.attr('room_id', room_id)
         messages.forEach(function (data) {
 
@@ -690,6 +695,26 @@ $(function () {
             $usersList.append($userDiv);
         });
     });
+
+    socket.on('chat refresh', function (data) {
+        $messages.html('');
+        messages = data.chat_log;
+        
+        var room_name = data.server_name;
+        var room_name = data.server_name;
+        var room_id = data.server_id;
+
+        $messages.attr('room_id', room_id)
+        messages.forEach(function (data) {
+
+            addChatMessage(data)
+        });
+        var join_room_message = "You have joined " + room_name;
+        log(join_room_message, {
+            prepend: true
+        });
+
+    })
 
     // Whenever the server emits 'stop typing', kill the typing message
     socket.on('server info', function (data) {
