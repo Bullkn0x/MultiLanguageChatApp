@@ -1,14 +1,14 @@
 from flask import session, request,Response, redirect, current_app
 from flask_socketio import emit, join_room, leave_room, rooms
 from .. import socketio
-from .utils import try_translate, print_rooms, print_user_details
+from .utils import try_translate, print_rooms, print_user_details, LANG_SUPPORT
 from .awsHelper import upload_file
 from ..models.user import User
 from ..models.mysql import *
 from json import dumps, dump
 import uuid
 import os
-
+from threading import Thread, current_thread
 
 
 
@@ -248,8 +248,10 @@ def text(msg_data):
 
 
     print(translations)
+    addTranslations(message_id, message,sender.language,LANG_SUPPORT,translations)
     
-    DB_add_translations(message_id, translations.items())
+    
+
     print('CACHE DETAILS', try_translate.cache_info())
         # else:
             # emit('notify user', {'username': sender_name, "message":message}, include_self=False, room=receiver.socket_id)
@@ -257,6 +259,17 @@ def text(msg_data):
     # db.session.add(message_record)
     # db.session.commit()
     # db.session.close()
+
+def addTranslations(message_id, message, message_language, languages,translations):
+    print('current translation thread: ' , current_thread().name)
+    for language in languages:
+        if language not in translations:
+            translations[language] = try_translate(message, message_language, language)
+
+    
+    DB_add_translations(message_id, translations.items())
+    print(translations)
+    
 
 
 @socketio.on('message update')

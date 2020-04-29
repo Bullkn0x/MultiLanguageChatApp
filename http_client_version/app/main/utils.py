@@ -47,13 +47,9 @@ LANG_SUPPORT = {
     "ru" : "русский",
     "it" : "Italiano",
     "ja" :  "日本語",
-    "pt" : "Português",
-
-
-
-
-
+    "pt" : "Português"
 }
+
 LANGCODES={
     "afrikaans": "af",
     "albanian": "sq",
