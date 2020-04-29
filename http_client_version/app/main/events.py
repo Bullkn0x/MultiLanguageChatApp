@@ -19,7 +19,6 @@ rooms = {row['room_id']: {} for row in rooms_resp}
 print(rooms)
 num_users=0
 
-message_cache = {}
 
 @socketio.on('connect', namespace='/')
 def connect():
@@ -64,8 +63,12 @@ def connect():
     session['last_room'] =new_user.current_room
     emit('login', {'username' : username, 'numUsers':len(rooms),'language':language})
 
-    chat_log = DB_get_chat_logs(last_room)
-
+    # without translate
+    # chat_log = DB_get_chat_logs(last_room)
+    # By language
+    print(language)
+    chat_log = DB_chat_log_by_lang(language, last_room)
+    print(chat_log)
     print(server_users)
     for user in server_users:
         if int(user['user_id']) in rooms[last_room]:
@@ -134,8 +137,13 @@ def join_server(data):
     
     rooms[join_room][user_id] = user_obj
     print_rooms(rooms)
-    # get chat logs (list of dictionaries) 
-    room_chat_log = DB_get_chat_logs(join_room)
+
+    language = user_obj.language
+    # without translate
+    # room_chat_log = DB_get_chat_logs(last_room)
+    # By language
+    room_chat_log = DB_chat_log_by_lang(language, join_room)
+
     # get users for room
     server_users = DB_get_server_userlist(join_room)
     
@@ -210,26 +218,36 @@ def text(msg_data):
     room_id = session['last_room']
     sender =rooms[room_id][user_id]
 
-    message_id = DB_insert_msg(user_id, message, room_id)
-    
+    message_id = DB_insert_msg(user_id, message, room_id, language)
+    translations = {}
+    translations[user_obj.language] = message
     # Iterate through rooms users and emit message to usersocket 
     for username, receiver in rooms[room_id].items():
         if receiver.current_room == room_id:
             if receiver.language != sender.language:
-                print('not same language')
+                print('not same language', receiver.language, receiver.username)
                 translated_msg = try_translate(message,sender.language, receiver.language)
                 # if successful, transmit
                 if translated_msg:
-                    message=translated_msg
+                    if receiver.language not in translations:
+                        translations[receiver.language] = translated_msg
+
+                    message_out=translated_msg
+            else:
+                message_out = message
             # sender renders message to chat using js on enter key, ignore them for now
             
             emit('new message', {
                 'username': sender_name, 
-                "message":message,
+                "message":message_out,
                 "message_id" :message_id,
                 "room_id": room_id,
                 "temp_msg_id":temp_msg_id}, include_self=True, room=receiver.socket_id)
 
+
+    print(translations)
+    
+    DB_add_translations(message_id, translations.items())
     print('CACHE DETAILS', try_translate.cache_info())
         # else:
             # emit('notify user', {'username': sender_name, "message":message}, include_self=False, room=receiver.socket_id)

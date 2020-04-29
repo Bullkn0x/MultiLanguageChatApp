@@ -3,6 +3,7 @@ from json import JSONEncoder, dumps, dump
 from functools import lru_cache
 
 
+
 @lru_cache(maxsize = 1000)
 def try_translate(msg,sender,receiver):
     translator = Translator()
