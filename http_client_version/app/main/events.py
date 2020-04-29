@@ -248,7 +248,8 @@ def text(msg_data):
 
 
     print(translations)
-    addTranslations(message_id, message,sender.language,LANG_SUPPORT,translations)
+
+    Thread(target=addTranslations, args=(message_id, message,sender.language,LANG_SUPPORT,translations,)).start()
     
     
 
@@ -261,13 +262,18 @@ def text(msg_data):
     # db.session.close()
 
 def addTranslations(message_id, message, message_language, languages,translations):
+    conn = mysql.connect()
+    cursor = conn.cursor()
     print('current translation thread: ' , current_thread().name)
     for language in languages:
-        if language not in translations:
-            translations[language] = try_translate(message, message_language, language)
+        translations[language] = try_translate(message, message_language, language)
 
-    
-    DB_add_translations(message_id, translations.items())
+    SQL_BULK_ADD = f"""INSERT INTO translations (message_id, `language`, message) 
+                        VALUES({message_id}, %s, %s);"""
+    cursor.executemany(SQL_BULK_ADD, translations.items())
+    conn.commit()
+    conn.close()
+    # DB_add_translations(message_id, translations.items())
     print(translations)
     
 

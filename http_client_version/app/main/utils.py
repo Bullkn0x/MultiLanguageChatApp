@@ -43,7 +43,7 @@ LANG_SUPPORT = {
     "es" : "Español",
     "iw" : "עברית",
     "fr" : "Français",
-    "ge" : "Deutsche",
+    "de" : "Deutsche",
     "ru" : "русский",
     "it" : "Italiano",
     "ja" :  "日本語",
