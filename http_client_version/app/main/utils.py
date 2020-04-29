@@ -1,12 +1,15 @@
 from googletrans import Translator
 from json import JSONEncoder, dumps, dump
+from functools import lru_cache
 
 
+
+@lru_cache(maxsize = 1000)
 def try_translate(msg,sender,receiver):
     translator = Translator()
     try:
         result = translator.translate(msg, src=sender, dest=receiver)
-        print(result.text)
+        print(f'NOT IN CACHE\nNeed to get translation for: {msg}:', result.text)
         return result.text
     except ValueError:
         print('translate failed')
@@ -31,6 +34,21 @@ def print_rooms(room_cache):
     print(dumps(room_cache, cls=MyEncoder, indent=4))
     print('-'*40)
     return 
+
+
+LANG_SUPPORT = {
+    "en" : "English",
+    "pl" : "Polski",
+    "zh-cn": "中文",
+    "es" : "Español",
+    "iw" : "עברית",
+    "fr" : "Français",
+    "de" : "Deutsche",
+    "ru" : "русский",
+    "it" : "Italiano",
+    "ja" :  "日本語",
+    "pt" : "Português"
+}
 
 LANGCODES={
     "afrikaans": "af",

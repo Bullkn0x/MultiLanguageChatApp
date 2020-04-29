@@ -18,6 +18,10 @@ class dbHelper:
         self.cursor.execute(sql, params)
         self.conn.commit()
 
+    def insertMany(self,sql, params=None):
+        self.cursor.executemany(sql, params)
+        self.conn.commit()
+
     def insertReturn(self,sql, params=None):
         self.cursor.execute(sql, params)
         self.conn.commit()
@@ -45,6 +49,19 @@ class dbHelper:
 anyChatDB = dbHelper()
 
 
+def DB_chat_log_by_lang(lang_code, room_id):
+    SQL_CHAT_BY_LANG='CALL CHAT_LOG_BY_LANG(%s , %s);'
+    sql_params = (lang_code, room_id, )
+    logs = anyChatDB.queryAll(SQL_CHAT_BY_LANG,sql_params)
+    return logs
+
+def DB_add_translations(message_id, message_tuples):
+
+
+    SQL_BULK_ADD = f"""INSERT INTO translations (message_id, `language`, message) 
+                        VALUES({message_id}, %s, %s);"""
+
+    anyChatDB.insertMany(SQL_BULK_ADD, message_tuples)
 
 def DB_populate_cache():
 
@@ -69,10 +86,10 @@ def DB_get_user_info(user_id):
     
     return user_info
 
-def DB_insert_msg(user_id, message, room_id):
+def DB_insert_msg(user_id, message, room_id, language):
     
-    SQL_INSERT_MSG = 'CALL ADD_MESSAGE(%s, %s, %s);'
-    sql_params = (user_id, message, room_id)
+    SQL_INSERT_MSG = 'CALL ADD_MESSAGE(%s, %s, %s , %s);'
+    sql_params = (user_id, message, room_id, language, )
     message_id = anyChatDB.insertReturn(SQL_INSERT_MSG,sql_params)
     print(message_id)
 
@@ -94,10 +111,10 @@ def DB_get_server_userlist(room_id):
 
     return server_users
 
-def DB_get_public_servers(search_term=None):
+def DB_get_public_servers(user_id, search_term=None):
 
-    SQL_GET_PUBLIC_SERVERS = "CALL PUBLIC_SERVERLIST(%s);"
-    sql_params = (search_term, )
+    SQL_GET_PUBLIC_SERVERS = "CALL PUBLIC_SERVERLIST(%s, %s);"
+    sql_params = (search_term, int(user_id), )
     public_servers = anyChatDB.queryAll(SQL_GET_PUBLIC_SERVERS, sql_params)
 
     return public_servers
@@ -123,10 +140,10 @@ def DB_get_pm_chat_log(me, them):
 
 def DB_add_user_to_server(user_id, room_id):
 
-    SQL_ADD_USER_TO_SERVER = "INSERT INTO room_users (room_id, user_id) VALUES (%s, %s);"
+    SQL_ADD_USER_TO_SERVER = "CALL JOIN_ROOM(%s, %s);"
     sql_values = (room_id, user_id)
-    anyChatDB.insert(SQL_ADD_USER_TO_SERVER,sql_values)
-
+    room_details = anyChatDB.insertReturn(SQL_ADD_USER_TO_SERVER,sql_values)
+    return room_details
 
 def DB_create_server(room_name, public_access, user_id):
 

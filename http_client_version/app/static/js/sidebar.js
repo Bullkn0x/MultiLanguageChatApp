@@ -123,7 +123,7 @@ $serverList.on('click', 'a', function () {
 // Handle serverIcon Clicks 
 
 $serverIconList.on('click', 'a', function () {
-    joinRoom = $(this).text();
+    joinRoom = $(this).attr('room_name');
     joinRoomID = $(this).attr('room_id');
     socket.emit('join server', {
         "username": username,

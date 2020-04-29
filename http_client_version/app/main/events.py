@@ -1,13 +1,15 @@
 from flask import session, request,Response, redirect, current_app
 from flask_socketio import emit, join_room, leave_room, rooms
 from .. import socketio
-from .utils import try_translate, print_rooms, print_user_details
+from .utils import try_translate, print_rooms, print_user_details, LANG_SUPPORT
 from .awsHelper import upload_file
 from ..models.user import User
 from ..models.mysql import *
 from json import dumps, dump
 import uuid
 import os
+from threading import Thread, current_thread, RLock
+
 
 
 # populate room info
@@ -62,8 +64,12 @@ def connect():
     session['last_room'] =new_user.current_room
     emit('login', {'username' : username, 'numUsers':len(rooms),'language':language})
 
-    chat_log = DB_get_chat_logs(last_room)
-
+    # without translate
+    # chat_log = DB_get_chat_logs(last_room)
+    # By language
+    print(language)
+    chat_log = DB_chat_log_by_lang(language, last_room)
+    print(chat_log)
     print(server_users)
     for user in server_users:
         if int(user['user_id']) in rooms[last_room]:
@@ -82,8 +88,10 @@ def connect():
    
 @socketio.on('query servers', namespace='/')
 def query_server(search_term = None):
+    user_id = int(session['id'])
+    print(search_term, user_id)
     socket_id = request.sid
-    server_suggestions = DB_get_public_servers(search_term)
+    server_suggestions = DB_get_public_servers(user_id, search_term)
 
     emit('query servers', {"servers": server_suggestions} ,room=socket_id)
 
@@ -92,8 +100,9 @@ def query_server(search_term = None):
 def add_server(server_info):
     user_id = int(session['id'])
     room_id = int(server_info['server_id'])
-    DB_add_user_to_server(user_id, room_id)
-
+    room_info = DB_add_user_to_server(user_id, room_id)
+    print(room_info)
+    emit('new server', room_info)
     print('added user to room')
 
 
@@ -130,8 +139,13 @@ def join_server(data):
     
     rooms[join_room][user_id] = user_obj
     print_rooms(rooms)
-    # get chat logs (list of dictionaries) 
-    room_chat_log = DB_get_chat_logs(join_room)
+
+    language = user_obj.language
+    # without translate
+    # room_chat_log = DB_get_chat_logs(last_room)
+    # By language
+    room_chat_log = DB_chat_log_by_lang(language, join_room)
+
     # get users for room
     server_users = DB_get_server_userlist(join_room)
     
@@ -206,33 +220,62 @@ def text(msg_data):
     room_id = session['last_room']
     sender =rooms[room_id][user_id]
 
-    message_id = DB_insert_msg(user_id, message, room_id)
-    
-    # Iterate through rooms and emit messagfasdfe to usersocket 
+    message_id = DB_insert_msg(user_id, message, room_id, language)
+    translations = {}
+    translations[user_obj.language] = message
+    # Iterate through rooms users and emit message to usersocket 
     for username, receiver in rooms[room_id].items():
         if receiver.current_room == room_id:
             if receiver.language != sender.language:
-                print('not same language')
+                print('not same language', receiver.language, receiver.username)
                 translated_msg = try_translate(message,sender.language, receiver.language)
                 # if successful, transmit
                 if translated_msg:
-                    message=translated_msg
+                    if receiver.language not in translations:
+                        translations[receiver.language] = translated_msg
+
+                    message_out=translated_msg
+            else:
+                message_out = message
             # sender renders message to chat using js on enter key, ignore them for now
             
             emit('new message', {
                 'username': sender_name, 
-                "message":message,
+                "message":message_out,
                 "message_id" :message_id,
                 "room_id": room_id,
                 "temp_msg_id":temp_msg_id}, include_self=True, room=receiver.socket_id)
 
 
+    print(translations)
+    Thread(target=addTranslations, args=(message_id, message,sender.language,LANG_SUPPORT,translations,)).start()
+
+
+    print('CACHE DETAILS', try_translate.cache_info())
         # else:
             # emit('notify user', {'username': sender_name, "message":message}, include_self=False, room=receiver.socket_id)
 
     # db.session.add(message_record)
     # db.session.commit()
     # db.session.close()
+
+def addTranslations(message_id, message, message_language, languages,translations):
+    lock = RLock()
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    print('current translation thread: ' , current_thread().name)
+    for language in languages:
+        with lock:
+            translations[language] = try_translate(message, message_language, language)
+
+    SQL_BULK_ADD = f"""INSERT INTO translations (message_id, `language`, message) 
+                        VALUES({message_id}, %s, %s);"""
+    cursor.executemany(SQL_BULK_ADD, translations.items())
+    print(translations)
+    conn.commit()
+    conn.close()
+    # DB_add_translations(message_id, translations.items())
+    
 
 
 @socketio.on('message update')
@@ -278,14 +321,18 @@ def handle_user_operation(data):
 
 
 @socketio.on('change language',namespace='/')
-def update_language(language):
+def update_language(data):
     user = session['user_obj']
-    user.update_language_pref(language)
+    user.update_language_pref(data['language'])
+    room_id = user.current_room
+    chat_log = DB_chat_log_by_lang(data['language'], room_id)
+
+    emit('chat refresh', {"server_name":data['room_name'],"server_id": room_id,"chat_log":chat_log })
+
 
 @socketio.on('typing',namespace='/')
 def user_typing():
     room_id = session['last_room']
-    print(room_id)
     for username, receiver in rooms[room_id].items():
         if receiver.current_room == room_id:
             emit('typing', { 'username':session['user'] }, include_self=False, room=receiver.socket_id)
@@ -293,7 +340,6 @@ def user_typing():
 @socketio.on('stop typing',namespace='/')
 def user_stopped_typing():
     room_id = session['last_room']
-    print(room_id)
     for username, receiver in rooms[room_id].items():
         if receiver.current_room == room_id:
             emit('stop typing', { 'username':session['user'] }, broadcast=True, include_self=False)
