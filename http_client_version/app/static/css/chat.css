@@ -73,6 +73,30 @@
     -webkit-font-smoothing: antialiased;
   }
   
+  @font-face {
+    font-family: 'Dosis';
+    src: url("../assets/fonts/dosis-regular.eot");
+    src: local("dosis regular"), local("dosis-regular"), url("../assets/fonts/dosis-regular.eot?#iefix") format("embedded-opentype"), url("../assets/fonts/dosis-regular.woff2") format("woff2"), url("../assets/fonts/dosis-regular.woff") format("woff"), url("../assets/fonts/dosis-regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal; }
+  @font-face {
+    font-family: 'Hind';
+    src: url("../assets/fonts/hindmadurai-semibold.eot");
+    src: local("hindmadurai semibold"), local("hindmadurai-semibold"), url("../assets/fonts/hindmadurai-semibold.eot?#iefix") format("embedded-opentype"), url("../assets/fonts/hindmadurai-semibold.woff2") format("woff2"), url("../assets/fonts/hindmadurai-semibold.woff") format("woff"), url("../assets/fonts/hindmadurai-semibold.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal; }
+  @font-face {
+    font-family: 'Hind';
+    src: url("../assets/fonts/hindmadurai-regular.eot");
+    src: local("hindmadurai regular"), local("hindmadurai-regular"), url("../assets/fonts/hindmadurai-regular.eot?#iefix") format("embedded-opentype"), url("../assets/fonts/hindmadurai-regular.woff2") format("woff2"), url("../assets/fonts/hindmadurai-regular.woff") format("woff"), url("../assets/fonts/hindmadurai-regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal; }
+  @font-face {
+    font-family: 'Hind';
+    src: url("../assets/fonts/hindmadurai-light.eot");
+    src: local("hindmadurai light"), local("hindmadurai-light"), url("../assets/fonts/hindmadurai-light.eot?#iefix") format("embedded-opentype"), url("../assets/fonts/hindmadurai-light.woff2") format("woff2"), url("../assets/fonts/hindmadurai-light.woff") format("woff"), url("../assets/fonts/hindmadurai-light.ttf") format("truetype");
+    font-weight: 300;
+    font-style: normal; }
   html, input {
     font-family: 
       "HelveticaNeue-Light",
@@ -209,7 +233,7 @@
   }
   
   .messages {
-    font-size: 150%;
+    font-size: 125%;
     height: 100%;
     margin: 0;
     overflow-y: scroll !important;
