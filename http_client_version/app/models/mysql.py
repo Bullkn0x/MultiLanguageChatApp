@@ -140,10 +140,10 @@ def DB_get_pm_chat_log(me, them):
 
 def DB_add_user_to_server(user_id, room_id):
 
-    SQL_ADD_USER_TO_SERVER = "INSERT INTO room_users (room_id, user_id) VALUES (%s, %s);"
+    SQL_ADD_USER_TO_SERVER = "CALL JOIN_ROOM(%s, %s);"
     sql_values = (room_id, user_id)
-    anyChatDB.insert(SQL_ADD_USER_TO_SERVER,sql_values)
-
+    room_details = anyChatDB.insertReturn(SQL_ADD_USER_TO_SERVER,sql_values)
+    return room_details
 
 def DB_create_server(room_name, public_access, user_id):
 

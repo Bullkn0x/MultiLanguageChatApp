@@ -99,8 +99,9 @@ def query_server(search_term = None):
 def add_server(server_info):
     user_id = int(session['id'])
     room_id = int(server_info['server_id'])
-    DB_add_user_to_server(user_id, room_id)
-
+    room_info = DB_add_user_to_server(user_id, room_id)
+    print(room_info)
+    emit('new server', room_info)
     print('added user to room')
 
 
