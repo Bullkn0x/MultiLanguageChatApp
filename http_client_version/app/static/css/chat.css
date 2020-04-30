@@ -215,6 +215,7 @@
   
   .message:hover{
     background-color: var(--hover-color);
+    border-radius: 12px;
     
   }
 
@@ -233,34 +234,35 @@
   }
   
   .messages {
-    font-size: 125%;
+    font-size: 105%;
     height: 100%;
     margin: 0;
     overflow-y: scroll !important;
-    padding: 10px 20px 10px 20px;
+    padding-right: 20px;
+    padding-left: 0;
     
   }
 
   /* padding to the each message  */
 
-  li.message {
-    padding-left: 20px;
-    /* padding-bottom: 10px;
-    padding-top: 10px; */
-  }
+ li.message {
+     display: flex;
+     margin-bottom: 22px;
+ }
   
   .message.typing .messageBody {
     color: gray;
   }
   
   .username {
-    float: left;
     font-weight: 700;
     overflow: hidden;
     padding-right: 15px;
-    text-align: right;
   }
   
+  .messageContentContainer {
+    padding-left: 15px;
+  }
   /* Input */
   
   input:focus, textarea:focus, select:focus{
@@ -288,16 +290,24 @@
   display: flex;
   justify-content: space-between;
  }
- 
- .flex-grow {
-   flex-grow: 1;
- }
+
 
  .usersOnline {
    width: 230px;
  }
 
+ .messageBody{
+    margin-top: -5px;
+    display: block;
+ }
 
+.userImg {
+    position: relative;
+    border-radius: 12px;
+    zoom: 1.1;
+    height: 36px;
+    margin: 2px 0px 0px 3px;
+}
  @keyframes fadeTest {
     from {
       opacity: 0;

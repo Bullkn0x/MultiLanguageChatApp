@@ -96,6 +96,7 @@ socket.on('server info', function (data) {
         $serverList.append($tableCellDiv);
 
         $serverIconList.append($('<a/>')
+            .addClass('hvr-bob')
             .attr({ 'room_id': server.room_id, 'room_name': server.room_name })
 
             .append($serverIcon

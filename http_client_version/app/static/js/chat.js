@@ -40,7 +40,7 @@ $(function () {
     var $modalServerList = $('.joinServerList');
     var sideBarActive = false;
     // Prompt for setting a username
-    
+
 
 
     $('.chats__back').on('click', function () {
@@ -79,9 +79,9 @@ $(function () {
         $('.dropdown-toggle').html($(this).html());
         let language = $(this).attr('lang-code');
         socket.emit('change language', {
-            language:language,
+            language: language,
             room_name: currentRoom,
-        
+
         });
 
     })
@@ -166,13 +166,13 @@ $(function () {
         // if sent by user, update their chat message
         let msgTmpID = data.temp_msg_id
         let $tempMsg = $(".messages li[tempid='" + msgTmpID + "']")
-        if ($tempMsg.length){ 
+        if ($tempMsg.length) {
             $tempMsg
-            .attr({
-                "message_id": data.message_id,
-            })
-            .removeClass('tmpmsg')
-            .removeAttr('tempid');
+                .attr({
+                    "message_id": data.message_id,
+                })
+                .removeClass('tmpmsg')
+                .removeAttr('tempid');
         }
 
         else {
@@ -191,15 +191,22 @@ $(function () {
                     '<div><svg viewBox="0 0 24 24"></svg></div></a></div></div>'
             }
             var typingClass = data.typing ? 'typing' : '';
+            var $userImgDiv = $('<img />')
+                .addClass('userImg')
+                .attr('src', 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/elastic-man.png');
+
+            var $messageContentDiv = $('<div/>')
+                .addClass('messageContentContainer')
+                .append($usernameDiv, $messageBodyDiv)
             var $messageDiv = $('<li/>')
-            .addClass('message')
+                .addClass('message')
                 .attr({
                     "message_id": data.message_id,
                     "tempID": data.temp_msg_id
                 })
                 .data('username', data.username)
                 .addClass(typingClass)
-                .append($usernameDiv, $messageBodyDiv, fileDiv || null);
+                .append($userImgDiv, $messageContentDiv, fileDiv || null);
             if (data.self) {
                 $messageDiv.addClass('tmpmsg')
             }
@@ -348,7 +355,7 @@ $(function () {
         if (!options) {
             options = {};
         }
-  
+
         if (typeof options.prepend === 'undefined') {
             options.prepend = false;
         }
@@ -622,7 +629,7 @@ $(function () {
         updateOnline(data);
         let userLang = data.language;
 
-        let $langDiv = $('#language-pick a[lang-code=' +userLang +']').html()
+        let $langDiv = $('#language-pick a[lang-code=' + userLang + ']').html()
         $('.dropdown-toggle').html($langDiv);
     });
 
@@ -676,7 +683,7 @@ $(function () {
         messages = data.chat_log;
         var room_id = data.server_id;
         var room_name = data.server_name;
-        currentRoom =room_name;
+        currentRoom = room_name;
         $messages.attr('room_id', room_id)
         messages.forEach(function (data) {
 
@@ -699,7 +706,7 @@ $(function () {
     socket.on('chat refresh', function (data) {
         $messages.html('');
         messages = data.chat_log;
-        
+
         var room_name = data.server_name;
         var room_name = data.server_name;
         var room_id = data.server_id;

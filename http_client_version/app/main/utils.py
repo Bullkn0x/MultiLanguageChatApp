@@ -5,7 +5,7 @@ from functools import lru_cache
 
 
 @lru_cache(maxsize = 1000)
-def try_translate(msg,sender,receiver):
+def try_translate(msg, sender, receiver):
     translator = Translator()
     try:
         result = translator.translate(msg, src=sender, dest=receiver)
@@ -13,8 +13,12 @@ def try_translate(msg,sender,receiver):
         return result.text
     except ValueError:
         print('translate failed')
-        return None
-
+        return 'IP banned?'
+    
+def translateMany(msg, from_lang, to_lang, dic):
+    t = Translator()
+    result = t.translate(msg, src=from_lang, dest=to_lang).text
+    dic[to_lang]= result
 
 
 def print_user_details(user_id,username,socket_id,join_room):
@@ -43,13 +47,6 @@ LANG_SUPPORT = {
     "pl" : "Polski",
     "zh-cn": "中文",
     "es" : "Español",
-    "iw" : "עברית",
-    "fr" : "Français",
-    "de" : "Deutsche",
-    "ru" : "русский",
-    "it" : "Italiano",
-    "ja" :  "日本語",
-    "pt" : "Português"
 }
 
 LANGCODES={
