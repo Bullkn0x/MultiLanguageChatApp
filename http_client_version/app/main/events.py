@@ -101,6 +101,11 @@ def query_server(search_term = None):
 def add_server(server_info):
     user_id = int(session['id'])
     room_id = int(server_info['server_id'])
+    joinPos = DB_get_num_user_in_room(room_id)
+    print("THE JOIN POSITION IS!")
+    print(type(joinPos))
+    print(joinPos)
+    print(int(joinPos)+1)
     room_info = DB_add_user_to_server(user_id, room_id)
     print(room_info)
     emit('new server', room_info)

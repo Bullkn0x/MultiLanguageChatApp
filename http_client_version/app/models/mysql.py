@@ -154,6 +154,14 @@ def DB_add_user_to_server(user_id, room_id):
     room_details = anyChatDB.insertReturn(SQL_ADD_USER_TO_SERVER,sql_values)
     return room_details
 
+
+def DB_get_num_user_in_room(room_id):
+    SQL_GET_NUM_USER = "SELECT COUNT(room_id) FROM room_users WHERE room_id=%s;"
+    sql_values = (room_id)
+    numUsers = anyChatDB.queryOne(SQL_GET_NUM_USER, sql_values)
+    return numUsers
+
+
 def DB_create_server(room_name, public_access, user_id):
 
     CREATE_SERVER_SQL="CALL ADD_ROOM(%s, %s, %s);"
