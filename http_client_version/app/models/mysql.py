@@ -50,8 +50,9 @@ anyChatDB = dbHelper()
 
 
 def DB_chat_log_by_lang(lang_code, room_id):
-    SQL_CHAT_BY_LANG='CALL CHAT_LOG_BY_LANG(%s , %s);'
-    sql_params = (lang_code, room_id, )
+    SQL_CHAT_BY_LANG='CALL CHAT_LOG_BY_LANG(%s , %s, %s);'
+    last_msg_id=None
+    sql_params = (lang_code, room_id, last_msg_id, )
     logs = anyChatDB.queryAll(SQL_CHAT_BY_LANG,sql_params)
     return logs
 
@@ -160,6 +161,13 @@ def DB_get_num_user_in_room(room_id):
     sql_values = (room_id)
     numUsers = anyChatDB.queryOne(SQL_GET_NUM_USER, sql_values)
     return numUsers
+
+
+def DB_get_owner_id(room_id):
+    SQL_GET_OWNER_ID = "SELECT owner_id from rooms where room_id=%s;"
+    sql_values = (room_id)
+    ownerID = anyChatDB.queryOne(SQL_GET_OWNER_ID , sql_values)
+    return ownerID
 
 
 def DB_create_server(room_name, public_access, user_id):
