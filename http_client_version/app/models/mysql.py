@@ -145,13 +145,15 @@ def DB_change_pw(pw, user_id):
     print(pw)
     sql_values = (pw, user_id)
     anyChatDB.update(SQL_UPDATE_USER_PASSWORD, sql_values)
-    
 
 
 def DB_add_user_to_server(user_id, room_id):
-
-    SQL_ADD_USER_TO_SERVER = "CALL JOIN_ROOM(%s, %s);"
-    sql_values = (room_id, user_id)
+    
+    joinPos = int(DB_get_num_user_in_room(room_id))
+    print(type(joinPos))
+    print(int(joinPos)+1)
+    SQL_ADD_USER_TO_SERVER = "CALL JOIN_ROOM(%s, %s, %s);"
+    sql_values = (room_id, user_id, joinPos)
     room_details = anyChatDB.insertReturn(SQL_ADD_USER_TO_SERVER,sql_values)
     return room_details
 
@@ -160,7 +162,8 @@ def DB_get_num_user_in_room(room_id):
     SQL_GET_NUM_USER = "SELECT COUNT(room_id) FROM room_users WHERE room_id=%s;"
     sql_values = (room_id)
     numUsers = anyChatDB.queryOne(SQL_GET_NUM_USER, sql_values)
-    return numUsers
+
+    return int(numUsers['COUNT(room_id)'])+1
 
 
 def DB_get_owner_id(room_id):
