@@ -42,6 +42,20 @@ $(function () {
     // Prompt for setting a username
 
 
+    // chat box scroll listener for new messages 
+    $messages.scroll(function () {
+        if ($messages.scrollTop() == 0)
+            alert('Scrolled to Page Top');
+            let room_id = $messages.attr('room_id');
+            let first_msg_id = $('.message')[0].attr('message_id');
+            socket.emit('more chat', {
+                room_id : room_id,
+                last_msg
+            })
+
+
+    });
+
 
     $('.chats__back').on('click', function () {
         recipient_id = null;
@@ -410,17 +424,7 @@ $(function () {
         });
     }
 
-    // Gets the color of a username through our hash function
-    // function getUsernameColor(username) {
-    //     // Compute hash code
-    //     var hash = 7;
-    //     for (var i = 0; i < username.length; i++) {
-    //         hash = username.charCodeAt(i) + (hash << 5) - hash;
-    //     }
-    //     // Calculate color
-    //     var index = Math.abs(hash % COLORS.length);
-    //     return COLORS[index];
-    // }
+
 
     // Keyboard events
 

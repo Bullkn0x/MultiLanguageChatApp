@@ -122,6 +122,10 @@ def create_server(data):
     emit('new server', room_info)
 
 
+# @socketio.on('more chat', namespace='/')
+# def get_next_50(data):
+
+
 @socketio.on('join server', namespace='/')
 def join_server(data):
     # get chat logs for server
