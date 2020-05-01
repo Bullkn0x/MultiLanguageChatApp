@@ -162,9 +162,11 @@ def DB_get_num_user_in_room(room_id):
     SQL_GET_NUM_USER = "SELECT COUNT(room_id) FROM room_users WHERE room_id=%s;"
     sql_values = (room_id)
     numUsers = anyChatDB.queryOne(SQL_GET_NUM_USER, sql_values)
-
-    return int(numUsers['COUNT(room_id)'])+1
-
+    
+    if numUsers:
+        return int(numUsers['COUNT(room_id)'])+1
+    else:
+        return 1
 
 def DB_get_owner_id(room_id):
     SQL_GET_OWNER_ID = "SELECT owner_id from rooms where room_id=%s;"
