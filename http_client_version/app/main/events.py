@@ -123,16 +123,20 @@ def create_server(data):
     emit('new server', room_info)
 
 
+# @socketio.on('more chat', namespace='/')
+# def get_next_50(data):
+
+
 @socketio.on('join server', namespace='/')
 def join_server(data):
     # get chat logs for server
+    user_obj = session['user_obj']
     join_room = int(data['roomID'])
     print(join_room)
     user_id = session['id']
 
-    username = data['username']
+    username = user_obj.username
     session['last_room'] = join_room
-    user_obj = session['user_obj']
     user_obj.current_room = join_room
     
     rooms[join_room][user_id] = user_obj
