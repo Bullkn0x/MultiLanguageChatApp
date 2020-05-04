@@ -132,6 +132,8 @@ def join_server(data):
     # get chat logs for server
     user_obj = session['user_obj']
     join_room = int(data['roomID'])
+    
+
     print(join_room)
     user_id = session['id']
 
@@ -151,6 +153,30 @@ def join_server(data):
     # get users for room
     server_users = DB_get_server_userlist(join_room)
     
+    #get the owner id
+    owner_id = DB_get_owner_id(join_room)
+    
+
+    print('THE ROOM OWNER ID IS: ')
+    print(owner_id)
+
+    print('The USER ID is: ')
+    print(user_id)
+
+
+    if owner_id['owner_id'] == user_id:
+        emit('delete button', {
+            "owner_id": owner_id,
+            "server_name": data['room']
+        })
+        #show the menu for delete the room here
+        print('show the menu for delete the room')
+    else:
+        emit('hide button', {
+            "owner_id": owner_id,
+            "server_name": data['room']
+        })
+        print('hide the menu for the delete room')
 
     for user in server_users:
             if int(user['user_id']) in rooms[join_room]:

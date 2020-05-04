@@ -6,9 +6,12 @@
 #body-row {
     margin-left:0;
     margin-right:0;
- 
+}
 
-
+#deleteBtn{
+    display: none;
+    background-color: red;
+    color: red;
 }
 
 .serverList {

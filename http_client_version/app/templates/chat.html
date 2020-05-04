@@ -220,7 +220,7 @@
                         <a id="discoverServer" href="#" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fa fa-search-plus fa-fw mr-3"></span>
-                                <span class="addServer menu-collapsed"">Server Discovery</span>
+                                <span class="addServer menu-collapsed">Server Discovery</span>
                                     </div>
                             </a>
                             <a href=" #submenu1" data-toggle="collapse" aria-expanded="false"
@@ -246,9 +246,11 @@
                         <!-- Submenu content -->
                         <div id='submenu2' class="collapse sidebar-submenu">
                             <a href="#" class="list-group-item list-group-item-action bg-dark ">
+                                <span class="fa fa-cog fa-fw mr-3"></span>
                                 <span class="menu-collapsed">Settings</span>
                             </a>
                             <a href="#" id="password" class="list-group-item list-group-item-action bg-dark ">
+                                <span class="fas fa-key mr-3"></span>
                                 <span class="menu-collapsed">Password</span>
                             </a>
                         </div>
@@ -263,13 +265,30 @@
                             class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
                             <small>OPTIONS</small>
                         </li>
+
                         <!-- /END Separator -->
-                        <a href="#" class="bg-dark list-group-item list-group-item-action">
+                        <a href="#serverSettings" data-toggle="collapse" aria-expanded="false"
+                         class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fa fa-cog fa-fw mr-3"></span>
-                                <span class="menu-collapsed">Settings</span>
+                                <span class="menu-collapsed">Server Settings</span>
+                                <span class="submenu-icon ml-auto"></span>
                             </div>
                         </a>
+
+                        <div id="serverSettings" class="collapse sidebar-submenu">
+                            <a href="#" class="list-group-item list-group-item-action bg-dark ">
+                                <span class="menu-collapsed">Overview</span>
+                            </a>
+                            <a href="#" id="roles" class="list-group-item list-group-item-action bg-dark ">
+                                <span class="menu-collapsed">Roles</span>
+                            </a>
+                            <a href="#" id="deleteBtn" class="list-group-item list-group-item-action bg-dark ">
+                                <span class="far fa-trash-alt mr-3"></span>
+                                <span class="menu-collapsed">Delete Server</span>
+                            </a>
+
+                        </div>
                         <a href="#" class="bg-dark list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fa fa-envelope fa-fw mr-3"></span>
