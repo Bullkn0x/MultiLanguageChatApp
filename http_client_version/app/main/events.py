@@ -169,7 +169,7 @@ def update_pm(data):
     
     my_user = session['id']
     user_obj = session['user_obj']
-    other_user = data['active_pm_id']
+    other_user = int(data['active_pm_id'])
     if other_user:
         user_obj.active_pm = int(other_user)
         pm_chat_log = DB_get_pm_chat_log(my_user, other_user)
@@ -201,23 +201,17 @@ def private_text(msg_data):
     sender_id = int(session['id'])
     room_id = int(msg_data['room_id'])
     recipient_id = int(msg_data['recipient_id'])
-    print(rooms[room_id][recipient_id])
+
     message=msg_data['message']
     sender_name = session.get('user')
-    receiver = rooms[room_id][recipient_id]
+    if recipient_id in rooms[room_id]:
+        receiver = rooms[room_id][recipient_id]
 
-    # only send if user has window open handle notification serverside
-    # if receiver.active_pm == sender_id:
-    #     emit('new private message', {
-    #         'sender': sender_id,
-    #         'message' : message
-    #         }, include_self=False, room=receiver.socket_id)
-
-    # Send and have client handle notification
-    emit('new private message', {
-            'sender_id': sender_id,
-            'message' : message
-            }, include_self=False, room=receiver.socket_id)
+        # Send and have client handle notification
+        emit('new private message', {
+                'sender_id': sender_id,
+                'message' : message
+                }, include_self=False, room=receiver.socket_id)
 
     DB_insert_private_msg(sender_id, recipient_id, message)
 
