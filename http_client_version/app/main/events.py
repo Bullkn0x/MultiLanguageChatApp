@@ -2,7 +2,7 @@ from flask import session, request,Response, redirect, current_app
 from flask_socketio import emit, join_room, leave_room, rooms
 from .. import socketio
 from werkzeug.security import generate_password_hash as hash_pass, check_password_hash as check_pass
-from .utils import try_translate, print_rooms, print_user_details, LANG_SUPPORT
+from .utils import try_translate, print_rooms, print_user_details, LANG_SUPPORT, translateMany
 from .awsHelper import upload_file
 from ..models.user import User
 from ..models.mysql import *
@@ -10,6 +10,7 @@ from json import dumps, dump
 import uuid
 import os
 from threading import Thread, current_thread, RLock
+import multiprocessing as mp
 
 
 
@@ -71,7 +72,6 @@ def connect():
     print(language)
     chat_log = DB_chat_log_by_lang(language, last_room)
     print(chat_log)
-    print(server_users)
     for user in server_users:
         if int(user['user_id']) in rooms[last_room]:
             user['status'] = 'online'
@@ -109,10 +109,6 @@ def add_server(server_info):
 
 @socketio.on('create server', namespace='/')
 def create_server(data):
-    # user_id = int(session['id'])
-    # room_name=data['room_name']
-    # public = data['public']
-    # DB_create_server(room_name, public, user_id)
     user_id = int(session['id'])
     user_obj = session['user_obj']
     room_name=data['room_name']
@@ -126,16 +122,20 @@ def create_server(data):
     emit('new server', room_info)
 
 
+# @socketio.on('more chat', namespace='/')
+# def get_next_50(data):
+
+
 @socketio.on('join server', namespace='/')
 def join_server(data):
     # get chat logs for server
+    user_obj = session['user_obj']
     join_room = int(data['roomID'])
     print(join_room)
     user_id = session['id']
 
-    username = data['username']
+    username = user_obj.username
     session['last_room'] = join_room
-    user_obj = session['user_obj']
     user_obj.current_room = join_room
     
     rooms[join_room][user_id] = user_obj
@@ -169,7 +169,7 @@ def update_pm(data):
     
     my_user = session['id']
     user_obj = session['user_obj']
-    other_user = data['active_pm_id']
+    other_user = int(data['active_pm_id'])
     if other_user:
         user_obj.active_pm = int(other_user)
         pm_chat_log = DB_get_pm_chat_log(my_user, other_user)
@@ -201,101 +201,65 @@ def private_text(msg_data):
     sender_id = int(session['id'])
     room_id = int(msg_data['room_id'])
     recipient_id = int(msg_data['recipient_id'])
-    print(rooms[room_id][recipient_id])
+
     message=msg_data['message']
     sender_name = session.get('user')
-    receiver = rooms[room_id][recipient_id]
+    if recipient_id in rooms[room_id]:
+        receiver = rooms[room_id][recipient_id]
 
-    # only send if user has window open handle notification serverside
-    # if receiver.active_pm == sender_id:
-    #     emit('new private message', {
-    #         'sender': sender_id,
-    #         'message' : message
-    #         }, include_self=False, room=receiver.socket_id)
-
-    # Send and have client handle notification
-    emit('new private message', {
-            'sender_id': sender_id,
-            'message' : message
-            }, include_self=False, room=receiver.socket_id)
+        # Send and have client handle notification
+        emit('new private message', {
+                'sender_id': sender_id,
+                'message' : message
+                }, include_self=False, room=receiver.socket_id)
 
     DB_insert_private_msg(sender_id, recipient_id, message)
 
 
 @socketio.on('new message',namespace='/')
 def text(msg_data):
-    """Sent by a client when the user entered a new message.
-    The message is sent to all people in the room."""
-    user_obj = session['user_obj']
-    language = user_obj.language
-    print (language)
-    message=msg_data['message']
-    temp_msg_id = msg_data['temp_msg_id']
-    print(msg_data)
+    sender = session['user_obj']
     sender_name = session.get('user')
+    sender_language = sender.language
+    room_id = sender.current_room
+    message = msg_data['message']
+    temp_msg_id = msg_data['temp_msg_id']
     user_id = int(session.get('id'))
     room_id = session['last_room']
-    sender =rooms[room_id][user_id]
-
-    message_id = DB_insert_msg(user_id, message, room_id, language)
-    translations = {}
-    translations[user_obj.language] = message
+    # get actual message id from db and insert record
+    message_id = DB_insert_msg(user_id, message, room_id, sender_language)
+    translations = getTranslations(message, sender_language)
     # Iterate through rooms users and emit message to usersocket 
     for username, receiver in rooms[room_id].items():
         if receiver.current_room == room_id:
             # and receiver.language!='original'
-            if receiver.language != sender.language:
-                print('not same language', receiver.language, receiver.username)
-                translated_msg = try_translate(message,sender.language, receiver.language)
-                # if successful, transmit
-                if translated_msg:
-                    if receiver.language not in translations:
-                        translations[receiver.language] = translated_msg
-
-                    message_out=translated_msg
-            else:
-                message_out = message
-            # sender renders message to chat using js on enter key, ignore them for now
-            print("receiver language: "+receiver.language)
-            print("sender language: "+sender.language)
+            message_out = translations[receiver.language]
+            # it using js on enter key, ignore them for now
             emit('new message', {
                 'username': sender_name, 
                 "message":message_out,
                 "message_id" :message_id,
                 "room_id": room_id,
                 "temp_msg_id":temp_msg_id}, include_self=True, room=receiver.socket_id)
+        
+        print('sent')
 
-
-    print(translations)
-    Thread(target=addTranslations, args=(message_id, message,sender.language,LANG_SUPPORT,translations,)).start()
-
-
-    print('CACHE DETAILS', try_translate.cache_info())
-        # else:
-            # emit('notify user', {'username': sender_name, "message":message}, include_self=False, room=receiver.socket_id)
-
-    # db.session.add(message_record)
-    # db.session.commit()
-    # db.session.close()
-
-def addTranslations(message_id, message, message_language, languages,translations):
-    lock = RLock()
-    conn = mysql.connect()
-    cursor = conn.cursor()
-    print('current translation thread: ' , current_thread().name)
-    for language in languages:
-        with lock:
-            translations[language] = try_translate(message, message_language, language)
-
-    SQL_BULK_ADD = f"""INSERT INTO translations (message_id, `language`, message) 
-                        VALUES({message_id}, %s, %s);"""
-    cursor.executemany(SQL_BULK_ADD, translations.items())
-    print(translations)
-    conn.commit()
-    conn.close()
-    # DB_add_translations(message_id, translations.items())
+    DB_add_translations(message_id, translations.items())
     
 
+    print('CACHE DETAILS', try_translate.cache_info())
+    
+def getTranslations(msg, sender_language):
+    processes = []
+    translations = mp.Manager().dict()
+    for to_lang in LANG_SUPPORT:
+        p = mp.Process(target=translateMany, args=(msg, sender_language, to_lang, translations))
+        p.start()
+        processes.append(p)
+    for process in processes:
+        process.join()
+
+    return translations
 
 @socketio.on('message update')
 def handle_message_operation(data):

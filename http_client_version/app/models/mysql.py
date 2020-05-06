@@ -49,9 +49,9 @@ class dbHelper:
 anyChatDB = dbHelper()
 
 
-def DB_chat_log_by_lang(lang_code, room_id):
-    SQL_CHAT_BY_LANG='CALL CHAT_LOG_BY_LANG(%s , %s);'
-    sql_params = (lang_code, room_id, )
+def DB_chat_log_by_lang(lang_code, room_id, last_msg_id=None):
+    SQL_CHAT_BY_LANG='CALL CHAT_LOG_BY_LANG(%s , %s, %s);'
+    sql_params = (lang_code, room_id, last_msg_id)
     logs = anyChatDB.queryAll(SQL_CHAT_BY_LANG,sql_params)
     return logs
 
@@ -150,7 +150,7 @@ def DB_change_pw(pw, user_id):
 def DB_add_user_to_server(user_id, room_id):
 
     SQL_ADD_USER_TO_SERVER = "CALL JOIN_ROOM(%s, %s);"
-    sql_values = (room_id, user_id)
+    sql_values = (room_id, user_id,)
     room_details = anyChatDB.insertReturn(SQL_ADD_USER_TO_SERVER,sql_values)
     return room_details
 
