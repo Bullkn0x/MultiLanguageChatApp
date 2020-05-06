@@ -144,7 +144,6 @@ def DB_change_pw(pw, user_id):
     print(pw)
     sql_values = (pw, user_id)
     anyChatDB.update(SQL_UPDATE_USER_PASSWORD, sql_values)
-    
 
 
 def DB_add_user_to_server(user_id, room_id):
@@ -153,6 +152,30 @@ def DB_add_user_to_server(user_id, room_id):
     sql_values = (room_id, user_id,)
     room_details = anyChatDB.insertReturn(SQL_ADD_USER_TO_SERVER,sql_values)
     return room_details
+
+
+def DB_get_owner_id(room_id):
+    SQL_GET_OWNER_ID = "SELECT owner_id from rooms where room_id=%s"
+    sql_values = (room_id)
+    owner_id = anyChatDB.queryOne(SQL_GET_OWNER_ID, sql_values)
+    return owner_id['owner_id']
+
+def DB_get_num_user_in_room(room_id):
+    SQL_GET_NUM_USER = "SELECT COUNT(room_id) FROM room_users WHERE room_id=%s;"
+    sql_values = (room_id)
+    numUsers = anyChatDB.queryOne(SQL_GET_NUM_USER, sql_values)
+    
+    if numUsers:
+        return int(numUsers['COUNT(room_id)'])+1
+    else:
+        return 1
+
+def DB_get_owner_id(room_id):
+    SQL_GET_OWNER_ID = "SELECT owner_id from rooms where room_id=%s;"
+    sql_values = (room_id)
+    ownerID = anyChatDB.queryOne(SQL_GET_OWNER_ID , sql_values)
+    return ownerID
+
 
 def DB_create_server(room_name, public_access, user_id):
 

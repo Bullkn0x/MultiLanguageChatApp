@@ -15,8 +15,9 @@ var $createBtn = $("#createServer");
 //temporary help button'
 var $helpBtn = $("#help");
 
-
-
+var $deleteServerName = $("#deleteServerName");
+var $deleteBtn = $("#deleteBtn");
+var room_name = "";
 
 // Hide submenus
 $('#body-row .collapse').collapse('hide');
@@ -48,6 +49,18 @@ function SidebarCollapse() {
     // Collapse/Expand icon
     $('#collapse-icon').toggleClass('fa fa-angle-double-left fas fa-angle-double-right');
 }
+
+socket.on('hide delete', function(){
+    $deleteBtn.css('display', "none");
+});
+
+socket.on('delete button', function(data){
+    $deleteBtn.css('display', "flex");
+    room_name = data.server_name;
+
+    $deleteServerName.text(room_name);
+    console.log(room_name);
+});
 
 socket.on('new server', function (server) {
     var $serverIcon = $('<img />').attr("src", server.room_logo_url);
@@ -175,7 +188,7 @@ $discoverBtn.on('click', function () {
 //Leave Server Modal AREA ------------
 //Temp button to bring up the modal
 
-$helpBtn.on('click', function () {
+$deleteBtn.on('click', function () {
     $deleteConfirmModal.css('display', 'flex');
 });
 
