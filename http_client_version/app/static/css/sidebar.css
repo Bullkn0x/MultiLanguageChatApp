@@ -11,7 +11,7 @@
 #deleteBtn{
     display: none;
     background-color: red;
-    color: red;
+    color: red !important;
 }
 
 .serverList {
