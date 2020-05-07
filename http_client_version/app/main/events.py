@@ -71,7 +71,6 @@ def connect():
     # By language
     print(language)
     chat_log = DB_chat_log_by_lang(language, last_room)
-    print(chat_log)
     for user in server_users:
         if int(user['user_id']) in rooms[last_room]:
             user['status'] = 'online'
