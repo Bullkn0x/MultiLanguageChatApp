@@ -1,0 +1,2276 @@
+[
+    {
+        "message_id": 161,
+        "user_id": 1,
+        "message": "whats up",
+        "timestamp": "2020-05-01 21:55:24.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "whats up",
+            "es": "Qué pasa",
+            "pl": "co tam",
+            "zh-cn": "这是怎么回事"
+        }
+    },
+    {
+        "message_id": 162,
+        "user_id": 1,
+        "message": "hey",
+        "timestamp": "2020-05-01 22:36:31.0",
+        "room_id": 27,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hey",
+            "es": "Oye",
+            "pl": "Hej",
+            "zh-cn": "嘿"
+        }
+    },
+    {
+        "message_id": 163,
+        "user_id": 8,
+        "message": "fwerw",
+        "timestamp": "2020-05-01 22:42:45.0",
+        "room_id": 28,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "fwerw",
+            "es": "fwerw",
+            "pl": "fwerw",
+            "zh-cn": "fwerw"
+        }
+    },
+    {
+        "message_id": 164,
+        "user_id": 8,
+        "message": "rwerwe",
+        "timestamp": "2020-05-01 22:42:51.0",
+        "room_id": 28,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "rwerwe",
+            "es": "rwerwe",
+            "pl": "rwerwe",
+            "zh-cn": "rwerwe"
+        }
+    },
+    {
+        "message_id": 165,
+        "user_id": 8,
+        "message": "wr",
+        "timestamp": "2020-05-01 22:42:58.0",
+        "room_id": 28,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "wr",
+            "es": "wr",
+            "pl": "WR",
+            "zh-cn": "WR"
+        }
+    },
+    {
+        "message_id": 166,
+        "user_id": 8,
+        "message": "ewrewr",
+        "timestamp": "2020-05-01 22:43:04.0",
+        "room_id": 26,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "ewrewr",
+            "es": "ewrewr",
+            "pl": "ewrewr",
+            "zh-cn": "ewrewr"
+        }
+    },
+    {
+        "message_id": 167,
+        "user_id": 2,
+        "message": "sdfsdfsdf",
+        "timestamp": "2020-05-02 08:55:33.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "pl",
+        "translations": {
+            "en": "sdfsdfsdf",
+            "es": "sdfsdfsdf",
+            "pl": "sdfsdfsdf",
+            "zh-cn": "sdfsdfsdf"
+        }
+    },
+    {
+        "message_id": 168,
+        "user_id": 1,
+        "message": "yo yo",
+        "timestamp": "2020-05-02 09:43:38.0",
+        "room_id": 27,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "yo yo",
+            "es": "yo yo",
+            "pl": "yo yo",
+            "zh-cn": "悠悠球"
+        }
+    },
+    {
+        "message_id": 169,
+        "user_id": 2,
+        "message": "dfgdfg",
+        "timestamp": "2020-05-02 09:49:27.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "pl",
+        "translations": {
+            "en": "dfgdfg",
+            "es": "dfgdfg",
+            "pl": "dfgdfg",
+            "zh-cn": "dfgdfg"
+        }
+    },
+    {
+        "message_id": 170,
+        "user_id": 1,
+        "message": "yo yo",
+        "timestamp": "2020-05-02 09:52:26.0",
+        "room_id": 27,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "yo yo",
+            "es": "yo yo",
+            "pl": "yo yo",
+            "zh-cn": "悠悠球"
+        }
+    },
+    {
+        "message_id": 171,
+        "user_id": 1,
+        "message": "hey",
+        "timestamp": "2020-05-02 09:52:49.0",
+        "room_id": 27,
+        "deleted": 1,
+        "language": "en",
+        "translations": {
+            "en": "hey",
+            "es": "Oye",
+            "pl": "Hej",
+            "zh-cn": "嘿"
+        }
+    },
+    {
+        "message_id": 172,
+        "user_id": 1,
+        "message": "whattup",
+        "timestamp": "2020-05-02 09:53:01.0",
+        "room_id": 27,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "whattup",
+            "es": "whattup",
+            "pl": "whattup",
+            "zh-cn": "whattup"
+        }
+    },
+    {
+        "message_id": 173,
+        "user_id": 2,
+        "message": "Hello",
+        "timestamp": "2020-05-02 09:55:19.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "pl",
+        "translations": {
+            "en": "Hello",
+            "es": "¡Hola",
+            "pl": "Hello",
+            "zh-cn": "你好"
+        }
+    },
+    {
+        "message_id": 174,
+        "user_id": 2,
+        "message": "sdfsdf",
+        "timestamp": "2020-05-02 09:57:37.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "pl",
+        "translations": {
+            "en": "sdfsdf",
+            "es": "sdfsdf",
+            "pl": "sdfsdf",
+            "zh-cn": "sdfsdf"
+        }
+    },
+    {
+        "message_id": 175,
+        "user_id": 2,
+        "message": "dfgdgdfg",
+        "timestamp": "2020-05-02 10:37:46.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "pl",
+        "translations": {
+            "en": "dfgdgdfg",
+            "es": "dfgdgdfg",
+            "pl": "dfgdgdfg",
+            "zh-cn": "dfgdgdfg"
+        }
+    },
+    {
+        "message_id": 176,
+        "user_id": 2,
+        "message": "dfgdfgdfgdfg",
+        "timestamp": "2020-05-02 10:37:50.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "pl",
+        "translations": {
+            "en": "dfgdfgdfgdfg",
+            "es": "dfgdfgdfgdfg",
+            "pl": "dfgdfgdfgdfg",
+            "zh-cn": "dfgdfgdfgdfg"
+        }
+    },
+    {
+        "message_id": 177,
+        "user_id": 1,
+        "message": "yo",
+        "timestamp": "2020-05-04 04:42:34.0",
+        "room_id": 27,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "yo",
+            "es": "yo",
+            "pl": "Siema",
+            "zh-cn": "哟"
+        }
+    },
+    {
+        "message_id": 178,
+        "user_id": 1,
+        "message": "fghj",
+        "timestamp": "2020-05-05 03:38:44.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "fghj",
+            "es": "fghj",
+            "pl": "fghj",
+            "zh-cn": "fghj"
+        }
+    },
+    {
+        "message_id": 179,
+        "user_id": 1,
+        "message": "fghj",
+        "timestamp": "2020-05-05 03:38:44.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "fghj",
+            "es": "fghj",
+            "pl": "fghj",
+            "zh-cn": "fghj"
+        }
+    },
+    {
+        "message_id": 180,
+        "user_id": 1,
+        "message": "fghj",
+        "timestamp": "2020-05-05 03:38:45.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "fghj",
+            "es": "fghj",
+            "pl": "fghj",
+            "zh-cn": "fghj"
+        }
+    },
+    {
+        "message_id": 181,
+        "user_id": 1,
+        "message": "fghj",
+        "timestamp": "2020-05-05 03:38:45.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "fghj",
+            "es": "fghj",
+            "pl": "fghj",
+            "zh-cn": "fghj"
+        }
+    },
+    {
+        "message_id": 182,
+        "user_id": 1,
+        "message": "fghj",
+        "timestamp": "2020-05-05 03:38:45.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "fghj",
+            "es": "fghj",
+            "pl": "fghj",
+            "zh-cn": "fghj"
+        }
+    },
+    {
+        "message_id": 183,
+        "user_id": 1,
+        "message": "fghj",
+        "timestamp": "2020-05-05 03:38:46.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "fghj",
+            "es": "fghj",
+            "pl": "fghj",
+            "zh-cn": "fghj"
+        }
+    },
+    {
+        "message_id": 184,
+        "user_id": 1,
+        "message": "fghj",
+        "timestamp": "2020-05-05 03:38:46.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "fghj",
+            "es": "fghj",
+            "pl": "fghj",
+            "zh-cn": "fghj"
+        }
+    },
+    {
+        "message_id": 185,
+        "user_id": 1,
+        "message": "fghj",
+        "timestamp": "2020-05-05 03:38:46.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "fghj",
+            "es": "fghj",
+            "pl": "fghj",
+            "zh-cn": "fghj"
+        }
+    },
+    {
+        "message_id": 186,
+        "user_id": 1,
+        "message": "fghj",
+        "timestamp": "2020-05-05 03:38:47.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "fghj",
+            "es": "fghj",
+            "pl": "fghj",
+            "zh-cn": "fghj"
+        }
+    },
+    {
+        "message_id": 187,
+        "user_id": 1,
+        "message": "fghj",
+        "timestamp": "2020-05-05 03:38:47.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "fghj",
+            "es": "fghj",
+            "pl": "fghj",
+            "zh-cn": "fghj"
+        }
+    },
+    {
+        "message_id": 188,
+        "user_id": 1,
+        "message": "fghj",
+        "timestamp": "2020-05-05 03:38:47.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "fghj",
+            "es": "fghj",
+            "pl": "fghj",
+            "zh-cn": "fghj"
+        }
+    },
+    {
+        "message_id": 189,
+        "user_id": 1,
+        "message": "hey",
+        "timestamp": "2020-05-05 04:58:12.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hey",
+            "es": "Oye",
+            "pl": "Hej",
+            "zh-cn": "嘿"
+        }
+    },
+    {
+        "message_id": 190,
+        "user_id": 1,
+        "message": "hey",
+        "timestamp": "2020-05-05 04:58:42.0",
+        "room_id": 26,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hey",
+            "es": "Oye",
+            "pl": "Hej",
+            "zh-cn": "嘿"
+        }
+    },
+    {
+        "message_id": 191,
+        "user_id": 1,
+        "message": "hey",
+        "timestamp": "2020-05-05 06:09:18.0",
+        "room_id": 28,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hey",
+            "es": "Oye",
+            "pl": "Hej",
+            "zh-cn": "嘿"
+        }
+    },
+    {
+        "message_id": 192,
+        "user_id": 1,
+        "message": "sdfg",
+        "timestamp": "2020-05-05 08:45:47.0",
+        "room_id": 28,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "sdfg",
+            "es": "sdfg",
+            "pl": "sdfg",
+            "zh-cn": "sdfg"
+        }
+    },
+    {
+        "message_id": 193,
+        "user_id": 1,
+        "message": "lk",
+        "timestamp": "2020-05-05 08:45:49.0",
+        "room_id": 28,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "lk",
+            "es": "lk",
+            "pl": "lk",
+            "zh-cn": "LK"
+        }
+    },
+    {
+        "message_id": 194,
+        "user_id": 1,
+        "message": "k",
+        "timestamp": "2020-05-05 08:45:49.0",
+        "room_id": 28,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "k",
+            "es": "k",
+            "pl": "k",
+            "zh-cn": "ķ"
+        }
+    },
+    {
+        "message_id": 195,
+        "user_id": 1,
+        "message": "k",
+        "timestamp": "2020-05-05 08:45:50.0",
+        "room_id": 28,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "k",
+            "es": "k",
+            "pl": "k",
+            "zh-cn": "ķ"
+        }
+    },
+    {
+        "message_id": 196,
+        "user_id": 1,
+        "message": "k",
+        "timestamp": "2020-05-05 08:45:50.0",
+        "room_id": 28,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "k",
+            "es": "k",
+            "pl": "k",
+            "zh-cn": "ķ"
+        }
+    },
+    {
+        "message_id": 197,
+        "user_id": 1,
+        "message": "k",
+        "timestamp": "2020-05-05 08:45:51.0",
+        "room_id": 28,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "k",
+            "es": "k",
+            "pl": "k",
+            "zh-cn": "ķ"
+        }
+    },
+    {
+        "message_id": 198,
+        "user_id": 1,
+        "message": "k",
+        "timestamp": "2020-05-05 08:45:51.0",
+        "room_id": 28,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "k",
+            "es": "k",
+            "pl": "k",
+            "zh-cn": "ķ"
+        }
+    },
+    {
+        "message_id": 199,
+        "user_id": 1,
+        "message": "k",
+        "timestamp": "2020-05-05 08:45:52.0",
+        "room_id": 28,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "k",
+            "es": "k",
+            "pl": "k",
+            "zh-cn": "ķ"
+        }
+    },
+    {
+        "message_id": 200,
+        "user_id": 1,
+        "message": "kti",
+        "timestamp": "2020-05-05 10:01:23.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "kti",
+            "es": "kti",
+            "pl": "KTI",
+            "zh-cn": "KTI"
+        }
+    },
+    {
+        "message_id": 201,
+        "user_id": 1,
+        "message": "hey",
+        "timestamp": "2020-05-05 10:01:32.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hey",
+            "es": "Oye",
+            "pl": "Hej",
+            "zh-cn": "嘿"
+        }
+    },
+    {
+        "message_id": 202,
+        "user_id": 1,
+        "message": "yo",
+        "timestamp": "2020-05-05 10:02:16.0",
+        "room_id": 28,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "yo",
+            "es": "yo",
+            "pl": "Siema",
+            "zh-cn": "哟"
+        }
+    },
+    {
+        "message_id": 203,
+        "user_id": 1,
+        "message": "hey",
+        "timestamp": "2020-05-05 10:02:36.0",
+        "room_id": 28,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hey",
+            "es": "Oye",
+            "pl": "Hej",
+            "zh-cn": "嘿"
+        }
+    },
+    {
+        "message_id": 204,
+        "user_id": 1,
+        "message": "hey",
+        "timestamp": "2020-05-05 12:08:26.0",
+        "room_id": 28,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hey",
+            "es": "Oye",
+            "pl": "Hej",
+            "zh-cn": "嘿"
+        }
+    },
+    {
+        "message_id": 205,
+        "user_id": 1,
+        "message": "hey",
+        "timestamp": "2020-05-05 12:08:36.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hey",
+            "es": "Oye",
+            "pl": "Hej",
+            "zh-cn": "嘿"
+        }
+    },
+    {
+        "message_id": 206,
+        "user_id": 1,
+        "message": "yo",
+        "timestamp": "2020-05-05 12:08:44.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "yo",
+            "es": "yo",
+            "pl": "Siema",
+            "zh-cn": "哟"
+        }
+    },
+    {
+        "message_id": 207,
+        "user_id": 1,
+        "message": "jru",
+        "timestamp": "2020-05-05 12:08:53.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en"
+    },
+    {
+        "message_id": 208,
+        "user_id": 2,
+        "message": "hey",
+        "timestamp": "2020-05-05 12:09:55.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "pl",
+        "translations": {
+            "en": "hey",
+            "es": "¡eh",
+            "pl": "hey",
+            "zh-cn": "哎"
+        }
+    },
+    {
+        "message_id": 209,
+        "user_id": 1,
+        "message": "hey",
+        "timestamp": "2020-05-05 12:10:08.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hey",
+            "es": "Oye",
+            "pl": "Hej",
+            "zh-cn": "嘿"
+        }
+    },
+    {
+        "message_id": 210,
+        "user_id": 1,
+        "message": "hey",
+        "timestamp": "2020-05-05 12:11:02.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hey",
+            "es": "Oye",
+            "pl": "Hej",
+            "zh-cn": "嘿"
+        }
+    },
+    {
+        "message_id": 211,
+        "user_id": 1,
+        "message": "hh",
+        "timestamp": "2020-05-05 12:21:26.0",
+        "room_id": 1,
+        "deleted": 1,
+        "language": "en",
+        "translations": {
+            "en": "hh",
+            "es": "S.S",
+            "pl": "hh",
+            "zh-cn": "HH"
+        }
+    },
+    {
+        "message_id": 212,
+        "user_id": 1,
+        "message": "asd",
+        "timestamp": "2020-05-05 12:23:22.0",
+        "room_id": 1,
+        "deleted": 1,
+        "language": "en",
+        "translations": {
+            "en": "asd",
+            "es": "asd",
+            "pl": "asd",
+            "zh-cn": "ASD"
+        }
+    },
+    {
+        "message_id": 213,
+        "user_id": 1,
+        "message": "he",
+        "timestamp": "2020-05-05 12:23:55.0",
+        "room_id": 1,
+        "deleted": 1,
+        "language": "en",
+        "translations": {
+            "en": "he",
+            "es": "él",
+            "pl": "on",
+            "zh-cn": "他"
+        }
+    },
+    {
+        "message_id": 214,
+        "user_id": 1,
+        "message": "he",
+        "timestamp": "2020-05-05 12:24:38.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "he",
+            "es": "él",
+            "pl": "on",
+            "zh-cn": "他"
+        }
+    },
+    {
+        "message_id": 215,
+        "user_id": 1,
+        "message": "he",
+        "timestamp": "2020-05-05 12:24:50.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "he",
+            "es": "él",
+            "pl": "on",
+            "zh-cn": "他"
+        }
+    },
+    {
+        "message_id": 216,
+        "user_id": 1,
+        "message": "hey",
+        "timestamp": "2020-05-05 12:25:09.0",
+        "room_id": 1,
+        "deleted": 1,
+        "language": "en",
+        "translations": {
+            "en": "hey",
+            "es": "Oye",
+            "pl": "Hej",
+            "zh-cn": "嘿"
+        }
+    },
+    {
+        "message_id": 217,
+        "user_id": 1,
+        "message": "dfg",
+        "timestamp": "2020-05-05 12:25:22.0",
+        "room_id": 1,
+        "deleted": 1,
+        "language": "en",
+        "translations": {
+            "en": "dfg",
+            "es": "DFG",
+            "pl": "dfg",
+            "zh-cn": "DFG"
+        }
+    },
+    {
+        "message_id": 218,
+        "user_id": 1,
+        "message": "sdf",
+        "timestamp": "2020-05-05 12:25:26.0",
+        "room_id": 1,
+        "deleted": 1,
+        "language": "en",
+        "translations": {
+            "en": "sdf",
+            "es": "sdf",
+            "pl": "SDF",
+            "zh-cn": "SDF"
+        }
+    },
+    {
+        "message_id": 219,
+        "user_id": 1,
+        "message": "her",
+        "timestamp": "2020-05-05 12:25:37.0",
+        "room_id": 1,
+        "deleted": 1,
+        "language": "en",
+        "translations": {
+            "en": "her",
+            "es": "su",
+            "pl": "jej",
+            "zh-cn": "她的"
+        }
+    },
+    {
+        "message_id": 220,
+        "user_id": 1,
+        "message": "dfg",
+        "timestamp": "2020-05-05 12:25:56.0",
+        "room_id": 1,
+        "deleted": 1,
+        "language": "en",
+        "translations": {
+            "en": "dfg",
+            "es": "DFG",
+            "pl": "dfg",
+            "zh-cn": "DFG"
+        }
+    },
+    {
+        "message_id": 221,
+        "user_id": 1,
+        "message": "sdfg",
+        "timestamp": "2020-05-05 12:26:10.0",
+        "room_id": 1,
+        "deleted": 1,
+        "language": "en",
+        "translations": {
+            "en": "sdfg",
+            "es": "sdfg",
+            "pl": "sdfg",
+            "zh-cn": "sdfg"
+        }
+    },
+    {
+        "message_id": 222,
+        "user_id": 1,
+        "message": "hey",
+        "timestamp": "2020-05-05 12:27:50.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hey",
+            "es": "Oye",
+            "pl": "Hej",
+            "zh-cn": "嘿"
+        }
+    },
+    {
+        "message_id": 223,
+        "user_id": 1,
+        "message": "hey",
+        "timestamp": "2020-05-05 12:30:27.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hey",
+            "es": "Oye",
+            "pl": "Hej",
+            "zh-cn": "嘿"
+        }
+    },
+    {
+        "message_id": 224,
+        "user_id": 1,
+        "message": "yoo",
+        "timestamp": "2020-05-05 12:30:32.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "yoo",
+            "es": "yoo",
+            "pl": "yoo",
+            "zh-cn": "柳"
+        }
+    },
+    {
+        "message_id": 225,
+        "user_id": 1,
+        "message": "hey",
+        "timestamp": "2020-05-05 12:30:56.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hey",
+            "es": "Oye",
+            "pl": "Hej",
+            "zh-cn": "嘿"
+        }
+    },
+    {
+        "message_id": 226,
+        "user_id": 1,
+        "message": "hett",
+        "timestamp": "2020-05-05 12:33:16.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hett",
+            "es": "Hett",
+            "pl": "HETT",
+            "zh-cn": "HETT"
+        }
+    },
+    {
+        "message_id": 227,
+        "user_id": 1,
+        "message": "yo",
+        "timestamp": "2020-05-05 12:33:22.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "yo",
+            "es": "yo",
+            "pl": "Siema",
+            "zh-cn": "哟"
+        }
+    },
+    {
+        "message_id": 228,
+        "user_id": 1,
+        "message": "jkl",
+        "timestamp": "2020-05-05 12:39:35.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "jkl",
+            "es": "jkl",
+            "pl": "jkl",
+            "zh-cn": "JKL"
+        }
+    },
+    {
+        "message_id": 229,
+        "user_id": 1,
+        "message": "kl;",
+        "timestamp": "2020-05-05 12:39:36.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "kl;",
+            "es": "kl;",
+            "pl": "KL;",
+            "zh-cn": "KL;"
+        }
+    },
+    {
+        "message_id": 230,
+        "user_id": 1,
+        "message": "u",
+        "timestamp": "2020-05-05 12:39:38.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "u",
+            "es": "u",
+            "pl": "u",
+            "zh-cn": "ü"
+        }
+    },
+    {
+        "message_id": 231,
+        "user_id": 1,
+        "message": "u",
+        "timestamp": "2020-05-05 12:39:39.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "u",
+            "es": "u",
+            "pl": "u",
+            "zh-cn": "ü"
+        }
+    },
+    {
+        "message_id": 232,
+        "user_id": 1,
+        "message": "yooo",
+        "timestamp": "2020-05-05 12:39:42.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "yooo",
+            "es": "yooo",
+            "pl": "yooo",
+            "zh-cn": "yooo"
+        }
+    },
+    {
+        "message_id": 233,
+        "user_id": 1,
+        "message": "hey",
+        "timestamp": "2020-05-05 12:39:44.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hey",
+            "es": "Oye",
+            "pl": "Hej",
+            "zh-cn": "嘿"
+        }
+    },
+    {
+        "message_id": 234,
+        "user_id": 1,
+        "message": "asd",
+        "timestamp": "2020-05-05 12:39:47.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "asd",
+            "es": "asd",
+            "pl": "asd",
+            "zh-cn": "ASD"
+        }
+    },
+    {
+        "message_id": 235,
+        "user_id": 1,
+        "message": "asdf'",
+        "timestamp": "2020-05-05 12:39:49.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "asdf'",
+            "es": "asdf'",
+            "pl": "asdf”",
+            "zh-cn": "ASDF”"
+        }
+    },
+    {
+        "message_id": 236,
+        "user_id": 1,
+        "message": "ghj",
+        "timestamp": "2020-05-05 12:39:51.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "ghj",
+            "es": "ghj",
+            "pl": "ghj",
+            "zh-cn": "GHJ"
+        }
+    },
+    {
+        "message_id": 237,
+        "user_id": 1,
+        "message": "ghj",
+        "timestamp": "2020-05-05 12:39:53.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "ghj",
+            "es": "ghj",
+            "pl": "ghj",
+            "zh-cn": "GHJ"
+        }
+    },
+    {
+        "message_id": 238,
+        "user_id": 1,
+        "message": "hjk",
+        "timestamp": "2020-05-05 12:39:54.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hjk",
+            "es": "HJK",
+            "pl": "HJK",
+            "zh-cn": "赫尔辛基"
+        }
+    },
+    {
+        "message_id": 239,
+        "user_id": 1,
+        "message": "kl;",
+        "timestamp": "2020-05-05 12:39:55.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "kl;",
+            "es": "kl;",
+            "pl": "KL;",
+            "zh-cn": "KL;"
+        }
+    },
+    {
+        "message_id": 240,
+        "user_id": 1,
+        "message": "yo",
+        "timestamp": "2020-05-05 22:36:16.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "yo",
+            "es": "yo",
+            "pl": "Siema",
+            "zh-cn": "哟"
+        }
+    },
+    {
+        "message_id": 241,
+        "user_id": 1,
+        "message": "hey",
+        "timestamp": "2020-05-05 22:39:33.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hey",
+            "es": "Oye",
+            "pl": "Hej",
+            "zh-cn": "嘿"
+        }
+    },
+    {
+        "message_id": 242,
+        "user_id": 1,
+        "message": "hey",
+        "timestamp": "2020-05-05 22:53:55.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hey",
+            "es": "Oye",
+            "pl": "Hej",
+            "zh-cn": "嘿"
+        }
+    },
+    {
+        "message_id": 243,
+        "user_id": 1,
+        "message": "hey",
+        "timestamp": "2020-05-05 22:54:05.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hey",
+            "es": "Oye",
+            "pl": "Hej",
+            "zh-cn": "嘿"
+        }
+    },
+    {
+        "message_id": 244,
+        "user_id": 1,
+        "message": "yo",
+        "timestamp": "2020-05-05 22:54:14.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "yo",
+            "es": "yo",
+            "pl": "Siema",
+            "zh-cn": "哟"
+        }
+    },
+    {
+        "message_id": 245,
+        "user_id": 1,
+        "message": "hey",
+        "timestamp": "2020-05-05 22:56:11.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hey",
+            "es": "Oye",
+            "pl": "Hej",
+            "zh-cn": "嘿"
+        }
+    },
+    {
+        "message_id": 246,
+        "user_id": 1,
+        "message": "ey",
+        "timestamp": "2020-05-05 22:56:26.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "ey",
+            "es": "ey",
+            "pl": "EY",
+            "zh-cn": "EY"
+        }
+    },
+    {
+        "message_id": 247,
+        "user_id": 1,
+        "message": "hey",
+        "timestamp": "2020-05-05 22:57:04.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hey",
+            "es": "Oye",
+            "pl": "Hej",
+            "zh-cn": "嘿"
+        }
+    },
+    {
+        "message_id": 248,
+        "user_id": 1,
+        "message": "hey",
+        "timestamp": "2020-05-05 22:57:13.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hey",
+            "es": "Oye",
+            "pl": "Hej",
+            "zh-cn": "嘿"
+        }
+    },
+    {
+        "message_id": 249,
+        "user_id": 1,
+        "message": "??",
+        "timestamp": "2020-05-06 16:29:55.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "你好",
+            "es": "你好",
+            "pl": "你好",
+            "zh-cn": "你好"
+        }
+    },
+    {
+        "message_id": 250,
+        "user_id": 1,
+        "message": ":laughing: ",
+        "timestamp": "2020-05-06 16:33:24.0",
+        "room_id": 27,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": ":laughing:",
+            "es": ": Risa:",
+            "pl": ":śmiać się:",
+            "zh-cn": "：笑："
+        }
+    },
+    {
+        "message_id": 251,
+        "user_id": 1,
+        "message": "?",
+        "timestamp": "2020-05-06 16:33:46.0",
+        "room_id": 27,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "IP banned?",
+            "es": "IP banned?",
+            "pl": "IP banned?",
+            "zh-cn": "IP banned?"
+        }
+    },
+    {
+        "message_id": 252,
+        "user_id": 8,
+        "message": "ewrwer",
+        "timestamp": "2020-05-06 16:39:35.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "ewrwer",
+            "es": "ewrwer",
+            "pl": "ewrwer",
+            "zh-cn": "ewrwer"
+        }
+    },
+    {
+        "message_id": 253,
+        "user_id": 8,
+        "message": "?????",
+        "timestamp": "2020-05-06 16:39:38.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "娃儿额外人",
+            "es": "娃儿 额外 人",
+            "pl": "娃儿 额外 人",
+            "zh-cn": "娃儿额外人"
+        }
+    },
+    {
+        "message_id": 254,
+        "user_id": 8,
+        "message": "???",
+        "timestamp": "2020-05-06 16:39:47.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "按压差",
+            "es": "按 压差",
+            "pl": "按 压差",
+            "zh-cn": "按压差"
+        }
+    },
+    {
+        "message_id": 255,
+        "user_id": 2,
+        "message": "hey",
+        "timestamp": "2020-05-06 17:19:00.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "pl",
+        "translations": {
+            "en": "hey",
+            "es": "¡eh",
+            "pl": "hey",
+            "zh-cn": "哎"
+        }
+    },
+    {
+        "message_id": 256,
+        "user_id": 2,
+        "message": "yo",
+        "timestamp": "2020-05-06 17:19:09.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "yo",
+            "es": "yo",
+            "pl": "Siema",
+            "zh-cn": "哟"
+        }
+    },
+    {
+        "message_id": 257,
+        "user_id": 2,
+        "message": "hey",
+        "timestamp": "2020-05-06 17:19:17.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hey",
+            "es": "Oye",
+            "pl": "Hej",
+            "zh-cn": "嘿"
+        }
+    },
+    {
+        "message_id": 258,
+        "user_id": 2,
+        "message": "hey",
+        "timestamp": "2020-05-06 17:19:47.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hey",
+            "es": "Oye",
+            "pl": "Hej",
+            "zh-cn": "嘿"
+        }
+    },
+    {
+        "message_id": 259,
+        "user_id": 2,
+        "message": "hey",
+        "timestamp": "2020-05-06 17:19:56.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hey",
+            "es": "Oye",
+            "pl": "Hej",
+            "zh-cn": "嘿"
+        }
+    },
+    {
+        "message_id": 260,
+        "user_id": 8,
+        "message": "werwer",
+        "timestamp": "2020-05-06 18:25:55.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "werwer",
+            "es": "werwer",
+            "pl": "werwer",
+            "zh-cn": "werwer"
+        }
+    },
+    {
+        "message_id": 261,
+        "user_id": 8,
+        "message": "额外让王额",
+        "timestamp": "2020-05-06 18:26:21.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "额外让王额",
+            "es": "额外 让 王 额",
+            "pl": "额外 让 王 额",
+            "zh-cn": "额外让王额"
+        }
+    },
+    {
+        "message_id": 262,
+        "user_id": 1,
+        "message": "jru",
+        "timestamp": "2020-05-06 21:05:55.0",
+        "room_id": 26,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "jru",
+            "es": "jru",
+            "pl": "jru",
+            "zh-cn": "JRU"
+        }
+    },
+    {
+        "message_id": 263,
+        "user_id": 1,
+        "message": "yo yo",
+        "timestamp": "2020-05-06 21:06:04.0",
+        "room_id": 26,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "yo yo",
+            "es": "yo yo",
+            "pl": "yo yo",
+            "zh-cn": "悠悠球"
+        }
+    },
+    {
+        "message_id": 264,
+        "user_id": 1,
+        "message": "jru",
+        "timestamp": "2020-05-06 21:06:31.0",
+        "room_id": 26,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "jru",
+            "es": "jru",
+            "pl": "jru",
+            "zh-cn": "JRU"
+        }
+    },
+    {
+        "message_id": 265,
+        "user_id": 1,
+        "message": "hey",
+        "timestamp": "2020-05-06 21:08:39.0",
+        "room_id": 26,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hey",
+            "es": "Oye",
+            "pl": "Hej",
+            "zh-cn": "嘿"
+        }
+    },
+    {
+        "message_id": 266,
+        "user_id": 1,
+        "message": "yo",
+        "timestamp": "2020-05-06 21:09:51.0",
+        "room_id": 26,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "yo",
+            "es": "yo",
+            "pl": "Siema",
+            "zh-cn": "哟"
+        }
+    },
+    {
+        "message_id": 267,
+        "user_id": 1,
+        "message": "test",
+        "timestamp": "2020-05-06 21:10:51.0",
+        "room_id": 26,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "test",
+            "es": "prueba",
+            "pl": "test",
+            "zh-cn": "测试"
+        }
+    },
+    {
+        "message_id": 268,
+        "user_id": 1,
+        "message": "jru",
+        "timestamp": "2020-05-06 21:12:10.0",
+        "room_id": 26,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "jru",
+            "es": "jru",
+            "pl": "jru",
+            "zh-cn": "JRU"
+        }
+    },
+    {
+        "message_id": 269,
+        "user_id": 1,
+        "message": "hey",
+        "timestamp": "2020-05-06 21:12:22.0",
+        "room_id": 26,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hey",
+            "es": "Oye",
+            "pl": "Hej",
+            "zh-cn": "嘿"
+        }
+    },
+    {
+        "message_id": 270,
+        "user_id": 1,
+        "message": "yo",
+        "timestamp": "2020-05-06 21:13:52.0",
+        "room_id": 26,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "yo",
+            "es": "yo",
+            "pl": "Siema",
+            "zh-cn": "哟"
+        }
+    },
+    {
+        "message_id": 271,
+        "user_id": 1,
+        "message": "wassup",
+        "timestamp": "2020-05-06 21:13:58.0",
+        "room_id": 26,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "wassup",
+            "es": "wassup",
+            "pl": "wassup",
+            "zh-cn": "日wassup"
+        }
+    },
+    {
+        "message_id": 272,
+        "user_id": 1,
+        "message": "yo",
+        "timestamp": "2020-05-06 21:14:34.0",
+        "room_id": 26,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "yo",
+            "es": "yo",
+            "pl": "Siema",
+            "zh-cn": "哟"
+        }
+    },
+    {
+        "message_id": 273,
+        "user_id": 8,
+        "message": "sdf",
+        "timestamp": "2020-05-06 21:16:44.0",
+        "room_id": 43,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "sdf",
+            "es": "sdf",
+            "pl": "SDF",
+            "zh-cn": "SDF"
+        }
+    },
+    {
+        "message_id": 274,
+        "user_id": 8,
+        "message": "ewr",
+        "timestamp": "2020-05-06 21:16:48.0",
+        "room_id": 43,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "ewr",
+            "es": "ewr",
+            "pl": "ewr",
+            "zh-cn": "EWR"
+        }
+    },
+    {
+        "message_id": 275,
+        "user_id": 8,
+        "message": "wer",
+        "timestamp": "2020-05-06 21:16:58.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "wer",
+            "es": "nosotros somos",
+            "pl": "wer",
+            "zh-cn": "WER"
+        }
+    },
+    {
+        "message_id": 276,
+        "user_id": 8,
+        "message": "jfds",
+        "timestamp": "2020-05-06 21:21:00.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "jfds",
+            "es": "jfds",
+            "pl": "jfds",
+            "zh-cn": "jfds"
+        }
+    },
+    {
+        "message_id": 277,
+        "user_id": 8,
+        "message": "sfe",
+        "timestamp": "2020-05-06 21:21:53.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "sfe",
+            "es": "SFE",
+            "pl": "SFE",
+            "zh-cn": "SFE"
+        }
+    },
+    {
+        "message_id": 278,
+        "user_id": 8,
+        "message": "retret",
+        "timestamp": "2020-05-06 21:22:24.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "retret",
+            "es": "retret",
+            "pl": "retret",
+            "zh-cn": "retret"
+        }
+    },
+    {
+        "message_id": 279,
+        "user_id": 8,
+        "message": "trtr",
+        "timestamp": "2020-05-06 21:22:27.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "trtr",
+            "es": "trtr",
+            "pl": "trtr",
+            "zh-cn": "trtr"
+        }
+    },
+    {
+        "message_id": 280,
+        "user_id": 8,
+        "message": "fiwuehr ewroi ",
+        "timestamp": "2020-05-06 21:22:30.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "fiwuehr ewroi",
+            "es": "ewroi fiwuehr",
+            "pl": "fiwuehr ewroi",
+            "zh-cn": "fiwuehr ewroi"
+        }
+    },
+    {
+        "message_id": 281,
+        "user_id": 8,
+        "message": "uiewr ewr ",
+        "timestamp": "2020-05-06 21:22:58.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "ewr ewr",
+            "es": "ewr ewr",
+            "pl": "ewr ewr",
+            "zh-cn": "EWR EWR"
+        }
+    },
+    {
+        "message_id": 282,
+        "user_id": 8,
+        "message": "erwer ",
+        "timestamp": "2020-05-06 21:22:59.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "erwer",
+            "es": "erwer",
+            "pl": "erwer",
+            "zh-cn": "erwer"
+        }
+    },
+    {
+        "message_id": 283,
+        "user_id": 8,
+        "message": "wer e",
+        "timestamp": "2020-05-06 21:23:01.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "wer e",
+            "es": "fueron",
+            "pl": "byli",
+            "zh-cn": "WERè"
+        }
+    },
+    {
+        "message_id": 284,
+        "user_id": 8,
+        "message": "retret",
+        "timestamp": "2020-05-06 21:23:12.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "retret",
+            "es": "retret",
+            "pl": "retret",
+            "zh-cn": "retret"
+        }
+    },
+    {
+        "message_id": 285,
+        "user_id": 8,
+        "message": "fdgfdg",
+        "timestamp": "2020-05-06 21:23:22.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "fdgfdg",
+            "es": "fdgfdg",
+            "pl": "fdgfdg",
+            "zh-cn": "fdgfdg"
+        }
+    },
+    {
+        "message_id": 286,
+        "user_id": 8,
+        "message": "gdf",
+        "timestamp": "2020-05-06 21:23:55.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "gdf",
+            "es": "GDF",
+            "pl": "GDF",
+            "zh-cn": "GDF"
+        }
+    },
+    {
+        "message_id": 287,
+        "user_id": 8,
+        "message": "gfg",
+        "timestamp": "2020-05-06 21:24:15.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "gfg",
+            "es": "GFG",
+            "pl": "gfg",
+            "zh-cn": "GFG"
+        }
+    },
+    {
+        "message_id": 288,
+        "user_id": 1,
+        "message": "hey",
+        "timestamp": "2020-05-06 21:24:42.0",
+        "room_id": 26,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hey",
+            "es": "Oye",
+            "pl": "Hej",
+            "zh-cn": "嘿"
+        }
+    },
+    {
+        "message_id": 289,
+        "user_id": 1,
+        "message": "yo",
+        "timestamp": "2020-05-06 21:24:55.0",
+        "room_id": 26,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "yo",
+            "es": "yo",
+            "pl": "Siema",
+            "zh-cn": "哟"
+        }
+    },
+    {
+        "message_id": 290,
+        "user_id": 8,
+        "message": "wer",
+        "timestamp": "2020-05-06 23:14:36.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "wer",
+            "es": "nosotros somos",
+            "pl": "wer",
+            "zh-cn": "WER"
+        }
+    },
+    {
+        "message_id": 291,
+        "user_id": 1,
+        "message": "hey",
+        "timestamp": "2020-05-06 23:14:39.0",
+        "room_id": 26,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hey",
+            "es": "Oye",
+            "pl": "Hej",
+            "zh-cn": "嘿"
+        }
+    },
+    {
+        "message_id": 292,
+        "user_id": 8,
+        "message": "dsf",
+        "timestamp": "2020-05-06 23:14:40.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "dsf",
+            "es": "DSF",
+            "pl": "DSF",
+            "zh-cn": "DSF"
+        }
+    },
+    {
+        "message_id": 293,
+        "user_id": 8,
+        "message": "her",
+        "timestamp": "2020-05-06 23:15:05.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "her",
+            "es": "su",
+            "pl": "jej",
+            "zh-cn": "她的"
+        }
+    },
+    {
+        "message_id": 294,
+        "user_id": 8,
+        "message": "her",
+        "timestamp": "2020-05-06 23:15:15.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "her",
+            "es": "su",
+            "pl": "jej",
+            "zh-cn": "她的"
+        }
+    },
+    {
+        "message_id": 295,
+        "user_id": 8,
+        "message": "he is a bear",
+        "timestamp": "2020-05-06 23:15:23.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "he is a bear",
+            "es": "que es un oso",
+            "pl": "on jest opatrzone",
+            "zh-cn": "他是熊"
+        }
+    },
+    {
+        "message_id": 296,
+        "user_id": 1,
+        "message": "czesc",
+        "timestamp": "2020-05-06 23:15:30.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "pl",
+        "translations": {
+            "en": "Hi",
+            "es": "parte",
+            "pl": "czesc",
+            "zh-cn": "部分"
+        }
+    },
+    {
+        "message_id": 297,
+        "user_id": 1,
+        "message": "hey there ",
+        "timestamp": "2020-05-06 23:17:48.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hey there",
+            "es": "Hola",
+            "pl": "No hej",
+            "zh-cn": "嘿"
+        }
+    },
+    {
+        "message_id": 298,
+        "user_id": 1,
+        "message": "are you good?",
+        "timestamp": "2020-05-06 23:17:51.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "are you good?",
+            "es": "¿estas bien?",
+            "pl": "czy jesteś dobry?",
+            "zh-cn": "你好吗？"
+        }
+    },
+    {
+        "message_id": 299,
+        "user_id": 1,
+        "message": "just hanging out ",
+        "timestamp": "2020-05-06 23:17:55.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "just hanging out",
+            "es": "simplemente pasando el rato",
+            "pl": "po prostu spędzać czas",
+            "zh-cn": "出来散步而已"
+        }
+    },
+    {
+        "message_id": 300,
+        "user_id": 8,
+        "message": "hey",
+        "timestamp": "2020-05-06 23:18:41.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "zh-cn",
+        "translations": {
+            "en": "hey",
+            "es": "¡eh",
+            "pl": "hej",
+            "zh-cn": "hey"
+        }
+    },
+    {
+        "message_id": 301,
+        "user_id": 1,
+        "message": "yo",
+        "timestamp": "2020-05-06 23:21:32.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "yo",
+            "es": "yo",
+            "pl": "Siema",
+            "zh-cn": "哟"
+        }
+    },
+    {
+        "message_id": 302,
+        "user_id": 1,
+        "message": "wats going on?>",
+        "timestamp": "2020-05-06 23:22:21.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "what's going on?>",
+            "es": "¿qué está pasando?>",
+            "pl": "co się dzieje?>",
+            "zh-cn": "这是怎么回事？>"
+        }
+    },
+    {
+        "message_id": 303,
+        "user_id": 8,
+        "message": "wats going on",
+        "timestamp": "2020-05-06 23:23:12.0",
+        "room_id": 1,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "what's going on",
+            "es": "que esta pasando",
+            "pl": "co się dzieje",
+            "zh-cn": "这是怎么回事"
+        }
+    },
+    {
+        "message_id": 304,
+        "user_id": 2,
+        "message": "hello",
+        "timestamp": "2020-05-07 23:01:11.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hello",
+            "es": "Hola",
+            "pl": "Witaj",
+            "zh-cn": "你好"
+        }
+    },
+    {
+        "message_id": 305,
+        "user_id": 2,
+        "message": "hello",
+        "timestamp": "2020-05-07 23:01:13.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hello",
+            "es": "Hola",
+            "pl": "Witaj",
+            "zh-cn": "你好"
+        }
+    },
+    {
+        "message_id": 306,
+        "user_id": 2,
+        "message": "hello",
+        "timestamp": "2020-05-07 23:01:17.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hello",
+            "es": "Hola",
+            "pl": "Witaj",
+            "zh-cn": "你好"
+        }
+    },
+    {
+        "message_id": 307,
+        "user_id": 2,
+        "message": "yo",
+        "timestamp": "2020-05-07 23:01:28.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "yo",
+            "es": "yo",
+            "pl": "Siema",
+            "zh-cn": "哟"
+        }
+    },
+    {
+        "message_id": 308,
+        "user_id": 2,
+        "message": "hlloe",
+        "timestamp": "2020-05-07 23:01:37.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hlloe",
+            "es": "hlloe",
+            "pl": "hlloe",
+            "zh-cn": "hlloe"
+        }
+    },
+    {
+        "message_id": 309,
+        "user_id": 2,
+        "message": "hello",
+        "timestamp": "2020-05-07 23:01:47.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "en",
+        "translations": {
+            "en": "hello",
+            "es": "Hola",
+            "pl": "Witaj",
+            "zh-cn": "你好"
+        }
+    },
+    {
+        "message_id": 310,
+        "user_id": 2,
+        "message": "hello",
+        "timestamp": "2020-05-07 23:02:03.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "pl",
+        "translations": {
+            "en": "hello",
+            "es": "¡Hola",
+            "pl": "hello",
+            "zh-cn": "你好"
+        }
+    },
+    {
+        "message_id": 311,
+        "user_id": 2,
+        "message": "hey",
+        "timestamp": "2020-05-07 23:02:05.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "pl",
+        "translations": {
+            "en": "hey",
+            "es": "¡eh",
+            "pl": "hey",
+            "zh-cn": "哎"
+        }
+    },
+    {
+        "message_id": 312,
+        "user_id": 2,
+        "message": "witaj",
+        "timestamp": "2020-05-07 23:02:07.0",
+        "room_id": 25,
+        "deleted": 0,
+        "language": "pl",
+        "translations": {
+            "en": "Hello",
+            "es": "bienvenida",
+            "pl": "witaj",
+            "zh-cn": "欢迎"
+        }
+    }
+]
