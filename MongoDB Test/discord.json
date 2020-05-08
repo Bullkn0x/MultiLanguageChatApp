@@ -1,0 +1,2151 @@
+{
+    "id": "204806619354234880",
+    "username": "bullkn0x",
+    "discriminator": 8570,
+    "email": "richduchin@gmail.com",
+    "verified": true,
+    "avatar_hash": "c15f624cb37f1370317f5dbb7da39ac0",
+    "has_mobile": true,
+    "needs_email_verification": false,
+    "premium_until": null,
+    "flags": 10720238372896,
+    "phone": "+19736186444",
+    "temp_banned_until": null,
+    "ip": "68.192.36.58",
+    "settings": {
+        "locale": "en-US",
+        "show_current_game": false,
+        "restricted_guilds": [],
+        "default_guilds_restricted": false,
+        "inline_attachment_media": true,
+        "inline_embed_media": true,
+        "gif_auto_play": true,
+        "render_embeds": true,
+        "render_reactions": true,
+        "animate_emoji": true,
+        "enable_tts_command": true,
+        "message_display_compact": false,
+        "convert_emoticons": true,
+        "explicit_content_filter": 0,
+        "disable_games_tab": false,
+        "theme": "dark",
+        "developer_mode": true,
+        "guild_positions": [
+            "565742676197244948",
+            "623205158951583750",
+            "256279104213483531",
+            "267624335836053506",
+            "622033978047725582",
+            "497803314273058825",
+            "487272420370022421",
+            "283121166250409984",
+            "232315865301909505",
+            "267065908277542922",
+            "693116187617263637"
+        ],
+        "detect_platform_accounts": true,
+        "status": "online",
+        "afk_timeout": 600,
+        "timezone_offset": 240,
+        "stream_notifications_enabled": true,
+        "allow_accessibility_detection": false,
+        "contact_sync_enabled": false,
+        "native_phone_integration_enabled": true,
+        "friend_source_flags": {
+            "all": true
+        },
+        "guild_folders": [
+            {
+                "guild_ids": [
+                    "565742676197244948"
+                ],
+                "id": null,
+                "name": null,
+                "color": null
+            },
+            {
+                "guild_ids": [
+                    "623205158951583750"
+                ],
+                "id": null,
+                "name": null,
+                "color": null
+            },
+            {
+                "guild_ids": [
+                    "256279104213483531"
+                ],
+                "id": null,
+                "name": null,
+                "color": null
+            },
+            {
+                "guild_ids": [
+                    "267624335836053506"
+                ],
+                "id": null,
+                "name": null,
+                "color": null
+            },
+            {
+                "guild_ids": [
+                    "622033978047725582"
+                ],
+                "id": null,
+                "name": null,
+                "color": null
+            },
+            {
+                "guild_ids": [
+                    "497803314273058825"
+                ],
+                "id": null,
+                "name": null,
+                "color": null
+            },
+            {
+                "guild_ids": [
+                    "487272420370022421"
+                ],
+                "id": null,
+                "name": null,
+                "color": null
+            },
+            {
+                "guild_ids": [
+                    "283121166250409984"
+                ],
+                "id": null,
+                "name": null,
+                "color": null
+            },
+            {
+                "guild_ids": [
+                    "232315865301909505"
+                ],
+                "id": null,
+                "name": null,
+                "color": null
+            },
+            {
+                "guild_ids": [
+                    "267065908277542922"
+                ],
+                "id": null,
+                "name": null,
+                "color": null
+            },
+            {
+                "guild_ids": [
+                    "693116187617263637"
+                ],
+                "id": null,
+                "name": null,
+                "color": null
+            }
+        ],
+        "custom_status": null
+    },
+    "connections": [
+        {
+            "type": "twitch",
+            "id": "31950874",
+            "name": "bullkn0x",
+            "revoked": false,
+            "visibility": 1,
+            "friend_sync": false,
+            "show_activity": true,
+            "verified": true
+        },
+        {
+            "type": "xbox",
+            "id": "N2RlOWE5OWU5ZGFmZThkMjJjMmU5YjQyNmYwOWFmZmEwODc2NGMyZDE3MTY1NTY1MzExOWE5M2JlNTc3ZmZlYQ",
+            "name": "bullKn0x",
+            "revoked": false,
+            "visibility": 1,
+            "friend_sync": false,
+            "show_activity": true,
+            "verified": true
+        },
+        {
+            "type": "youtube",
+            "id": "UCeFCk9TaUFszwo4feD6pnLw",
+            "name": "Rich Duchin",
+            "revoked": false,
+            "visibility": 0,
+            "friend_sync": false,
+            "show_activity": true,
+            "verified": true
+        }
+    ],
+    "external_friends_lists": [],
+    "friend_suggestions": [
+        {
+            "suggested_user": {
+                "id": "94624671776899072",
+                "username": "D\u0131ana",
+                "avatar": "de8155a083ddbdfcc395ad97eb277bd5",
+                "discriminator": "8935",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "\uff50\uff4f\uff52\uff4e"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "99985810677317632",
+                "username": "GiogioTheFirst",
+                "avatar": "f71cda42781ede58fe277e980bb59ccc",
+                "discriminator": "1323",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "\ud83c\udd85\ud83c\udd70\ud83c\udd7b\ud83c\udd85\ud83c\udd74 Dora"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "101940972119666688",
+                "username": "EternalGenesis",
+                "avatar": "f7bc1264a9b4218809057b1e72205139",
+                "discriminator": "9260",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "NiHiLiST"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "102436405166235648",
+                "username": "Hackn",
+                "avatar": "3aed20601d53c99f8e57d3fca574d5c2",
+                "discriminator": "0001",
+                "public_flags": 576
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Hackn"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "105427200827756544",
+                "username": "Flex Luthor",
+                "avatar": "5edcc4d6fe3476f1f63d59bd06fe37a7",
+                "discriminator": "9872",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Flex Luthor"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "105733365159714816",
+                "username": "Yaboku",
+                "avatar": "8538b7b9345eeb222afe2f62c1889b27",
+                "discriminator": "6969",
+                "public_flags": 256
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Yaboku \u591c\u30c8"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "106950855957168128",
+                "username": "Joelboost",
+                "avatar": "80f6134240c7357bf53e4e6ba93a9744",
+                "discriminator": "9150",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "SkinnyChub"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "111228045611835392",
+                "username": "Christopher",
+                "avatar": "f80158fd50f08ad8d6ef85d5c40326ba",
+                "discriminator": "0800",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Awpertunity"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "114550363738210312",
+                "username": "sorry",
+                "avatar": "660bd7fee3ee11845926844731bb50b2",
+                "discriminator": "7085",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "zachary"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "122133673414754304",
+                "username": "Lusifex",
+                "avatar": "9f74740c5dbd10eb89afc85ea6b7bb91",
+                "discriminator": "1357",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Lusifex"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "127696765557145601",
+                "username": "QuarantineAI",
+                "avatar": "be0686615e1bf0034621ee5f58e22495",
+                "discriminator": "0885",
+                "public_flags": 640
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "\u2665Flavored-Cherry\u2665"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "128669647775072257",
+                "username": "Chubby_GG",
+                "avatar": "91cfb679ee72806748d8a81756abacf3",
+                "discriminator": "8161",
+                "public_flags": 64
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Z\u2295diac"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "129209985015087104",
+                "username": "Nick.",
+                "avatar": "937f16b9c28df3353cda6cbaa9749c3a",
+                "discriminator": "0302",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "\u272a\u043c\u0454\u0455\u043d\u272a"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "131154657081950208",
+                "username": "Stuffs",
+                "avatar": "14903a42a62d6ca28d91063146b71f06",
+                "discriminator": "0016",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "MrStuffsalot"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "131261287081574400",
+                "username": "Hemlockers",
+                "avatar": "4d88042f839f1974cac5b3b41a1f3cd9",
+                "discriminator": "1196",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Hemlockers"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "133020461603749888",
+                "username": "SP4RT4N",
+                "avatar": "d0cc4424102c49ca78d9a66e106c2570",
+                "discriminator": "6612",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "SP4RT4N"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "134453479665041408",
+                "username": "Dope",
+                "avatar": "13842b0a3333b5515022d80d2041b417",
+                "discriminator": "4690",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Simba"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "136691090366398464",
+                "username": "Frostivity",
+                "avatar": "a60cd5ca1201ea94a439ce4d4f0436c4",
+                "discriminator": "7837",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Sevaled"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "137031760675471360",
+                "username": "Smokley",
+                "avatar": "db4bc2cbc6fa328dfa56bdbe981d1d43",
+                "discriminator": "2468",
+                "public_flags": 128
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "AllSmokeNGuns"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "140504939628724224",
+                "username": "Kika",
+                "avatar": "45e178bd6f12e40d6ef7b2ae2cf1c98d",
+                "discriminator": "9174",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Kika"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "146365754923679744",
+                "username": "DTRCH",
+                "avatar": "29d07be195d25705c53c59081c4ec2f7",
+                "discriminator": "6704",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "RE Oathkeeper"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "150082175339855872",
+                "username": "Gurney",
+                "avatar": "2ddbbab49db3c6d13c0a06107f31018a",
+                "discriminator": "9874",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "\u272aCGurney"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "151550257996627978",
+                "username": "ButterMyToast",
+                "avatar": "ab88eae23d66923a832b880bb5f851de",
+                "discriminator": "8251",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "\u272a ButterMyToast"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "154066069244477441",
+                "username": "luunsky",
+                "avatar": "567edb990b95b3350b1ef6905e65da4f",
+                "discriminator": "9023",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "The !"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "154346432218923009",
+                "username": "Lucilfer",
+                "avatar": "499a88573925f172c21cc594958fc96f",
+                "discriminator": "1729",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Akito"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "155542644620001281",
+                "username": "alexb",
+                "avatar": "6cb049c97d6bc7818f4fb419da43e63f",
+                "discriminator": "3211",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "alex"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "156620094313725952",
+                "username": "lost by pid",
+                "avatar": null,
+                "discriminator": "6172",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Lost By Pid"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "156826549318844416",
+                "username": "Cull",
+                "avatar": "d800f792e18f44ffab010a9f60c4f0a2",
+                "discriminator": "5351",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Sgt Slaughter"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "160804464964534272",
+                "username": "Mezo",
+                "avatar": "4cdf115d4abd7cbdd733347596fa3f8e",
+                "discriminator": "0778",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "\u272a \u041cike"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "164040888488558592",
+                "username": "Sweenydizz",
+                "avatar": null,
+                "discriminator": "9402",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Seventeen boys with wet dreams"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "164510842468040705",
+                "username": "C3LL",
+                "avatar": "7769929a1340a1d6ea2e8e5c9bd7f033",
+                "discriminator": "9442",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "SpartanCEL"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "168151332207722496",
+                "username": "\u0412\u0430\u0448\u0435 \u0412\u0435\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e",
+                "avatar": null,
+                "discriminator": "0037",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "DooMDozeR"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "168860882963529728",
+                "username": "Omar",
+                "avatar": "7b07a886abac70c0322e34d237274317",
+                "discriminator": "0414",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Incarnation Of Omarius Maximus"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "173480341841903616",
+                "username": "Wizernut",
+                "avatar": "0163d4f46ace47863c68bc6f3d1b191b",
+                "discriminator": "2194",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Wizernut"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "176446743259381761",
+                "username": "King Osiris",
+                "avatar": "71e42dc093b79a897269f6892e43f227",
+                "discriminator": "6968",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Professor X"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "178332188402515968",
+                "username": "NotSkee\ud83c\udd71ler",
+                "avatar": "6ec368eee3a024fde6d058528d02d427",
+                "discriminator": "1104",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Ayy Lmao\u2122"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "183613292420399113",
+                "username": "Charles",
+                "avatar": "e23cf1fe71359d5969cdc46fefd47d8b",
+                "discriminator": "1190",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "\u272a charles -iwnw"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "192863284620296193",
+                "username": "Bojan",
+                "avatar": "26f9bbcfc2a7dde10e22e4a35bfcdd4e",
+                "discriminator": "5583",
+                "public_flags": 256
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Bojan"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "194272882170396673",
+                "username": "RalphieOG",
+                "avatar": "fc964f974da5cd0b46fc9a1859714f0e",
+                "discriminator": "3833",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Ralphie!"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "195208840252227584",
+                "username": "Patch851",
+                "avatar": "1a10f8592416757a011cc80cfa1eb71e",
+                "discriminator": "3897",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Obito"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "195316515246047233",
+                "username": "norka",
+                "avatar": "78fd79e94b3f31623d58ee4017b924d3",
+                "discriminator": "4094",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "norkA"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "196707863526244354",
+                "username": "jewcifer",
+                "avatar": null,
+                "discriminator": "9909",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Jewcifer"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "197092152495308809",
+                "username": "Jubroni",
+                "avatar": "5685856dcf80b3ad38a1203e908976fb",
+                "discriminator": "7156",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "xxxJabroni"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "198304185949618176",
+                "username": "bgjfox",
+                "avatar": null,
+                "discriminator": "1728",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "bgjfox"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "199314420378107904",
+                "username": "Haps",
+                "avatar": "4259a408779473ed7928ed61143fce1c",
+                "discriminator": "2608",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Haps"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "199744706882568192",
+                "username": "BolanS95",
+                "avatar": "7d9682d8bb91fd5340790662c33877c8",
+                "discriminator": "9112",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Waya95"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "202177260969525248",
+                "username": "Tribel",
+                "avatar": "34826d33132999529a579192abae936a",
+                "discriminator": "0585",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Tribel"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "204725972514111491",
+                "username": "Jewelry Bonney",
+                "avatar": "5f1bf51cb23d540a331c6faab6faebaa",
+                "discriminator": "5691",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Asuna Yuuki"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "206259296260849664",
+                "username": "showdontlose",
+                "avatar": "5d8173ae4f1e4d4cf74fcf8744bdcd9e",
+                "discriminator": "6668",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Nightshow"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "208490174135402506",
+                "username": "Euphorixz",
+                "avatar": "72b78afc1066bec004d8e1a86c931086",
+                "discriminator": "3475",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Euphorix"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "209682509976436736",
+                "username": "Apache",
+                "avatar": "ca01b5b31163924df1df68d7fc21f090",
+                "discriminator": "1957",
+                "public_flags": 128
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "LachiniTHROW"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "209866643315228672",
+                "username": "RyGo",
+                "avatar": "6fdfc89f8dfb0c2258584ef38aad3390",
+                "discriminator": "1056",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "RyGo"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "209889018949795840",
+                "username": "amnickk",
+                "avatar": "a69c82e3d02899bba966d7951ab2a05c",
+                "discriminator": "6356",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Neek"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "210203388460269578",
+                "username": "fresco a morte",
+                "avatar": null,
+                "discriminator": "6472",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "pullupwiththemdicks"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "212733660359557121",
+                "username": "Ron",
+                "avatar": "86d3a754f460a33cd2add5966494206f",
+                "discriminator": "1979",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "roN_"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "215694796872876032",
+                "username": "lustereclips",
+                "avatar": "e66c9ba899e54bfa4ccfb1db748c382a",
+                "discriminator": "1113",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "lustereclips"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "217829068089982976",
+                "username": "Lil_Nick",
+                "avatar": "c5d33bd80de0887f779ef7ff67021941",
+                "discriminator": "8218",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Lil_Nick"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "218501266425380864",
+                "username": "Notgonnawreckit",
+                "avatar": null,
+                "discriminator": "6670",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "viper1756"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "219620649423994880",
+                "username": "SS Shadow",
+                "avatar": "57f76308b74b0950ca689799d6a4d070",
+                "discriminator": "2606",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Shadow"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "222374714671235074",
+                "username": "Soggypancake",
+                "avatar": "fc78ce3ed4790b9f80a95165ab0d281c",
+                "discriminator": "7103",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Di Lung"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "223283658029531138",
+                "username": "Quads",
+                "avatar": "5133e1e9d1512a678ecaeaad5ea9bcdc",
+                "discriminator": "7745",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Zacky T (Too Turnt)"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "226321697677115394",
+                "username": "wiki.",
+                "avatar": "7f77f1d122a505b9d73c5008dfeedb1c",
+                "discriminator": "0280",
+                "public_flags": 64
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "wiki."
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "229434796869156875",
+                "username": "DunkinDeez",
+                "avatar": "be74caabc1dbcd2993e6fbdf9de43d12",
+                "discriminator": "1675",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "IceBeam"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "233732203098537984",
+                "username": "grandgamble",
+                "avatar": "539489f261a21854a3a10cb727e0bfe9",
+                "discriminator": "0197",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "the Dude"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "235071822851211264",
+                "username": "Luni-Tech",
+                "avatar": "716badd5ab102a3f6b46f1953cbd4be6",
+                "discriminator": "7941",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Luni-Tech"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "241327970629844994",
+                "username": "lymax",
+                "avatar": "56419dbc81c3ef7b7f2692d9cc4c93b8",
+                "discriminator": "9653",
+                "public_flags": 512
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Midbot"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "242073270113927168",
+                "username": "trout",
+                "avatar": null,
+                "discriminator": "9373",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "\u272a trout"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "242377674654351370",
+                "username": "bearstearns",
+                "avatar": null,
+                "discriminator": "1649",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "The Bear Stearns"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "250492305209819136",
+                "username": "seanfitz69",
+                "avatar": "ff1d297663afc0611525d18d34ce91a2",
+                "discriminator": "7522",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "S3AN FITZ"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "253391356297347072",
+                "username": "QueenKayla",
+                "avatar": "8ea0dd64f86fa2f49bde838a87855991",
+                "discriminator": "6984",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Queen Kayla"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "261630590007115776",
+                "username": "Sarah5541",
+                "avatar": "a32daee2d284b4c215f716927e80d6e1",
+                "discriminator": "0523",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "UnitingRook"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "266098176312737793",
+                "username": "Ghillie",
+                "avatar": "3da393756f300a77a3b927254fe9dc68",
+                "discriminator": "9490",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Dick Nose"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "278348183959109635",
+                "username": "jac006",
+                "avatar": "9c1a5a7b91eef5c8226470dd984321d9",
+                "discriminator": "9623",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "jac006"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "282440369390747649",
+                "username": "GordsOG",
+                "avatar": "45af537d07ca1d3916cd28f1410d7024",
+                "discriminator": "3805",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "steam",
+                    "name": "Gords"
+                }
+            ]
+        },
+        {
+            "suggested_user": {
+                "id": "284433998418280449",
+                "username": "hendokush",
+                "avatar": "16056b9af8b4384322f81246ea8453ba",
+                "discriminator": "2324",
+                "public_flags": 0
+            },
+            "reasons": [
+                {
+                    "type": 1,
+                    "platform_type": "battlenet",
+                    "name": "hendokush#1113"
+                }
+            ]
+        }
+    ],
+    "mfa_sessions": [],
+    "relationships": [
+        {
+            "id": "110223900612231168",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "110223900612231168",
+                "username": "MoneyMitchOG",
+                "avatar": "1dd5559f4b6d0c8f7c5d0165147e8b65",
+                "discriminator": "5984",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "112083225530077184",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "112083225530077184",
+                "username": "Lemons",
+                "avatar": "dee3346ec7a4c5bc1aebedc3a22a753e",
+                "discriminator": "0136",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "127975504023126016",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "127975504023126016",
+                "username": "dakasaur",
+                "avatar": "f0b32741c82cdda92c56e4b3e5e8a687",
+                "discriminator": "7275",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "128763445767176193",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "128763445767176193",
+                "username": "Post 3 4 3",
+                "avatar": "e55e59cd3c2935071b49d3a2f18f4c99",
+                "discriminator": "7646",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "140865646995963904",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "140865646995963904",
+                "username": "Nick Mel",
+                "avatar": "7c3d96f762927c5bb8d3d8c434088528",
+                "discriminator": "0596",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "143929989497094145",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "143929989497094145",
+                "username": "veracode",
+                "avatar": "e4ea4454ec9339a2ae79d9ef2c8f0ac7",
+                "discriminator": "5179",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "151848864582729730",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "151848864582729730",
+                "username": "UCECRUSH",
+                "avatar": "7456450c12d89c9b041c9cbf9570d2e8",
+                "discriminator": "9745",
+                "public_flags": 768
+            }
+        },
+        {
+            "id": "153766470701154306",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "153766470701154306",
+                "username": "ActuallySalt\u2122",
+                "avatar": "6f0112feb8d5f83d02c87f3a102f7f40",
+                "discriminator": "6612",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "168541725101391872",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "168541725101391872",
+                "username": "Nevan",
+                "avatar": "ac46fe82a823e8b5a9def85d161aa13f",
+                "discriminator": "6292",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "172862490730823680",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "172862490730823680",
+                "username": "Light",
+                "avatar": "b2adaa4c1381715a9dd05b41dd6dfd51",
+                "discriminator": "7971",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "179043141561614336",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "179043141561614336",
+                "username": "Combo",
+                "avatar": "820ae85444754bc8f9aeca87a0daec6f",
+                "discriminator": "9074",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "182219519127846912",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "182219519127846912",
+                "username": "paprika",
+                "avatar": "65321573b4d65418ce1c3bb990ba6df2",
+                "discriminator": "6969",
+                "public_flags": 768
+            }
+        },
+        {
+            "id": "185255860887486464",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "185255860887486464",
+                "username": "Chmbr",
+                "avatar": "29534cb83eb6cf266e18208c52f2d457",
+                "discriminator": "7223",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "185407427435429888",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "185407427435429888",
+                "username": "dreeki",
+                "avatar": "647105a258b6d6eebe8579521bbb818d",
+                "discriminator": "6948",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "189923407133933568",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "189923407133933568",
+                "username": "TheGuyMain",
+                "avatar": "3b71093facf0eacc1974dd67baff2bae",
+                "discriminator": "6542",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "199552648901296128",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "199552648901296128",
+                "username": "LeGenD",
+                "avatar": "d32bf55b212b91aaa55146737ff7a9c5",
+                "discriminator": "3443",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "201598562931441664",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "201598562931441664",
+                "username": "Zapata",
+                "avatar": "7917af23f4881b8b374c416df217f902",
+                "discriminator": "2529",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "204434263905402881",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "204434263905402881",
+                "username": "09we09f23",
+                "avatar": "6269e753cb5988bbe429814121ef444f",
+                "discriminator": "9225",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "204464629164802049",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "204464629164802049",
+                "username": "MuttonMan",
+                "avatar": null,
+                "discriminator": "3389",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "222902391907811329",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "222902391907811329",
+                "username": "SpacePanda",
+                "avatar": "2f19d28f7d0bcf4216b99eca2fa2b82e",
+                "discriminator": "5514",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "229776583391576065",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "229776583391576065",
+                "username": "outlawthr3",
+                "avatar": "a017eb5e2aed7cff7f098b84be807069",
+                "discriminator": "2883",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "230813456079519744",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "230813456079519744",
+                "username": "Deep",
+                "avatar": "8af982f0438438f56923aed31c31bdae",
+                "discriminator": "3518",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "237352016823713792",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "237352016823713792",
+                "username": "Schmidt",
+                "avatar": "611c98294d7c228282675b8c5a6ecfd2",
+                "discriminator": "4168",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "245575702135439360",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "245575702135439360",
+                "username": "PatriotDA",
+                "avatar": "2902fc51f4b0d2cb769eb44cda29ef7f",
+                "discriminator": "1248",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "248258014157471745",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "248258014157471745",
+                "username": "Tonnish",
+                "avatar": "a5c44e6ddb87b41ef1141709daed360d",
+                "discriminator": "8242",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "254088487257636865",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "254088487257636865",
+                "username": "Sully",
+                "avatar": "07d6c602d0b4b23b808477eb539e69cf",
+                "discriminator": "2315",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "263942708232585216",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "263942708232585216",
+                "username": "Malves",
+                "avatar": "fe42ee6aeabbbd9f84c743a74ff9156a",
+                "discriminator": "5398",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "269950783200428032",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "269950783200428032",
+                "username": "Dominick",
+                "avatar": "bdf7354ff9b0012a0a986d2eaf6d16c4",
+                "discriminator": "6467",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "275078727509999616",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "275078727509999616",
+                "username": "nostylist",
+                "avatar": "e4654d014de93f97cdc890e06451f630",
+                "discriminator": "9233",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "278501511913537537",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "278501511913537537",
+                "username": "daboss",
+                "avatar": null,
+                "discriminator": "2807",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "338545756795437057",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "338545756795437057",
+                "username": "JAY.P",
+                "avatar": "77ed7e81c84c675b2f1ba257b84327d1",
+                "discriminator": "7790",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "350804142685552641",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "350804142685552641",
+                "username": "ST8",
+                "avatar": "9a7e91cc5cebf981d1470e4424ca2fdc",
+                "discriminator": "6230",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "355449667212804099",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "355449667212804099",
+                "username": "iTsJIMMY2u",
+                "avatar": "25872e7d0d10d1dd99e117f0a37b5417",
+                "discriminator": "5726",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "378752876362727425",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "378752876362727425",
+                "username": "SwordWielder",
+                "avatar": "08d9217309c526e7a16cd0f8bcb7e1c4",
+                "discriminator": "8040",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "381200493021495307",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "381200493021495307",
+                "username": "stoichiometry",
+                "avatar": "5c033b0ffb6cd21f928900103e2a714a",
+                "discriminator": "1583",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "406548040258682883",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "406548040258682883",
+                "username": "Joel Hoelscher",
+                "avatar": "0b12d84c8caa3da1522d1fceac0873bb",
+                "discriminator": "0987",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "428991095033167894",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "428991095033167894",
+                "username": "Extremee888",
+                "avatar": "b1c9deefbfa3de535ad68947a634b519",
+                "discriminator": "4376",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "438575704368611368",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "438575704368611368",
+                "username": "RafiAlhamd",
+                "avatar": "e10d2455d7937d230a6f351e04980c65",
+                "discriminator": "7210",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "479752291466084376",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "479752291466084376",
+                "username": "Yanis",
+                "avatar": "9a50ae9048d9d8d5fc13a71de2e4bc51",
+                "discriminator": "8750",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "482322043375714330",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "482322043375714330",
+                "username": "Chase",
+                "avatar": "9efcae38342dae19a605c83b47012638",
+                "discriminator": "7745",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "486917541344575488",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "486917541344575488",
+                "username": "lester",
+                "avatar": "bc8f31e8214b66a413fe4df481708473",
+                "discriminator": "1345",
+                "public_flags": 0
+            }
+        },
+        {
+            "id": "489408484178395136",
+            "type": 1,
+            "nickname": null,
+            "user": {
+                "id": "489408484178395136",
+                "username": "sforkosh",
+                "avatar": "823a2903030502ea4ed70f464088a402",
+                "discriminator": "1707",
+                "public_flags": 0
+            }
+        }
+    ],
+    "payments": [],
+    "payment_sources": [],
+    "guild_settings": [
+        {
+            "guild_id": "158758095797878784",
+            "suppress_everyone": false,
+            "suppress_roles": false,
+            "message_notifications": 0,
+            "mobile_push": true,
+            "muted": true,
+            "mute_config": null,
+            "channel_overrides": []
+        },
+        {
+            "guild_id": "164105723830206464",
+            "suppress_everyone": false,
+            "suppress_roles": false,
+            "message_notifications": 0,
+            "mobile_push": true,
+            "muted": true,
+            "mute_config": null,
+            "channel_overrides": []
+        },
+        {
+            "guild_id": "196320262877216769",
+            "suppress_everyone": false,
+            "suppress_roles": false,
+            "message_notifications": 0,
+            "mobile_push": true,
+            "muted": true,
+            "mute_config": null,
+            "channel_overrides": []
+        },
+        {
+            "guild_id": "220007617710391296",
+            "suppress_everyone": false,
+            "suppress_roles": false,
+            "message_notifications": 0,
+            "mobile_push": true,
+            "muted": true,
+            "mute_config": null,
+            "channel_overrides": []
+        },
+        {
+            "guild_id": "221064728036900864",
+            "suppress_everyone": false,
+            "suppress_roles": false,
+            "message_notifications": 0,
+            "mobile_push": true,
+            "muted": false,
+            "mute_config": null,
+            "channel_overrides": [
+                {
+                    "channel_id": "221064728036900864",
+                    "message_notifications": 3,
+                    "muted": true,
+                    "mute_config": null
+                }
+            ]
+        },
+        {
+            "guild_id": "223557986990292993",
+            "suppress_everyone": false,
+            "suppress_roles": false,
+            "message_notifications": 1,
+            "mobile_push": true,
+            "muted": true,
+            "mute_config": null,
+            "channel_overrides": []
+        },
+        {
+            "guild_id": "232315865301909505",
+            "suppress_everyone": false,
+            "suppress_roles": false,
+            "message_notifications": 0,
+            "mobile_push": true,
+            "muted": true,
+            "mute_config": null,
+            "channel_overrides": []
+        },
+        {
+            "guild_id": "234674175699058699",
+            "suppress_everyone": false,
+            "suppress_roles": false,
+            "message_notifications": 1,
+            "mobile_push": true,
+            "muted": false,
+            "mute_config": null,
+            "channel_overrides": [
+                {
+                    "channel_id": "234674175699058699",
+                    "message_notifications": 3,
+                    "muted": true,
+                    "mute_config": null
+                }
+            ]
+        },
+        {
+            "guild_id": "253354528055754762",
+            "suppress_everyone": false,
+            "suppress_roles": false,
+            "message_notifications": 0,
+            "mobile_push": true,
+            "muted": true,
+            "mute_config": null,
+            "channel_overrides": [
+                {
+                    "channel_id": "253354528055754762",
+                    "message_notifications": 3,
+                    "muted": true,
+                    "mute_config": null
+                }
+            ]
+        },
+        {
+            "guild_id": "254706303627296768",
+            "suppress_everyone": false,
+            "suppress_roles": false,
+            "message_notifications": 0,
+            "mobile_push": true,
+            "muted": true,
+            "mute_config": null,
+            "channel_overrides": [
+                {
+                    "channel_id": "254706303627296768",
+                    "message_notifications": 3,
+                    "muted": true,
+                    "mute_config": null
+                }
+            ]
+        },
+        {
+            "guild_id": "255705435531640833",
+            "suppress_everyone": false,
+            "suppress_roles": false,
+            "message_notifications": 0,
+            "mobile_push": true,
+            "muted": true,
+            "mute_config": null,
+            "channel_overrides": []
+        },
+        {
+            "guild_id": "289819034092961792",
+            "suppress_everyone": false,
+            "suppress_roles": false,
+            "message_notifications": 0,
+            "mobile_push": true,
+            "muted": true,
+            "mute_config": null,
+            "channel_overrides": []
+        },
+        {
+            "guild_id": "296144350574804992",
+            "suppress_everyone": false,
+            "suppress_roles": false,
+            "message_notifications": 0,
+            "mobile_push": true,
+            "muted": true,
+            "mute_config": null,
+            "channel_overrides": []
+        },
+        {
+            "guild_id": "308795975827456000",
+            "suppress_everyone": false,
+            "suppress_roles": false,
+            "message_notifications": 0,
+            "mobile_push": true,
+            "muted": true,
+            "mute_config": null,
+            "channel_overrides": []
+        },
+        {
+            "guild_id": "332697897227386880",
+            "suppress_everyone": false,
+            "suppress_roles": false,
+            "message_notifications": 0,
+            "mobile_push": true,
+            "muted": true,
+            "mute_config": null,
+            "channel_overrides": []
+        },
+        {
+            "guild_id": "358664951998578689",
+            "suppress_everyone": false,
+            "suppress_roles": false,
+            "message_notifications": 0,
+            "mobile_push": true,
+            "muted": true,
+            "mute_config": null,
+            "channel_overrides": []
+        },
+        {
+            "guild_id": "366690888321073175",
+            "suppress_everyone": false,
+            "suppress_roles": false,
+            "message_notifications": 1,
+            "mobile_push": true,
+            "muted": false,
+            "mute_config": null,
+            "channel_overrides": []
+        },
+        {
+            "guild_id": "623205158951583750",
+            "suppress_everyone": false,
+            "suppress_roles": false,
+            "message_notifications": 0,
+            "mobile_push": true,
+            "muted": false,
+            "mute_config": null,
+            "channel_overrides": [
+                {
+                    "channel_id": "623559781025841163",
+                    "message_notifications": 3,
+                    "muted": true,
+                    "mute_config": null
+                }
+            ]
+        }
+    ],
+    "library_applications": [],
+    "entitlements": [],
+    "user_activity_application_statistics": [
+        {
+            "application_id": "356875057940791296",
+            "last_played_at": "2018-12-11T03:10:28.302000+00:00",
+            "total_duration": 217389,
+            "total_discord_sku_duration": 0
+        },
+        {
+            "application_id": "356875221078245376",
+            "last_played_at": "2018-11-22T19:02:14.429000+00:00",
+            "total_duration": 7149,
+            "total_discord_sku_duration": 0
+        },
+        {
+            "application_id": "367827983903490050",
+            "last_played_at": "2018-09-07T19:07:59.125000+00:00",
+            "total_duration": 1934,
+            "total_discord_sku_duration": 0
+        },
+        {
+            "application_id": "432980957394370572",
+            "last_played_at": "2018-12-03T16:36:49.739000+00:00",
+            "total_duration": 127370,
+            "total_discord_sku_duration": 0
+        },
+        {
+            "application_id": "490913233667096576",
+            "last_played_at": "2018-11-12T17:27:08.324000+00:00",
+            "total_duration": 1500,
+            "total_discord_sku_duration": 0
+        },
+        {
+            "application_id": "498986175512576058",
+            "last_played_at": "2019-05-16T09:20:04.620000+00:00",
+            "total_duration": 27702,
+            "total_discord_sku_duration": 0
+        }
+    ],
+    "notes": {}
+}
