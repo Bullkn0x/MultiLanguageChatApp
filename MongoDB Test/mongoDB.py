@@ -51,8 +51,16 @@ def DB_insert_msg(user_id, message, room_id, language):
     objectID = userCollection.insert_one({'user_id':user_id, 'message': message, 'room_id':room_id, 'language':language}).inserted_id
     return objectID
 
+def DB_create_room(room_name, public_access, owner_id, user):
+    roomID = roomCollection.insert_one({'room_name': room_name, 'public_access': public_access, 'owner_id': owner_id})
+    roomCollection.update({'_id':roomID}, {'$push':{'room_users':user}})
+    return roomID
+
+
+
 def DB_add_user_to_server(user_id, room_id):
-    roomCollection.insert_one({},{})
+    roomCollection.update({'room_id':room_id}, {'$push':{'room_users':user_id}})
+    
 
 def DB_get_user_info(user_id):
     r = userCollection.find({id:user_id})
