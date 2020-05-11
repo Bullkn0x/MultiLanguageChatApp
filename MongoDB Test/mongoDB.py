@@ -8,7 +8,7 @@ class dbHelper:
         self.db = self.client.anychatdb
 
 
-
+anychatDB = dbHelper()
 
 
 
@@ -27,29 +27,39 @@ def DB_add_room(message):
     print(roomID)
 
 #this method updates, update user is deprecated
-def DB_replaceall_user(old, new):
-    result = userCollection.replace_one(old,new)
+def DB_replaceall_user(id, new):
+    result = userCollection.replace_one(id,new)
     return result
 
-def DB_update_user(old, new):
-    result = userCollection.update_one(old,new)
+def DB_update_user_password(id, new):
+    result = userCollection.update_one(id,{"$set": { 'password': new} })
     return result
 
-def DB_replaceall_message(old, new):
-    result = messageCollection.replace_one(old,new)
+def DB_replaceall_message(id, new):
+    result = messageCollection.replace_one(id,new)
     return result
 
-def DB_replaceall_room(old, new):
-    result = roomCollection.replace_one(old,new)
+def DB_replaceall_room(id, new):
+    result = roomCollection.replace_one(id,new)
     return result
 
 def print_all_data(cursor):
     for data in cursor:
         print(data)
 
+def DB_insert_msg(user_id, message, room_id, language):
+    objectID = userCollection.insert_one({'user_id':user_id, 'message': message, 'room_id':room_id, 'language':language}).inserted_id
+    return objectID
+
+def DB_add_user_to_server(user_id, room_id):
+    roomCollection.insert_one({},{})
+
+def DB_get_user_info(user_id):
+    r = userCollection.find({id:user_id})
+    for i in r:
+        print(i)
 
 
-anychatDB = dbHelper()
 
 client = MongoClient("mongodb+srv://anychat:anychatadmin@cluster0-nbbi5.mongodb.net/?retryWrites=true&w=majority")
 db = client.anychatdb
@@ -63,7 +73,9 @@ cursor = userCollection.find()
 print_all_data(cursor)
 print('\n\n\nBEFORE UPDATE\n\n\n')
 # userCollection.insert_one(user)
-result = DB_update_user({'_id': ObjectId('5eb532abff469c11c6397a1b')}, {"$set": { 'email': 'idk@whoknowns.com'}})
-print(result)
-cursor = userCollection.find()
-print_all_data(cursor)
+
+result = DB_update_user_password({'_id': ObjectId('5eb532abff469c11c6397a1b')}, 'newtespass')
+
+print(type(result))
+# cursor = userCollection.find()
+# print_all_data(cursor)
