@@ -1,6 +1,6 @@
 from pymongo import MongoClient
 from bson import ObjectId
-
+import datetime
 
 class dbHelper:
     def __init__(self):
@@ -52,15 +52,18 @@ def DB_insert_msg(user_id, message, room_id, language):
     return objectID
 
 def DB_create_room(room_name, public_access, owner_id, user):
-    roomID = roomCollection.insert_one({'room_name': room_name, 'public_access': public_access, 'owner_id': owner_id})
+    currentTime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    roomID = roomCollection.insert_one({'room_name': room_name, 'public_access': public_access, 'owner_id': owner_id, 
+    'create_time': currentTime})
     roomCollection.update({'_id':roomID}, {'$push':{'room_users':user}})
+    
     return roomID
 
 
 
 def DB_add_user_to_server(user_id, room_id):
     roomCollection.update({'room_id':room_id}, {'$push':{'room_users':user_id}})
-    
+
 
 def DB_get_user_info(user_id):
     r = userCollection.find({id:user_id})
@@ -85,5 +88,7 @@ print('\n\n\nBEFORE UPDATE\n\n\n')
 result = DB_update_user_password({'_id': ObjectId('5eb532abff469c11c6397a1b')}, 'newtespass')
 
 print(type(result))
+cT = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+print (cT)
 # cursor = userCollection.find()
 # print_all_data(cursor)
