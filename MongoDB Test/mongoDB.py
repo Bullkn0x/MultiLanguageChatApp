@@ -29,6 +29,7 @@ def DB_replaceall_user(id, new):
     result = userCollection.replace_one(id,new)
     return result
 
+#updates the user password
 def DB_update_user_password(id, new):
     result = userCollection.update_one(id,{"$set": { 'password': new} })
     return result
@@ -47,8 +48,9 @@ def print_all_data(cursor):
         print(data)
         print()
 
+
 def DB_insert_msg(user_id, message, room_id, language):
-    objectID = userCollection.insert_one({'user_id':user_id,
+    objectID = messageCollection.insert_one({'user_id':user_id,
      'message': message, 'room_id':room_id, 'language':language}).inserted_id
     return objectID
 
@@ -71,11 +73,20 @@ def DB_get_owner_ID(room_id):
     
     return None
 
+#function that returns the a user dictionary
 def returnUser(userId, username, join_position):
     cT = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     return {'user_id':userId, 'user_name':username, 'join_position':join_position, 'join_date': cT, 'left_server': 0}
 
-def DB_add_user_to_server(room_id, user):
+#return the dictionary of the user and insert into the database
+def newUser(username, email, registered):
+    newuser={'username':username, 'email':email, 'registered_on': registered}
+    userCollection.insert_one(newuser)
+    return newuser
+
+
+#add a user to a room, user is a dictionary
+def DB_add_user_to_room(room_id, user):
     roomCollection.update({'_id':room_id}, {'$push':{'room_users':user}})
 
 
@@ -125,7 +136,7 @@ print(DB_get_owner_ID(ObjectId('5ebb05b1b2868cb70bc219ce')))
 print('skip\n\n')
 cT = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 # newUser = returnUser(11,'seconduser',2)
-# DB_add_user_to_server(roomID,newUser)
+# DB_add_user_to_room(roomID,newUser)
 
 roomCursor = roomCollection.find()
 print_all_data(roomCursor)
