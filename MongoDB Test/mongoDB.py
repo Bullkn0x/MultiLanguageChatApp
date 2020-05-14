@@ -95,6 +95,13 @@ def DB_get_user_info(user_id):
     for i in r:
         print(i)
 
+#Get number of users in a room.
+def DB_get_num_user_in_room(room_id):
+    cursor = roomCollection.find({'_id': room_id})
+    print("Number of users in the room is")
+    for data in cursor:
+        return len(data['room_users'])
+    return None
 
 
 client = MongoClient("mongodb+srv://anychat:anychatadmin@cluster0-nbbi5.mongodb.net/?retryWrites=true&w=majority")
@@ -141,3 +148,4 @@ cT = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 roomCursor = roomCollection.find()
 print_all_data(roomCursor)
 
+print(DB_get_num_user_in_room(ObjectId('5ebb05b1b2868cb70bc219ce')))
