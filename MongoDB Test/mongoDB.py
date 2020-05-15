@@ -49,9 +49,9 @@ def print_all_data(cursor):
         print()
 
 
-def DB_insert_msg(user_id, message, room_id, language):
-    objectID = messageCollection.insert_one({'user_id':user_id,
-     'message': message, 'room_id':room_id, 'language':language}).inserted_id
+def DB_insert_msg(user, message, room_id, language):
+    objectID = messageCollection.insert_one({'author':user,
+     'message': message, 'room_id':room_id, 'channel_id':3, 'language':language}).inserted_id
     return objectID
 
 #creates the room method
@@ -95,6 +95,13 @@ def DB_get_user_info(user_id):
     for i in r:
         print(i)
 
+
+def DB_get_chat_logs(room_id):
+    roomCollection.find({'_id':room_id})
+
+    return None
+
+
 #Get number of users in a room.
 def DB_get_num_user_in_room(room_id):
     cursor = roomCollection.find({'_id': room_id})
@@ -124,7 +131,7 @@ print(type(result))
 
 
 
-cT = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+curTime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 #This line is initializing the variables to create a new room for testing purposes
 # room_name = 'FFVII Remake'
@@ -135,8 +142,8 @@ cT = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 
 #This is getting all the rooms and printing it out.
-roomCursor = roomCollection.find()
-print_all_data(roomCursor)
+# roomCursor = roomCollection.find()
+# print_all_data(roomCursor)
 
 print('\n\n\nBEFORE UPDATE\n\n\n')
 print(DB_get_owner_ID(ObjectId('5ebb05b1b2868cb70bc219ce')))
@@ -145,7 +152,13 @@ cT = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 # newUser = returnUser(11,'seconduser',2)
 # DB_add_user_to_room(roomID,newUser)
 
-roomCursor = roomCollection.find()
-print_all_data(roomCursor)
+# roomCursor = roomCollection.find()
+# print_all_data(roomCursor)
 
-print(DB_get_num_user_in_room(ObjectId('5ebb05b1b2868cb70bc219ce')))
+
+# print(DB_get_num_user_in_room(ObjectId('5ebb05b1b2868cb70bc219ce')))
+print(DB_insert_msg(user,'Test message',ObjectId('5ebb05b1b2868cb70bc219ce'),'en'))
+print('\nLINE ABOVE IS the INSERTED ID of the message\n')
+
+messageCursor = messageCollection.find().skip(messageCollection.count()-10)
+print_all_data(messageCursor)
