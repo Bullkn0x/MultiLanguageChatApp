@@ -95,11 +95,16 @@ def DB_get_user_info(user_id):
     for i in r:
         print(i)
 
-
-def DB_get_chat_logs(room_id):
-    roomCollection.find({'_id':room_id})
+def DB_leave_server(user_id, room_id):
 
     return None
+
+
+def DB_get_chat_logs(room_id):
+    cursor = messageCollection.find({'_id':room_id})
+    for data in cursor:
+        print(data)
+    return data
 
 
 #Get number of users in a room.
@@ -154,11 +159,13 @@ cT = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 # roomCursor = roomCollection.find()
 # print_all_data(roomCursor)
+print('\n\n\n\nCHAT LOG')
+print(DB_get_chat_logs(ObjectId('5ebb052dab6c09a9738a3d01')))
 
 
 # print(DB_get_num_user_in_room(ObjectId('5ebb05b1b2868cb70bc219ce')))
-print(DB_insert_msg(user,'Test message',ObjectId('5ebb05b1b2868cb70bc219ce'),'en'))
-print('\nLINE ABOVE IS the INSERTED ID of the message\n')
+# print(DB_insert_msg(user,'Test message',ObjectId('5ebb05b1b2868cb70bc219ce'),'en'))
+# print('\nLINE ABOVE IS the INSERTED ID of the message\n')
 
-messageCursor = messageCollection.find().skip(messageCollection.count()-10)
-print_all_data(messageCursor)
+# messageCursor = messageCollection.find().skip(messageCollection.count()-10)
+# print_all_data(messageCursor)
