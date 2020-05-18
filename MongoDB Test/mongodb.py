@@ -8,17 +8,6 @@ class dbHelper:
         self.db = self.client.anychatdb
 
 
-anychatDB = dbHelper()
-
-client = MongoClient("mongodb+srv://anychat:anychatadmin@cluster0-nbbi5.mongodb.net/?retryWrites=true&w=majority")
-db = client.anychatdb
-messageCollection = db.messages
-userCollection = db.users
-roomCollection = db.rooms
-collectionList = db.list_collection_names()
-if "private_messages" not in  collectionList:
-    privateMessageCollection = db["private_messages"]
-privateMessageCollection = db.private_messages
 
 
 
@@ -106,10 +95,12 @@ def DB_add_user_to_room(room_id, user):
     roomCollection.update({'_id':room_id}, {'$push':{'room_users':user}})
 
 
+
 def DB_get_user_info(user_id):
     r = userCollection.find({id:user_id})
     for i in r:
         print(i)
+
 
 def DB_leave_server(user_id, room_id):
 
@@ -117,7 +108,8 @@ def DB_leave_server(user_id, room_id):
 
 
 def DB_get_chat_logs(room_id):
-    cursor = messageCollection.find({'_id':room_id})
+    cursor = messageCollection.find({'room_id':room_id})
+    data = ''
     for data in cursor:
         print(data)
     return data
@@ -134,7 +126,25 @@ def DB_get_num_user_in_room(room_id):
 
 
 
+anychatDB = dbHelper()
 
+client = MongoClient("mongodb+srv://anychat:anychatadmin@cluster0-nbbi5.mongodb.net/?retryWrites=true&w=majority")
+db = client.anychatdb
+messageCollection = db.messages
+userCollection = db.users
+roomCollection = db.rooms
+collectionList = db.list_collection_names()
+print('collection list:')
+print(collectionList)
+if "private_messages" not in  collectionList:
+    print('This IF statement is executed')
+    # privateMessageCollection = db.createCollection('private_messages')
+    privateMessageCollection = db['private_messages']
+    privateMessageCollection.insert_one({'test':'test'})
+    
+collectionList = db.list_collection_names()
+print('collection list AFTER:')
+print(collectionList)
 user = {'user_id': 2, 'user': 'faketsunami', 'email': 'new@new.com', 'language': 'pl'}
 
 # cursor = userCollection.find()
@@ -162,18 +172,18 @@ curTime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 #This is getting all the rooms and printing it out.
 # roomCursor = roomCollection.find()
 # print_all_data(roomCursor)
-
-print('\n\n\nBEFORE UPDATE\n\n\n')
-print(DB_get_owner_ID(ObjectId('5ebb05b1b2868cb70bc219ce')))
-print('skip\n\n')
-cT = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+# print(collectionList)
+# print('\n\n\nBEFORE UPDATE\n\n\n')
+# print(DB_get_owner_ID(ObjectId('5ebb05b1b2868cb70bc219ce')))
+# print('skip\n\n')
+# cT = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 # newUser = returnUser(11,'seconduser',2)
 # DB_add_user_to_room(roomID,newUser)
 
 # roomCursor = roomCollection.find()
 # print_all_data(roomCursor)
-print('\n\n\n\nCHAT LOG')
-print(DB_get_chat_logs(ObjectId('5ebb052dab6c09a9738a3d01')))
+# print('\n\n\n\nCHAT LOG')
+# print(DB_get_chat_logs(25))
 
 
 # print(DB_get_num_user_in_room(ObjectId('5ebb05b1b2868cb70bc219ce')))
