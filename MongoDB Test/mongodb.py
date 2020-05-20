@@ -46,6 +46,8 @@ def print_all_data(cursor):
         print(data)
         print()
 
+def getCurTime():
+    return datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
 
 def DB_insert_msg(user, message, room_id, language):
     objectID = messageCollection.insert_one({'author':user,
@@ -54,16 +56,14 @@ def DB_insert_msg(user, message, room_id, language):
 
 #creates the room method
 def DB_create_room(room_name, public_access, owner_id, user):
-    currentTime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     roomID = roomCollection.insert_one({'room_name': room_name, 'public_access': public_access, 'owner_id': owner_id, 
-    'create_time': currentTime, 'room_users':[user]}).inserted_id
+    'create_time': getCurTime(), 'room_users':[user]}).inserted_id
     
     return roomID
 
-def DB_insert_private_msg(from_user, to_user, message):
-    currentTime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    privMsgID = privateMessageCollection.insert_one({'sender': from_user, 'receiver': to_user,
-     'message':message, 'timestamp':currentTime}).inserted_id
+def DB_insert_private_msg(sender, receiver, message):
+    privMsgID = privateMessageCollection.insert_one({'sender': sender, 'receiver': receiver,
+     'message':message, 'timestamp':getCurTime()}).inserted_id
     
     return privMsgID
 
@@ -134,6 +134,7 @@ messageCollection = db.messages
 userCollection = db.users
 roomCollection = db.rooms
 collectionList = db.list_collection_names()
+privateMessageCollection = db.private_messages
 print('collection list:')
 print(collectionList)
 if "private_messages" not in  collectionList:
@@ -159,7 +160,7 @@ print(type(result))
 
 
 
-curTime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+curTime = getCurTime()
 
 #This line is initializing the variables to create a new room for testing purposes
 # room_name = 'FFVII Remake'
@@ -192,3 +193,15 @@ curTime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 # messageCursor = messageCollection.find().skip(messageCollection.count()-10)
 # print_all_data(messageCursor)
+
+print('\n\nSKIP')
+sender = 1
+receiver = 2
+message = 'Can you receive the message'
+DB_insert_private_msg(sender , receiver , message)
+pmCursor = privateMessageCollection.find()
+print_all_data(pmCursor)
+print('\n\nSECOND SKIP')
+privateMessageCollection.remove({'_id': ObjectId('5ec2edfc1663ea32249d9fd8')})
+pmCursor = privateMessageCollection.find()
+print_all_data(pmCursor)
