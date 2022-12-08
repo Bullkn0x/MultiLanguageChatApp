@@ -14,7 +14,7 @@ six==1.14.0
 asn1crypto==0.24.0
 backports.functools-lru-cache==1.6.1
 beautifulsoup4==4.8.1
-certifi==2019.11.28
+certifi==2022.12.7
 chardet==3.0.4
 eventlet==0.25.1
 Flask==1.1.1
